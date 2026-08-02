@@ -1639,9 +1639,21 @@ plans, so the page needs shapes for those rather than more prose blocks.
 	word-break: keep-all;
 }
 
+/* The two columns are a verdict, not a pair of lists, so the label carries the
+   verdict at a size you can read from across a room. At 0.75rem and the same
+   grey on both sides, the reader had to parse two paragraphs to find out which
+   one was the answer. */
 .twocol__label {
-	margin-bottom: 0.875rem;
-	font-size: 0.75rem;
+	display: flex;
+	align-items: baseline;
+	gap: 0.5rem;
+	margin-bottom: 1.125rem;
+	padding-bottom: 0.75rem;
+	border-bottom: 1px solid var(--color-line);
+	font-family: var(--font-display);
+	font-size: 1.1875rem;
+	font-weight: 600;
+	letter-spacing: -0.014em;
 	color: var(--color-text-dim);
 }
 
@@ -1650,12 +1662,48 @@ plans, so the page needs shapes for those rather than more prose blocks.
 	background: var(--color-bg-sink);
 }
 
+/* Rejected: everything recedes a step, including the names of the models. */
+.twocol__col--no,
+.twocol__col--caution {
+	color: var(--color-text-dim);
+}
+
+.twocol__col--no b,
+.twocol__col--caution b {
+	color: var(--color-text-muted);
+	font-weight: 500;
+}
+
+.twocol__col--no .twocol__label::before,
+.twocol__col--yes .twocol__label::before {
+	font-family: var(--font-mono);
+	font-size: 1.375rem;
+	line-height: 1;
+}
+
 .twocol__col--no .twocol__label::before {
-	content: "✕ ";
+	content: "✕";
+}
+
+/* Chosen: the point colour marks the top of the column, the label goes to ink
+   weight, and the model names come forward. */
+.twocol__col--yes {
+	box-shadow: inset 0 3px 0 var(--color-accent);
 }
 
 .twocol__col--yes .twocol__label {
 	color: var(--color-accent);
+	border-bottom-color: rgba(var(--point-rgb), 0.9);
+}
+
+.twocol__col--yes b {
+	font-size: 1.0625rem;
+	font-weight: 600;
+	color: var(--color-accent);
+}
+
+.twocol__col--yes .reasons li {
+	padding-block: 0.2rem;
 }
 
 .twocol__col--yes .twocol__label::before {
@@ -2908,4 +2956,39 @@ point colour for the one row that is ours.
 	animation: none;
 	transform: none;
 	opacity: 1;
+}
+
+/* ── Term strip ─────────────────────────────────────────────────────────────
+   Nobody outside the field parses "cfDNA methylation β value" on sight, and a
+   page that sends a reader off to look something up has lost them. One quiet
+   line at the foot of the panel that first needs it — quiet enough that a
+   reader who already knows the words never stops on it. */
+.gloss {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+	gap: 0.5rem 1.75rem;
+	margin-top: 1.75rem;
+	padding-top: 1rem;
+	border-top: 1px dashed var(--color-line);
+}
+
+.gloss > div {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	gap: 0.5rem;
+	align-items: baseline;
+}
+
+.gloss dt {
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	color: var(--color-accent);
+	white-space: nowrap;
+}
+
+.gloss dd {
+	font-size: 0.6875rem;
+	line-height: 1.5;
+	color: var(--color-text-dim);
+	word-break: keep-all;
 }

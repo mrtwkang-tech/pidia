@@ -28,6 +28,18 @@ def assumption(text):
     return f'<p class="src src--assumed">{text}</p>'
 
 
+
+def gloss(*pairs):
+    """A term strip for the panel that introduces them.
+
+    Nobody outside the field parses "cfDNA methylation β value" on sight, and a
+    page that makes a reader look something up has lost them. One quiet line at
+    the foot of the panel, in the panel that first needs it — the minimum that
+    still works.
+    """
+    items = "".join(f"<div><dt>{t}</dt><dd>{d}</dd></div>" for t, d in pairs)
+    return f'<dl class="gloss">{items}</dl>'
+
 def stat(value, label, note=""):
     note = f"<i>{note}</i>" if note else ""
     return (
@@ -67,7 +79,7 @@ HERO = """
 STAKES = (
     head(
         "문제",
-        "기술이 없어서 죽는 게 아닙니다. <em>검사가 비싸고, 멀고, 잴 수 없어서</em> 죽습니다",
+        "기술이 없어서 죽는 게 아닙니다. <em>검사가 비싸고, 눈치보이고, 잴 수 없어서</em> 죽습니다",
     )
     + lede(
         "보험이 없으면 대장내시경 한 번이 수천 달러입니다. 시골 카운티에는 검사받을 "
@@ -90,6 +102,7 @@ STAKES = (
         "Goddard KAB et al. JAMA Oncology 2025;11(2):162-167 · NCI CISNET 모델링 "
         "추정치, 5대 암(폐·유방·대장직장·전립선·자궁경부) 기준"
     )
+    + gloss(("조기발견", "암이 퍼지기 전에 찾아내는 것. 늦게 찾을수록 살 확률이 떨어집니다"))
     + '<h3 class="sub">그래서 이미 있는 검사조차 대부분에게 닿지 않습니다</h3>'
     + '<div class="stats">'
     + stat("18.7%", "폐암 검진 자격자 중 실제 수검률", "5명 중 1명")
@@ -108,44 +121,48 @@ STAKES = (
 
 PEOPLE = (
     head("세 사람", "문턱은 세 가지 얼굴로 나타납니다")
+    + lede("이름은 가명이지만 숫자는 전부 실제 통계입니다.")
     + """
 <div class="cards cards--3">
   <article class="card">
     <p class="card__tag">비싸다 &middot; Cost</p>
-    <h3>마커스, <span class="num">58</span></h3>
+    <h3>마이클, <span class="num">58</span></h3>
     <p class="card__sub">조지아 콜럼버스 · 무보험</p>
-    <blockquote class="quote">대장내시경이요? 저한테는 <span class="num">2,750</span>달러입니다.</blockquote>
+    <blockquote class="quote">3기였습니다. 나았는데, 그 값을 아직 갚고 있습니다.</blockquote>
+    <p class="card__body">대장암 3기 진단. 완치했지만 경제적으로 무너졌고, 재발 위험을 안고 삽니다.</p>
     <ul class="reasons">
+      <li><b class="num">$2,750</b> 무보험 대장내시경 1회</li>
       <li><b class="num">36%</b> 비용 때문에 필요한 진료를 미룬 미국 성인</li>
-      <li><b class="num">75%</b> 무보험 성인 기준 같은 비율</li>
     </ul>
   </article>
   <article class="card">
-    <p class="card__tag">멀다 &middot; Distance</p>
-    <h3>다니엘, <span class="num">34</span></h3>
-    <p class="card__sub">조지아 농촌 카운티 · HIV 고위험군</p>
-    <blockquote class="quote">검사 한 번 받으려면 왕복 네 시간입니다.</blockquote>
+    <p class="card__tag">눈치보인다 &middot; Stigma</p>
+    <h3>코피, <span class="num">34</span></h3>
+    <p class="card__sub">아프리카 · HIV 감염인</p>
+    <blockquote class="quote">그 검사를 받았다는 걸 누가 알면, 그게 더 무섭습니다.</blockquote>
+    <p class="card__body">몸이 안 좋은 걸 압니다. 병원에 갈 돈이 없고, “에이즈 검사”라는 <b>이름</b> 자체가 문턱입니다.</p>
     <ul class="reasons">
-      <li><b class="num">53</b>개 조지아에서 병원이 아예 없는 카운티</li>
-      <li><b class="num">9,200만</b> 1차진료 부족지역에 사는 미국인</li>
+      <li><b class="num">$69</b> 집으로 오는 HIV 검사는 이미 있습니다 — 한 번에 <b>한 항목</b>만</li>
+      <li><b class="num">0</b> 우편함에서 끝나는 검사가 필요로 하는 채혈센터 수</li>
     </ul>
   </article>
   <article class="card">
     <p class="card__tag">잴 수 없다 &middot; Measurability</p>
     <h3>지현, <span class="num">29</span></h3>
     <p class="card__sub">직장인 · 우울 증상 8개월째</p>
-    <blockquote class="quote">힘든 건 아는데, 회사에 뭐라고 말하죠?</blockquote>
+    <blockquote class="quote">당뇨면 숫자를 보여주면 되는데, 저는 보여줄 게 없어요.</blockquote>
+    <p class="card__body">당뇨 환자는 당화혈색소 숫자 하나로 배려를 요청할 수 있습니다. 지현 씨에게는 그 숫자가 없습니다.</p>
     <ul class="reasons">
       <li><b class="num">15%</b> 정신건강 문제를 관리자에게 말한 근로자</li>
-      <li><b class="num">0</b>개 우울증에 임상적으로 쓰이는 객관적 혈액 지표</li>
+      <li><b class="num">0</b> 우울증에 임상적으로 쓰이는 객관적 혈액 지표</li>
     </ul>
   </article>
 </div>
 """
     + src(
-        "KFF Health Tracking Poll 2025-05 · Georgia Rural Health Transformation(주정부) "
-        "· HRSA State of the Primary Care Workforce 2025 · NAMI/Ipsos 2026-03 "
-        "· Abi-Dargham A et al., World Psychiatry 2023;22:236-262"
+        "KFF Health Tracking Poll 2025-05 · NAMI/Ipsos 2026-03 · "
+        "Abi-Dargham A et al., World Psychiatry 2023;22:236-262 · "
+        "HIV 자가검사 가격은 각 사 공식 가격 페이지(2026-07 확인)"
     )
 )
 
@@ -234,8 +251,8 @@ FLOW = (
     <p>시퀀싱 전량이 아니라 발굴된 마커만 값싼 PCR로 읽습니다. 표적 패널과 페이퍼 퓨지 전처리로 원가를 낮춥니다.</p>
   </article>
   <article class="card">
-    <p class="card__tag">멀다 &rarr; 배송</p>
-    <p>안정화 채혈 튜브는 상온에서 3–5일 cfDNA 수율과 배경 변이가 유지됩니다. 검사실이 사람에게 갑니다.</p>
+    <p class="card__tag">눈치보인다 &rarr; 우편함</p>
+    <p>검사실에 가는 사람이 없으면 그 걸음을 볼 사람도 없습니다. 안정화 채혈 튜브가 상온에서 3–5일 버티므로, 검사실이 사람에게 갑니다.</p>
   </article>
   <article class="card">
     <p class="card__tag">잴 수 없다 &rarr; 정량화</p>
@@ -251,6 +268,7 @@ FLOW = (
   </p>
 </div>
 """
+    + gloss(("cfDNA", "죽은 세포에서 나와 혈액에 떠다니는 DNA 조각. 암세포 것도 섞여 있습니다"), ("메틸화", "DNA에 붙는 화학 표지. 유전자를 켜고 끄는 스위치이자 몸이 겪은 일의 기록"), ("페이퍼 퓨지", "실과 종이로 만든 원심분리기. 손으로 돌려 혈장을 분리합니다"))
     + src(
         "Bhamla MS et al., Nature Biomedical Engineering 2017;1:0009 — 페이퍼 퓨지 "
         "125,000 rpm / 30,000 g / $0.20 / 혈장 분리 &lt;1.5분 · "
@@ -295,6 +313,7 @@ EVIDENCE = head("왜 cfDNA 메틸화인가", "기존 혈액검사가 <em>못 하
   <p class="src">Liu MC et al., Annals of Oncology 2020;31:745-759 · Jamshidi A et al., Cancer Cell 2022;40:1537-1549</p>
 </div>
 
+<dl class="gloss"><div><dt>MCED</dt><dd>한 번의 채혈로 여러 암을 한꺼번에 찾는 검사</dd></div><div><dt>AUC</dt><dd>검사 성능. 0.5는 동전 던지기, 1.0은 완벽</dd></div></dl>
 <h3 class="sub">모델링 접근</h3>
 <ul class="facts">
   <li><b class="num">12%</b><span>메틸화 어레이 + 랜덤포레스트로 중추신경계 종양 약 100종 분류. 실제 진단을 최대 12%에서 변경했고 WHO 분류 체계에 채택 — Capper, Nature 2018</span></li>
@@ -323,6 +342,7 @@ MODEL = (
         "그 이상도 이하도 아닙니다. 문제의 모양이 이미 쓸 수 있는 모델을 대부분 "
         "배제합니다."
     )
+    + gloss(("CpG", "DNA에서 C 다음에 G가 오는 자리. 메틸화가 붙는 곳이고, 사람 유전체에 수천만 개 있습니다"))
     + '<h3 class="sub">혈액이 행렬이 되기까지</h3>'
     + """
 <ol class="flow flow--4">
@@ -349,6 +369,7 @@ MODEL = (
         "가로로 수십만, 세로로 수백. 이 비율 하나가 쓸 수 있는 모델을 대부분 "
         "정합니다. 표시된 몇 줄이 이 모든 작업의 결과물입니다.",
     )
+    + gloss(("β값", "그 CpG 자리가 얼마나 메틸화됐는지를 0에서 1로 나타낸 수"), ("바이설파이트", "메틸화된 자리와 아닌 자리를 서로 다른 글자로 바꿔놓는 화학 처리"))
     + '<h3 class="sub">그래서 딥러닝이 아닙니다</h3>'
     + """
 <div class="twocol">
@@ -400,6 +421,7 @@ MODEL = (
     + '<p class="caution__label">그래서 저희의 규칙</p>'
     + "<p>외부에서 독립 수집된 코호트에 배치 보정을 걸고 홀드아웃 검증을 통과하기 "
     + "전까지, <b>저희는 어떤 AUC 숫자도 말하지 않습니다.</b></p></div>"
+    + gloss(("배치", "같은 시기·같은 실험실에서 처리된 데이터 묶음"), ("하모나이제이션", "배치가 다른 데이터를 한 자로 맞추는 보정"), ("홀드아웃", "학습에 한 번도 쓰지 않고 남겨둔 데이터. 마지막에 딱 한 번 엽니다"))
     + '<h3 class="sub">모델 이름보다 먼저 정하는 것</h3>'
     + """
 <ol class="method">
@@ -547,6 +569,7 @@ LIMITS = (
   </li>
 </ol>
 """
+    + gloss(("PPV", "양성이 나왔을 때 실제로 병일 확률"), ("Stage I", "암 1기. 가장 이르고, 그래서 찾기가 가장 어렵습니다"))
     + '<h3 class="sub">실제로 세어보면 이렇습니다</h3>'
     + charts.dotfield(
         92,
@@ -945,6 +968,9 @@ MILESTONES = (
         "아프리카, 한국 순",
         legend=("진출 영역은 누적됩니다", "점선은 물류가 새로 필요한 구간"),
     )
+    + """
+"""
+    + gloss(("CLIA", "미국 임상검사실 인증. 이게 있어야 결과를 진료에 쓸 수 있습니다"), ("LDT", "검사실이 자체 개발해 자기 실험실에서만 쓰는 검사. 규제 경로가 다릅니다"), ("ddPCR", "DNA 조각 수를 하나 단위로 세는 방법"))
     + """
 <h3 class="sub">네 개의 검증, 하나씩</h3>
 <ol class="ms">

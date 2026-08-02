@@ -15,7 +15,7 @@ list, which is the failure mode a parallel translation actually has.
 """
 
 import charts
-from content import assumption, head, lede, src, stat
+from content import assumption, gloss, head, lede, src, stat
 
 # ─────────────────────────────────────────────────────────────── 1. hero
 
@@ -38,13 +38,12 @@ STAKES = (
     head(
         "The problem",
         "People do not die for want of the technology. They die because "
-        "<em>the test is expensive, far away, or does not exist</em>",
+        "<em>the test is expensive, watched, or does not exist</em>",
     )
     + lede(
-        "Without insurance a single colonoscopy runs into the thousands. Rural "
-        "counties have no hospital to be screened in at all. For mental health "
-        "the threshold starts with saying it out loud at work — and depression "
-        "still has no blood test to measure."
+        "Without insurance a single colonoscopy runs into the thousands. Some tests "
+        "go untaken because of what their name alone would mark you as. And "
+        "depression still has no blood test to measure."
     )
     + '<div class="stats stats--lead">'
     + stat(
@@ -66,6 +65,7 @@ STAKES = (
         "Goddard KAB et al. JAMA Oncology 2025;11(2):162-167 · NCI CISNET modelled "
         "estimate, five cancers (lung, breast, colorectal, prostate, cervical)"
     )
+    + gloss(("Early detection", "Finding a cancer before it spreads. Found late, survival falls sharply"))
     + '<h3 class="sub">So even the tests that already exist reach almost no one</h3>'
     + '<div class="stats">'
     + stat(
@@ -92,33 +92,37 @@ STAKES = (
 
 PEOPLE = (
     head("Three people", "The threshold shows up with three faces")
+    + lede("The names are pseudonyms. Every number is a real statistic.")
     + """
 <div class="cards cards--3">
   <article class="card">
     <p class="card__tag">Expensive &middot; Cost</p>
-    <h3>Marcus, <span class="num">58</span></h3>
+    <h3>Michael, <span class="num">58</span></h3>
     <p class="card__sub">Columbus, Georgia &middot; uninsured</p>
-    <blockquote class="quote">A colonoscopy? For me that is <span class="num">$2,750</span>.</blockquote>
+    <blockquote class="quote">It was stage three. I beat it. I am still paying for it.</blockquote>
+    <p class="card__body">Diagnosed with stage III colorectal cancer. Cured, financially ruined, and living with the risk of recurrence.</p>
     <ul class="reasons">
+      <li><b class="num">$2,750</b> one uninsured colonoscopy</li>
       <li><b class="num">36%</b> of US adults delayed needed care because of cost</li>
-      <li><b class="num">75%</b> the same figure among uninsured adults</li>
     </ul>
   </article>
   <article class="card">
-    <p class="card__tag">Far away &middot; Distance</p>
-    <h3>Daniel, <span class="num">34</span></h3>
-    <p class="card__sub">Rural Georgia county &middot; high HIV risk</p>
-    <blockquote class="quote">One test is a four-hour round trip.</blockquote>
+    <p class="card__tag">Watched &middot; Stigma</p>
+    <h3>Kofi, <span class="num">34</span></h3>
+    <p class="card__sub">Africa &middot; living with HIV</p>
+    <blockquote class="quote">Someone knowing I took that test — that is the part I am afraid of.</blockquote>
+    <p class="card__body">She knows something is wrong. There is no money for a clinic, and a test with “HIV” in its <b>name</b> is a threshold of its own.</p>
     <ul class="reasons">
-      <li><b class="num">53</b> Georgia counties with no hospital at all</li>
-      <li><b class="num">92 M</b> Americans living in a primary care shortage area</li>
+      <li><b class="num">$69</b> an HIV test already comes to the door — for <b>one analyte</b></li>
+      <li><b class="num">0</b> draw centres a test that ends at the mailbox requires</li>
     </ul>
   </article>
   <article class="card">
     <p class="card__tag">Unmeasurable &middot; Measurability</p>
     <h3>Jihyun, <span class="num">29</span></h3>
     <p class="card__sub">Office worker &middot; 8 months of depressive symptoms</p>
-    <blockquote class="quote">I know something is wrong. What do I tell my employer?</blockquote>
+    <blockquote class="quote">With diabetes you show them a number. I have nothing to show.</blockquote>
+    <p class="card__body">A person with diabetes can ask for accommodation with one HbA1c figure. Jihyun has no such figure.</p>
     <ul class="reasons">
       <li><b class="num">15%</b> of workers have told a manager about a mental health problem</li>
       <li><b class="num">0</b> objective blood markers in clinical use for depression</li>
@@ -127,9 +131,9 @@ PEOPLE = (
 </div>
 """
     + src(
-        "KFF Health Tracking Poll 2025-05 · Georgia Rural Health Transformation (state) "
-        "· HRSA State of the Primary Care Workforce 2025 · NAMI/Ipsos 2026-03 "
-        "· Abi-Dargham A et al., World Psychiatry 2023;22:236-262"
+        "KFF Health Tracking Poll 2025-05 · NAMI/Ipsos 2026-03 · "
+        "Abi-Dargham A et al., World Psychiatry 2023;22:236-262 · "
+        "Self-test pricing from each company's published pages (checked 2026-07)"
     )
 )
 
@@ -220,8 +224,8 @@ FLOW = (
     <p>Not whole-genome sequencing — only the markers already discovered, read on cheap PCR. A targeted panel and paperfuge prep bring the unit cost down.</p>
   </article>
   <article class="card">
-    <p class="card__tag">Far away &rarr; shipped</p>
-    <p>Stabilising collection tubes hold cfDNA yield and background variance for 3–5 days at ambient temperature. The lab goes to the person.</p>
+    <p class="card__tag">Watched &rarr; the mailbox</p>
+    <p>Nobody walks into a clinic, so nobody sees the walk. Stabilising tubes hold for 3–5 days at ambient temperature, so the lab goes to the person.</p>
   </article>
   <article class="card">
     <p class="card__tag">Unmeasurable &rarr; quantified</p>
@@ -238,6 +242,7 @@ FLOW = (
   </p>
 </div>
 """
+    + gloss(("cfDNA", "DNA fragments shed by dying cells into the blood — including a tumour's"), ("Methylation", "A chemical tag on DNA. A switch for genes, and a record of what a body has been through"), ("Paperfuge", "A centrifuge made of paper and string. Spun by hand to separate plasma"))
     + src(
         "Bhamla MS et al., Nature Biomedical Engineering 2017;1:0009 — paperfuge "
         "125,000 rpm / 30,000 g / $0.20 / plasma separation &lt;1.5 min · "
@@ -284,6 +289,7 @@ EVIDENCE = (
   <p class="src">Liu MC et al., Annals of Oncology 2020;31:745-759 · Jamshidi A et al., Cancer Cell 2022;40:1537-1549</p>
 </div>
 
+<dl class="gloss"><div><dt>MCED</dt><dd>Multi-cancer early detection — many cancers from one blood draw</dd></div><div><dt>AUC</dt><dd>Test performance. 0.5 is a coin toss, 1.0 is perfect</dd></div></dl>
 <h3 class="sub">Modelling approach</h3>
 <ul class="facts">
   <li><b class="num">12%</b><span>Methylation array plus random forest classified roughly 100 CNS tumour types, changed up to 12% of actual diagnoses, and was adopted into the WHO classification — Capper, Nature 2018</span></li>
@@ -310,6 +316,7 @@ MODEL = (
         "explain the disease. Nothing more. The shape of the problem is what "
         "rules most of the candidate models out."
     )
+    + gloss(("CpG", "A place in DNA where a C is followed by a G. Where methylation attaches — tens of millions of them in a human genome"))
     + '<h3 class="sub">From blood to a matrix</h3>'
     + """
 <ol class="flow flow--4">
@@ -337,6 +344,7 @@ MODEL = (
         "Hundreds of thousands across, hundreds down. That one ratio decides "
         "most of what can be used. The few marked columns are the entire output.",
     )
+    + gloss(("&beta; value", "How methylated one CpG site is, on a scale from 0 to 1"), ("Bisulfite", "A chemical step that rewrites methylated and unmethylated sites as different letters"))
     + '<h3 class="sub">Which is why it is not deep learning</h3>'
     + """
 <div class="twocol">
@@ -389,6 +397,7 @@ MODEL = (
     + '<p class="caution__label">So, our rule</p>'
     + "<p>Until a cohort collected independently, elsewhere, has passed batch "
     + "correction and a held-out validation, <b>we will not state an AUC.</b></p></div>"
+    + gloss(("Batch", "Data processed at the same time in the same lab"), ("Harmonisation", "Correcting data from different batches onto one scale"), ("Hold-out", "Data never used in training. Opened exactly once, at the end"))
     + '<h3 class="sub">Settled before the model is named</h3>'
     + """
 <ol class="method">
@@ -544,6 +553,7 @@ LIMITS = (
   </li>
 </ol>
 """
+    + gloss(("PPV", "Given a positive result, the chance it is real"), ("Stage I", "The earliest stage of a cancer — and the hardest to find"))
     + '<h3 class="sub">What that looks like counted out</h3>'
     + charts.dotfield(
         92,
@@ -952,6 +962,9 @@ MILESTONES = (
         "the United States, then Africa, then Korea",
         legend=("Territory accumulates", "Dashed where new logistics are needed"),
     )
+    + """
+"""
+    + gloss(("CLIA", "US clinical laboratory certification. Required before a result can be used in care"), ("LDT", "A test a lab develops and runs only in-house. A different regulatory path"), ("ddPCR", "A method that counts DNA fragments one at a time"))
     + """
 <h3 class="sub">Four validations, one at a time</h3>
 <ol class="ms">
