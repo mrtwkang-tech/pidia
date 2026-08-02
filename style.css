@@ -924,13 +924,24 @@ Responsive
 /* ========================================
 Canvas
 ======================================== */
+/* Visibility is a mask, not opacity. The canvas is full-viewport while the
+   two sections it belongs to are not, so fading it in and out could never say
+   *where* it was allowed to be — scroll.js clips it to the section's own rect
+   instead, and the section's edge does the reveal.
+
+   Opacity is left at 0 for one job only: holding the canvas back until script.js
+   has a first frame to show. It sets opacity inline once the scene is ready. */
 .webgl {
 	position: fixed;
 	inset: 0;
 	z-index: 0;
 	opacity: 0;
-	transition: opacity 0.45s ease;
+	transition: opacity 0.35s ease;
 	cursor: grab;
+	/* Start masked away: scroll.js sets the real window on its first frame, and
+	   without this a deep-linked load shows one unmasked frame. */
+	mask-image: linear-gradient(#0000, #0000);
+	-webkit-mask-image: linear-gradient(#0000, #0000);
 }
 
 .webgl:active {

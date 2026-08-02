@@ -55,28 +55,78 @@
     return r.top < mid && r.bottom > mid;
   }
 
-  /** Hold the canvas inside the section it belongs to.
+  /** Which transparent section the canvas is currently standing in.
    *
-   *  The canvas is one fixed element covering the whole viewport, but it is only
-   *  meant to be part of two sections. Hero and kit are the only transparent
-   *  ones, so wherever their edge sits mid-screen the object shows through into
-   *  the neighbour — for 450px of scrolling either side of the kit it rises into
-   *  the bottom of the solution section like a third thing on the page.
+   *  The canvas is one fixed element covering the whole viewport, but only two
+   *  of the twelve sections are transparent and meant to show it. Kit is tested
+   *  first because it is the one that needs the stage interactive.
    *
-   *  Clipping to the live section's own rect makes the fixed canvas behave as if
-   *  it were painted inside that section: it ends where the section ends. */
-  function clipTo(el) {
+   *  Contact, not the midpoint: gating on the middle of the screen meant the
+   *  object switched on when the section was already half-way up, so it appeared
+   *  in a strip and then grew. Riding in on the section's own edge is what makes
+   *  it read as part of the page rather than as a layer behind it. */
+  function stageWindow() {
+    const h = viewH();
+    for (const el of [section, hero]) {
+      if (!el) continue;
+      const r = el.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < h) return { el, r };
+    }
+    return null;
+  }
+
+  // Length of the soft edge where the window cuts through the middle of the
+  // screen. The two sections either side of the canvas are white on white, so a
+  // hard clip guillotines the object across a line the reader cannot see and
+  // reads as a rendering fault rather than as a boundary.
+  const FEATHER = 72;
+
+  /** Mask the canvas to that window, so a fixed element behaves as if it were
+   *  painted inside the section.
+   *
+   *  A mask rather than clip-path: same window, but the edges can ramp. The ramp
+   *  is applied only to an edge that is actually inside the viewport — once the
+   *  section fills the screen both edges are off-screen and the object is whole.
+   *
+   *  Never cleared. Clearing was the bug: past the kit's midpoint the clip came
+   *  off while 450px of the kit section was still on screen and still
+   *  transparent, so the object hung behind the section after it. */
+  function maskTo(r) {
     if (!gl) return;
-    if (!el) {
-      gl.style.clipPath = "";
+    if (!r) {
+      gl.style.maskImage = gl.style.webkitMaskImage = "linear-gradient(#0000,#0000)";
       return;
     }
-    const r = el.getBoundingClientRect();
     const h = viewH();
     const top = Math.max(0, r.top);
-    const bottom = Math.max(0, h - r.bottom);
-    gl.style.clipPath =
-      top || bottom ? `inset(${top}px 0 ${bottom}px 0)` : "none";
+    const bot = Math.min(h, r.bottom);
+    // Never let the two ramps overlap and cancel the window out entirely.
+    const room = Math.max(bot - top, 1);
+    const f = Math.min(FEATHER, room / 2);
+    const a = r.top > 0 ? top + f : top;
+    const b = r.bottom < h ? bot - f : bot;
+
+    // Ride the section in, then lock.
+    //
+    // Before the pin sticks, the panel is still scrolling up the page while the
+    // canvas is fixed, so the two halves of the same figure move at different
+    // rates and the section reads as a layer the page is passing over. Centring
+    // the object in the *visible* strip instead of the viewport puts it back on
+    // the section's own clock; the offset falls to zero the moment the section
+    // fills the screen, which is also the moment the pin takes over.
+    const shift = (top + bot) / 2 - h / 2;
+    gl.style.transform = shift ? `translateY(${shift.toFixed(1)}px)` : "";
+
+    // The mask is resolved against the element's own box, and the transform
+    // above has just moved that box — so the stops are written in the element's
+    // space, not the viewport's. Subtracting the shift puts the window back on
+    // the section edge where it belongs; without it the object bleeds `shift`
+    // pixels past the boundary, which is the leak this whole function exists to
+    // close.
+    const px = (v) => `${(v - shift).toFixed(1)}px`;
+    gl.style.maskImage = gl.style.webkitMaskImage =
+      `linear-gradient(to bottom,#0000 ${px(top)},#000 ${px(a)},` +
+      `#000 ${px(b)},#0000 ${px(bot)})`;
   }
 
   /** Travel is measured, not assumed, so CSS can change --kit-dwell without
@@ -100,7 +150,11 @@
       const past = step < 0 ? 1 : want > step ? raw - (step + 1) : step - raw;
       if (past > HYST) {
         step = want;
-        stage.setStep(step, { instant: true });
+        // Eased, not instant. The parts and camera already lerp toward their
+        // staged transform in about a third of a second, and a hard cut between
+        // two smoothly scrubbing stretches was the jolt that made the whole
+        // section feel unfinished.
+        stage.setStep(step);
         if (railCount) railCount.textContent = `${pad(step)} / ${pad(n - 1)}`;
       }
     }
@@ -144,29 +198,24 @@
     revealPending();
     if (!stage) return;
 
-    // Kit wins ties: it is the section that needs the stage interactive.
-    const kitOn = midCrosser(section);
-    const next = kitOn ? "kit" : midCrosser(hero) ? "hero" : null;
+    // Re-measured every frame, not just on the scene change: the section's edge
+    // is moving the whole time it is on screen.
+    const win = stageWindow();
+    maskTo(win?.r ?? null);
+
+    const kitOn = win?.el === section;
+    const next = win ? (kitOn ? "kit" : "hero") : null;
 
     if (next !== live) {
       live = next;
-      gl?.classList.toggle("is-live", next !== null);
       stage.setScene(next);
       if (next !== "kit") {
         stage.setPhase(null);
         step = -1;
       }
-      if (next === null) {
-        // Let the fade finish before the renderer stops.
-        setTimeout(() => {
-          if (live === null) stage.setRunning(false);
-        }, 520);
-      }
+      // The clip has already hidden it, so there is nothing to wait for.
+      if (next === null) stage.setRunning(false);
     }
-
-    // Re-clipped every frame, not just on the scene change: the section's edge
-    // is moving the whole time it is on screen.
-    clipTo(next === "kit" ? section : next === "hero" ? hero : null);
 
     if (kitOn) {
       const p = kitProgress();
