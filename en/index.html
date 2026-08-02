@@ -39,6 +39,7 @@
       <li><a href="#flow"><i></i><span>Solution</span></a></li>
       <li class="rail__kit"><a href="#kit"><i></i><span>Kit</span><b class="rail__count num" aria-live="polite">01 / 07</b></a></li>
       <li><a href="#evidence"><i></i><span>Evidence</span></a></li>
+      <li><a href="#model"><i></i><span>Model</span></a></li>
       <li><a href="#limits"><i></i><span>Limits</span></a></li>
       <li><a href="#roadmap"><i></i><span>Roadmap</span></a></li>
       <li><a href="#market"><i></i><span>Market</span></a></li>
@@ -149,7 +150,7 @@
     <span class="gap__track"><i style="--w: 17.5%"></i></span>
     <span class="gap__val num">$227M</span>
   </div>
-  <figcaption class="gap__cap"><b class="num">5.7&times;</b>The gap between the market as reported and the money actually billed. What is left is not an accuracy problem. It is a threshold problem.</figcaption>
+  <figcaption class="gap__cap"><b class="num">5.7&times;</b><span>The gap between the market as reported and the money actually billed. What is left is not an accuracy problem. It is a threshold problem.</span></figcaption>  <!-- the caption is wrapped because a grid container promotes every child, including an inline <b>, to a grid item -->
 </figure>
 <p class="src">GRAIL FY2025 results (2026-02-19) · Guardant Health FY2025 · U.S. Census ACS 2019-2023 (106.7 M US adults aged 50–79) · Grand View Research / GM Insights MCED market estimates</p>
     </section>
@@ -265,6 +266,94 @@
   </p>
 </div>
 
+    </section>
+
+    <section class="sec" id="model">
+<header class="sec__head"><p class="kicker">Model</p><h2 class="sec__title">What the AI does is <em>one thing</em></h2></header><p class="lede">Pick, out of hundreds of thousands of CpG sites, the few that best explain the disease. Nothing more. The shape of the problem is what rules most of the candidate models out.</p><h3 class="sub">From blood to a matrix</h3>
+<ol class="flow flow--4">
+  <li><b class="num">01</b><h3>Bisulfite conversion</h3><p>Unmethylated C &rarr; U (read as T) · methylated 5mC stays C</p></li>
+  <li><b class="num">02</b><h3>Beadchip hybridisation</h3><p>A complementary probe per CpG site · Type I/II</p></li>
+  <li><b class="num">03</b><h3>Single-base extension</h3><p>The base that attaches decides the fluorescent channel</p></li>
+  <li><b class="num">04</b><h3>Beta value</h3><p>&beta; = M / (M + U + 100) · between 0 and 1</p></li>
+</ol>
+<div class="paper">
+  <p class="paper__cite">The input matrix — rows are people, columns are the <span class="num">&beta;</span> of each CpG site, the label is disease status</p>
+  <p class="paper__note">
+    <b class="num">Hundreds of thousands</b> of columns against
+    <b class="num">hundreds</b> of rows. That ratio is the whole problem, and it
+    has a name: <b>high dimension, low sample size.</b>
+  </p>
+</div>
+<h3 class="sub">Which is why it is not deep learning</h3>
+<div class="twocol">
+  <div class="twocol__col twocol__col--no">
+    <p class="twocol__label">Not used</p>
+    <ul class="reasons">
+      <li><b>Deep learning (CNN · Transformer)</b> — with hundreds of samples against hundreds of thousands of dimensions, overfitting arrives first. And a black box is a liability in a regulatory submission</li>
+      <li><b>k-NN</b> — at this many dimensions the notion of “distance” stops meaning anything</li>
+    </ul>
+  </div>
+  <div class="twocol__col twocol__col--yes">
+    <p class="twocol__label">Used</p>
+    <ul class="reasons">
+      <li><b>Random forest</b> — accumulating impurity decrease at every split gives a <b>variable importance</b> ranking. Bootstrapping keeps one outlier from steering it, and the tree structure catches non-linearity and interaction without being told to</li>
+      <li><b>Elastic-Net</b> — L1's feature selection with L2's even contribution. The point is the <b>group effect</b>: co-methylated CpGs are kept together or dropped together. LASSO alone keeps one of them at random</li>
+      <li><b>Logistic regression</b> — for the <b>final panel</b>, once it is down to three to five markers. The coefficients have to be explainable for the submission to be a submission</li>
+    </ul>
+  </div>
+</div>
+<p class="src">Zou H &amp; Hastie T, J R Stat Soc B 2005;67:301-320 (Elastic-Net) · Breiman L, Machine Learning 2001;45:5-32 (Random Forest) · &beta; as defined by the Illumina Infinium assay</p><h3 class="sub">The most expensive lesson in this field</h3>
+<figure class="gap" role="img" aria-label="Batch-wise processed data AUC 0.76 대 Held out, after harmonisation AUC &lt;0.57">
+  <div class="gap__row">
+    <span class="gap__name">Batch-wise processed data</span>
+    <span class="gap__track"><i style="--w: 100.0%"></i></span>
+    <span class="gap__val num">AUC 0.76</span>
+  </div>
+  <div class="gap__row gap__row--real">
+    <span class="gap__name">Held out, after harmonisation</span>
+    <span class="gap__track"><i style="--w: 75.0%"></i></span>
+    <span class="gap__val num">AUC &lt;0.57</span>
+  </div>
+  <figcaption class="gap__cap"><span>Same data, same models. Every cohort, run and lab leaves a technical fingerprint, and when cases and controls sit unevenly across batches the model learns <b>the batch, not the biology.</b> Across 6 cohorts, 8 batches and 12 strategies, not one of the 1,987 nominally significant CpGs survived every batch.</span></figcaption>  <!-- the caption is wrapped because a grid container promotes every child, including an inline <b>, to a grid item -->
+</figure>
+<div class="caution"><p class="caution__label">So, our rule</p><p>Until a cohort collected independently, elsewhere, has passed batch correction and a held-out validation, <b>we will not state an AUC.</b></p></div><h3 class="sub">Settled before the model is named</h3>
+<ol class="method">
+  <li>
+    <h3>What is being predicted</h3>
+    <p>A separate model per disease. Cancer, neurodegeneration and chronic stress have different kinds of ground truth, so they do not share a model.</p>
+  </li>
+  <li>
+    <h3>What the ground truth is</h3>
+    <p>Histopathology for cancer; neurologist diagnosis with MRI/PET for neurodegeneration; standardised instruments and follow-up for stress. <b>The reliability of the label is the ceiling on model performance.</b></p>
+  </li>
+  <li>
+    <h3>Who the controls are</h3>
+    <p>Not healthy volunteers — people from the same risk group who did not convert during follow-up. With healthy controls the model learns risk-group membership, not disease.</p>
+  </li>
+  <li>
+    <h3>What is being controlled for</h3>
+    <p>Age, sex, medication, blood cell composition (cell-type deconvolution), batch. Without adjustment the model learns age rather than disease.</p>
+  </li>
+  <li>
+    <h3>How often the validation set is opened</h3>
+    <p>Once. Querying it repeatedly and adjusting is tuning, not validation. Repeat samples from one person all stay on the same side of the split.</p>
+  </li>
+</ol>
+<h3 class="sub">Prevalence outweighs accuracy</h3>
+<figure class="gap" role="img" aria-label="Psychiatric clinic (40% prevalence) PPV 66.7% 대 General population (5% prevalence) PPV 13.6%">
+  <div class="gap__row">
+    <span class="gap__name">Psychiatric clinic (40% prevalence)</span>
+    <span class="gap__track"><i style="--w: 100.0%"></i></span>
+    <span class="gap__val num">PPV 66.7%</span>
+  </div>
+  <div class="gap__row gap__row--real">
+    <span class="gap__name">General population (5% prevalence)</span>
+    <span class="gap__track"><i style="--w: 20.4%"></i></span>
+    <span class="gap__val num">PPV 13.6%</span>
+  </div>
+  <figcaption class="gap__cap"><b class="num">4.9&times;</b><span>The <b>same test</b>, at 75% sensitivity and 75% specificity both times. Only the prevalence changed. Run a psychiatric biomarker as a population screen and 86 of every 100 positives are false. That is why our Phase 3 quantifies <b>exposure</b> rather than diagnosing.</span></figcaption>  <!-- the caption is wrapped because a grid container promotes every child, including an inline <b>, to a grid item -->
+</figure>
+<p class="src src--assumed">A worked example at 75% sensitivity and specificity, run at 5% and 40% prevalence. Not the measured performance of any particular test — a demonstration of how Bayes' rule behaves on this problem</p><p class="src">Sales AJ et al., Acta Neuropsychiatr 2021;33:217-241 · Barbu MC et al., 2021 — penalised regression explained 1.75% of depression variance · Translational Psychiatry 2024 — 6 cohorts · 8 batches · 12 strategies (all classifiers AUC &lt;0.57 after harmonisation)</p>
     </section>
 
     <section class="sec" id="limits">
@@ -532,31 +621,35 @@
       <path class="wmap__arc" style="--i: 2" d="M47.63,41.10 Q82.44,26.66 117.25,64.23" />
       <path class="wmap__arc" style="--i: 3" d="M117.25,64.23 Q148.34,75.71 179.43,43.19" />
       <g class="wmap__node" style="--i: 0">
-        <circle class="wmap__ring" cx="56.33" cy="45.64" r="3.0" />
-        <circle class="wmap__pin" cx="56.33" cy="45.64" r="1.5" />
-        <text class="wmap__seqmark" x="48.93" y="49.24">01</text>
+        <circle class="wmap__pin" cx="56.33" cy="45.64" r="0.9" />
+        <line class="wmap__leader" x1="56.33" y1="45.64" x2="53.05" y2="57.12" />
+        <text class="wmap__tag" text-anchor="end" x="52.33" y="59.64"><tspan class="wmap__tagseq">01</tspan><tspan dx="1.4">Georgia</tspan></text>
+        <text class="wmap__sub" text-anchor="end" x="52.33" y="63.84">12.0% uninsured · 53 counties, no hospital</text>
       </g>
       <g class="wmap__node" style="--i: 1">
-        <circle class="wmap__ring" cx="47.63" cy="41.10" r="3.4" />
-        <circle class="wmap__sat" cx="61.83" cy="40.26" r="1.1" />
-        <circle class="wmap__sat" cx="53.88" cy="39.45" r="1.1" />
-        <circle class="wmap__sat" cx="36.03" cy="44.75" r="1.1" />
-        <circle class="wmap__sat" cx="49.37" cy="47.52" r="1.1" />
-        <circle class="wmap__pin" cx="47.63" cy="41.10" r="1.5" />
-        <text class="wmap__seqmark" x="45.83" y="35.50">02</text>
+        <circle class="wmap__sat" cx="61.83" cy="40.26" r="0.7" />
+        <circle class="wmap__sat" cx="53.88" cy="39.45" r="0.7" />
+        <circle class="wmap__sat" cx="36.03" cy="44.75" r="0.7" />
+        <circle class="wmap__sat" cx="49.37" cy="47.52" r="0.7" />
+        <circle class="wmap__pin" cx="47.63" cy="41.10" r="0.9" />
+        <line class="wmap__leader" x1="47.63" y1="41.10" x2="47.63" y2="30.44" />
+        <text class="wmap__tag" text-anchor="start" x="47.63" y="28.10"><tspan class="wmap__tagseq">02</tspan><tspan dx="1.4">United States</tspan></text>
+        <text class="wmap__sub" text-anchor="start" x="47.63" y="32.30">SAM $1.75B · 106.7 M aged 50–79</text>
       </g>
       <g class="wmap__node" style="--i: 2">
-        <circle class="wmap__ring" cx="117.25" cy="64.23" r="3.4" />
-        <circle class="wmap__sat" cx="126.48" cy="66.15" r="1.1" />
-        <circle class="wmap__sat" cx="106.97" cy="61.59" r="1.1" />
-        <circle class="wmap__sat" cx="121.36" cy="81.03" r="1.1" />
-        <circle class="wmap__pin" cx="117.25" cy="64.23" r="1.5" />
-        <text class="wmap__seqmark" x="120.15" y="65.83">03</text>
+        <circle class="wmap__sat" cx="126.48" cy="66.15" r="0.7" />
+        <circle class="wmap__sat" cx="106.97" cy="61.59" r="0.7" />
+        <circle class="wmap__sat" cx="121.36" cy="81.03" r="0.7" />
+        <circle class="wmap__pin" cx="117.25" cy="64.23" r="0.9" />
+        <line class="wmap__leader" x1="117.25" y1="64.23" x2="129.55" y2="69.97" />
+        <text class="wmap__tag" text-anchor="start" x="132.25" y="71.23"><tspan class="wmap__tagseq">03</tspan><tspan dx="1.4">Africa</tspan></text>
+        <text class="wmap__sub" text-anchor="start" x="132.25" y="75.43">No cold chain · 0 draw centres</text>
       </g>
       <g class="wmap__node" style="--i: 3">
-        <circle class="wmap__ring" cx="179.43" cy="43.19" r="2.6" />
-        <circle class="wmap__pin" cx="179.43" cy="43.19" r="1.5" />
-        <text class="wmap__seqmark" x="182.43" y="44.79">04</text>
+        <circle class="wmap__pin" cx="179.43" cy="43.19" r="0.9" />
+        <line class="wmap__leader" x1="179.43" y1="43.19" x2="183.94" y2="38.27" />
+        <text class="wmap__tag" text-anchor="start" x="184.93" y="37.19"><tspan class="wmap__tagseq">04</tspan><tspan dx="1.4">Korea</tspan></text>
+        <text class="wmap__sub" text-anchor="start" x="184.93" y="41.39">National screening · IVD pathway</text>
       </g>
     </svg>
   </div>

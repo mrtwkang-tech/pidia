@@ -95,11 +95,18 @@ def bars(rows, unit="", caption="", ours=None):
 """
 
 
-def gapbars(a, b, caption=""):
-    """Two bars where the story is the ratio between them."""
+def gapbars(a, b, caption="", lead=None):
+    """Two bars, with the caption led by whatever the comparison is *for*.
+
+    `lead` defaults to the ratio between them, which is the point when the story
+    is "the estimate is N times the reality". Pass "" where a ratio would be
+    noise — a performance collapse is not a ratio, it is a floor.
+    """
     (an, av, at), (bn, bv, bt) = a, b
     top = max(av, bv) or 1
-    ratio = av / bv if bv else 0
+    if lead is None:
+        lead = f"{av / bv:.1f}&times;" if bv else ""
+    lead = f'<b class="num">{lead}</b>' if lead else ""
     return f"""
 <figure class="gap" role="img" aria-label="{an} {at} 대 {bn} {bt}">
   <div class="gap__row">
@@ -112,7 +119,7 @@ def gapbars(a, b, caption=""):
     <span class="gap__track"><i style="--w: {bv / top * 100:.1f}%"></i></span>
     <span class="gap__val num">{bt}</span>
   </div>
-  <figcaption class="gap__cap"><b class="num">{ratio:.1f}&times;</b>{caption}</figcaption>
+  <figcaption class="gap__cap">{lead}<span>{caption}</span></figcaption>  <!-- the caption is wrapped because a grid container promotes every child, including an inline <b>, to a grid item -->
 </figure>
 """
 
@@ -249,20 +256,29 @@ def wmap(stops, aria="", legend=()):
             )
             leg += 1
 
+    # No rings. The filled territory is the marker, and a ring big enough to see
+    # at this scale was wider than Georgia — four of them, plus city dots,
+    # stacked into a knot over the one region the figure is about.
     nodes = []
     for i, (stop, (x, y)) in enumerate(zip(stops, xy)):
         sats = "".join(
-            f'\n        <circle class="wmap__sat" cx="{sx:.2f}" cy="{sy:.2f}" r="1.1" />'
+            f'\n        <circle class="wmap__sat" cx="{sx:.2f}" cy="{sy:.2f}" r="0.7" />'
             for sx, sy in (worldmap.project(lo, la) for lo, la, _ in stop["sats"])
         )
         dx, dy = stop["nudge"]
+        anchor = "end" if dx < 0 else "start"
         nodes.append(
             f'      <g class="wmap__node" style="--i: {i}">'
-            f'\n        <circle class="wmap__ring" cx="{x:.2f}" cy="{y:.2f}" r="{stop["r"]}" />'
             f"{sats}"
-            f'\n        <circle class="wmap__pin" cx="{x:.2f}" cy="{y:.2f}" r="1.5" />'
-            f'\n        <text class="wmap__seqmark" x="{x + dx:.2f}" y="{y + dy:.2f}">'
-            f'{stop["seq"]}</text>'
+            f'\n        <circle class="wmap__pin" cx="{x:.2f}" cy="{y:.2f}" r="0.9" />'
+            f'\n        <line class="wmap__leader" x1="{x:.2f}" y1="{y:.2f}"'
+            f' x2="{x + dx * 0.82:.2f}" y2="{y + dy * 0.82:.2f}" />'
+            f'\n        <text class="wmap__tag" text-anchor="{anchor}"'
+            f' x="{x + dx:.2f}" y="{y + dy:.2f}">'
+            f'<tspan class="wmap__tagseq">{stop["seq"]}</tspan>'
+            f'<tspan dx="1.4">{stop["name"]}</tspan></text>'
+            f'\n        <text class="wmap__sub" text-anchor="{anchor}"'
+            f' x="{x + dx:.2f}" y="{y + dy + 4.2:.2f}">{stop["tag"]}</text>'
             f"\n      </g>"
         )
 

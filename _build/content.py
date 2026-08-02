@@ -310,6 +310,119 @@ EVIDENCE = head("왜 cfDNA 메틸화인가", "기존 혈액검사가 <em>못 하
 </div>
 """
 
+
+# ──────────────────────────────────────────────────────────── 6b. model
+# The one section that says what the AI actually does. It leads with the shape
+# of the data rather than the name of a model, because the shape is what rules
+# most of the models out.
+
+MODEL = (
+    head("모델", "AI가 하는 일은 <em>하나로 정해져 있습니다</em>")
+    + lede(
+        "수십만 개의 CpG 자리 가운데 질환을 가장 잘 설명하는 소수를 골라내는 것. "
+        "그 이상도 이하도 아닙니다. 문제의 모양이 이미 쓸 수 있는 모델을 대부분 "
+        "배제합니다."
+    )
+    + '<h3 class="sub">혈액이 행렬이 되기까지</h3>'
+    + """
+<ol class="flow flow--4">
+  <li><b class="num">01</b><h3>바이설파이트 처리</h3><p>비메틸화 C &rarr; U(증폭 시 T) · 메틸화 5mC는 C로 남음</p></li>
+  <li><b class="num">02</b><h3>비드칩 하이브리다이제이션</h3><p>CpG 자리마다 상보 프로브 · Type I/II</p></li>
+  <li><b class="num">03</b><h3>단일 염기 신장</h3><p>붙는 염기에 따라 형광 채널이 갈림</p></li>
+  <li><b class="num">04</b><h3>베타값 환산</h3><p>&beta; = M / (M + U + 100) · 0에서 1 사이</p></li>
+</ol>
+<div class="paper">
+  <p class="paper__cite">입력 행렬 — 행은 사람, 열은 CpG 자리의 <span class="num">&beta;</span>값, 라벨은 질환 유무</p>
+  <p class="paper__note">
+    열이 <b class="num">수십만</b>, 행이 <b class="num">수백</b>입니다. 이 비율이
+    이 문제의 전부이고, <b>고차원 저샘플</b>이라 부릅니다.
+  </p>
+</div>
+"""
+    + '<h3 class="sub">그래서 딥러닝이 아닙니다</h3>'
+    + """
+<div class="twocol">
+  <div class="twocol__col twocol__col--no">
+    <p class="twocol__label">쓰지 않습니다</p>
+    <ul class="reasons">
+      <li><b>딥러닝(CNN · Transformer)</b> — 샘플 수백에 차원 수십만이면 오버피팅이 먼저 옵니다. 규제 제출 자료로 블랙박스는 불리합니다</li>
+      <li><b>k-NN</b> — 차원이 이만큼 많으면 “거리”라는 개념 자체가 무의미해집니다</li>
+    </ul>
+  </div>
+  <div class="twocol__col twocol__col--yes">
+    <p class="twocol__label">씁니다</p>
+    <ul class="reasons">
+      <li><b>랜덤 포레스트</b> — 분기마다 불순도 감소를 누적해 <b>변수 중요도</b>를 매깁니다. 부트스트랩이라 이상치 하나에 흔들리지 않고, 트리 구조가 비선형·상호작용을 그대로 잡습니다</li>
+      <li><b>Elastic-Net</b> — L1의 변수 선택과 L2의 고른 기여를 함께 씁니다. 핵심은 <b>group effect</b>: 함께 메틸화되는 CpG 무리를 같이 살리거나 같이 버립니다. LASSO 단독은 그중 하나만 무작위로 남깁니다</li>
+      <li><b>로지스틱 회귀</b> — 마커가 3–5개로 좁혀진 <b>최종 패널</b> 단계. 계수를 그대로 설명할 수 있어야 인허가 서류가 됩니다</li>
+    </ul>
+  </div>
+</div>
+"""
+    + src(
+        "Zou H &amp; Hastie T, J R Stat Soc B 2005;67:301-320 (Elastic-Net) · "
+        "Breiman L, Machine Learning 2001;45:5-32 (Random Forest) · "
+        "&beta;값 정의는 Illumina Infinium 어세이 규격"
+    )
+    + '<h3 class="sub">이 분야에서 가장 비싼 교훈</h3>'
+    + charts.gapbars(
+        ("배치별로 처리한 데이터", 0.76, "AUC 0.76"),
+        ("배치 보정 후 홀드아웃", 0.57, "AUC &lt;0.57"),
+        "같은 데이터, 같은 모델입니다. 코호트·처리 시기·실험실마다 기술적 지문이 "
+        "남고 환자와 대조군이 배치에 몰려 있으면, 모델은 생물학이 아니라 "
+        "<b>배치를 학습합니다.</b> 6개 독립 집단 · 8개 배치 · 12가지 전략에서 "
+        "명목 유의 CpG 1,987개 중 모든 배치를 버틴 것은 하나도 없었습니다.",
+        lead="",
+    )
+    + '<div class="caution">'
+    + '<p class="caution__label">그래서 저희의 규칙</p>'
+    + "<p>외부에서 독립 수집된 코호트에 배치 보정을 걸고 홀드아웃 검증을 통과하기 "
+    + "전까지, <b>저희는 어떤 AUC 숫자도 말하지 않습니다.</b></p></div>"
+    + '<h3 class="sub">모델 이름보다 먼저 정하는 것</h3>'
+    + """
+<ol class="method">
+  <li>
+    <h3>무엇을 예측하는가</h3>
+    <p>질환별로 별도 모델입니다. 암 · 퇴행성 뇌질환 · 만성 스트레스는 정답의 성격이 서로 다르므로 한 모델에 담지 않습니다.</p>
+  </li>
+  <li>
+    <h3>정답은 무엇인가</h3>
+    <p>암은 조직검사 병리 확진, 퇴행성 뇌질환은 신경과 전문의 진단 + MRI/PET, 스트레스는 표준화 설문과 추적 관찰. <b>정답의 신뢰도가 모델 성능의 상한입니다.</b></p>
+  </li>
+  <li>
+    <h3>대조군은 누구인가</h3>
+    <p>건강한 일반인이 아니라 같은 위험군 중 추적 기간 내 미발생자. 건강 대조군을 쓰면 모델이 배우는 것은 질환 유무가 아니라 위험군 여부입니다.</p>
+  </li>
+  <li>
+    <h3>무엇을 통제하는가</h3>
+    <p>연령 · 성별 · 약물 · 혈액세포 조성(cell-type deconvolution) · 배치. 보정하지 않으면 모델은 질환이 아니라 연령을 학습합니다.</p>
+  </li>
+  <li>
+    <h3>검증군은 몇 번 여는가</h3>
+    <p>한 번입니다. 반복해 조회하며 조정하면 그건 검증이 아니라 튜닝입니다. 같은 사람의 반복검사는 전부 한쪽에만 둡니다.</p>
+  </li>
+</ol>
+"""
+    + '<h3 class="sub">유병률이 정확도보다 세게 작용합니다</h3>'
+    + charts.gapbars(
+        ("정신과 클리닉 (유병률 40%)", 66.7, "PPV 66.7%"),
+        ("일반 인구 (유병률 5%)", 13.6, "PPV 13.6%"),
+        "민감도와 특이도가 똑같이 75%인 <b>같은 검사</b>입니다. 유병률만 바뀌었습니다. "
+        "정신과 바이오마커를 일반 인구 스크리닝에 쓰면 양성 100명 중 86명이 "
+        "위양성입니다. 저희 3단계가 진단이 아니라 <b>노출의 정량화</b>인 이유입니다.",
+    )
+    + assumption(
+        "민감도·특이도 75%, 유병률 5%와 40%를 넣은 계산 예시입니다. 특정 검사의 "
+        "실측값이 아니라 베이즈 정리가 이 문제에서 어떻게 작동하는지를 보이는 수치입니다"
+    )
+    + src(
+        "Sales AJ et al., Acta Neuropsychiatr 2021;33:217-241 · "
+        "Barbu MC et al., 2021 — 벌점 회귀로 우울증 분산 1.75% 설명 · "
+        "Translational Psychiatry 2024 — 6개 코호트 · 8개 배치 · 12가지 전략 "
+        "(배치 보정 후 전 분류기 AUC &lt;0.57)"
+    )
+)
+
 # ────────────────────────────────────────────────────────────── 7. limits
 # The deck leads with its own weaknesses. Keeping that here, mid-page, is the
 # single most credible thing on the site.
@@ -611,13 +724,14 @@ STOPS = [
     {
         "seq": "01",
         "name": "조지아",
+        "tag": "무보험 12.0% · 병원 없는 카운티 53",
         "role": "비치헤드 · 0–2년",
         "region": "georgia",
         "paint": 3,
         "lon": -83.44,
         "lat": 32.68,
         "r": 3.0,
-        "nudge": (-7.4, 3.6),
+        "nudge": (-4.0, 14.0),
         "jump": False,
         "bow": 0,
         "sats": [],
@@ -635,13 +749,14 @@ STOPS = [
     {
         "seq": "02",
         "name": "미국 전역",
+        "tag": "SAM $1.75B · 50–79세 1억 670만",
         "role": "확장 · 2–4년",
         "region": "usa",
         "paint": 0,
         "lon": -98.35,
         "lat": 39.50,
         "r": 3.4,
-        "nudge": (-1.8, -5.6),
+        "nudge": (0.0, -13.0),
         "jump": False,
         "bow": 0,
         "sats": [
@@ -663,13 +778,14 @@ STOPS = [
     {
         "seq": "03",
         "name": "아프리카",
+        "tag": "콜드체인 불필요 · 채혈센터 0",
         "role": "국제기구 채널 · 4년 +",
         "region": "africa",
         "paint": 1,
         "lon": 21.0,
         "lat": 2.0,
         "r": 3.4,
-        "nudge": (2.9, 1.6),
+        "nudge": (15.0, 7.0),
         "jump": True,
         "bow": 26,
         "sats": [
@@ -690,13 +806,14 @@ STOPS = [
     {
         "seq": "04",
         "name": "한국",
+        "tag": "국가암검진 채널 · IVD 인허가",
         "role": "개발 · IP 거점",
         "region": "korea",
         "paint": 2,
         "lon": 127.6,
         "lat": 36.4,
         "r": 2.6,
-        "nudge": (3.0, 1.6),
+        "nudge": (5.5, -6.0),
         "jump": True,
         "bow": -22,
         "sats": [],
@@ -802,6 +919,7 @@ SECTIONS = [
     {"id": "flow", "label": "솔루션", "cls": "sec", "html": FLOW},
     {"id": "kit", "label": "키트", "cls": "kitscroll", "html": KIT},
     {"id": "evidence", "label": "근거", "cls": "sec", "html": EVIDENCE},
+    {"id": "model", "label": "모델", "cls": "sec", "html": MODEL},
     {"id": "limits", "label": "한계", "cls": "sec", "html": LIMITS},
     {"id": "roadmap", "label": "로드맵", "cls": "sec", "html": ROADMAP_SEC},
     {"id": "market", "label": "시장", "cls": "sec", "html": MARKET},

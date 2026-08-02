@@ -1432,8 +1432,16 @@ plans, so the page needs shapes for those rather than more prose blocks.
 	border: 1px solid var(--color-line-soft);
 }
 
+/* Column count is a divisor of the item count, so no cell is ever left empty —
+   an empty cell in this grid is not blank, the gap technique paints the
+   container through it. Six steps take three, four steps take four. */
+.flow--4 {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 @media (max-width: 60rem) {
-	.flow {
+	.flow,
+	.flow--4 {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }
@@ -1896,11 +1904,21 @@ point colour for the one row that is ours.
 	word-break: keep-all;
 }
 
-.gap__cap b {
+/* Only the lead number, not every emphasis inside the caption text. */
+.gap__cap > b:first-child {
 	font-size: 1.75rem;
 	font-weight: 500;
 	line-height: 1;
 	color: var(--color-accent);
+}
+
+/* With no lead, the caption takes the full width instead of leaving a gutter. */
+.gap__cap:not(:has(> b:first-child)) {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.gap__cap > span {
+	display: block;
 }
 
 /* ── Deviation from a reference ─────────────────────────────────────────── */
@@ -2176,12 +2194,6 @@ point colour for the one row that is ours.
 	stroke-dashoffset: 400;
 }
 
-.wmap__ring {
-	fill: none;
-	stroke: var(--color-accent);
-	stroke-width: 0.4;
-}
-
 .wmap__pin {
 	fill: var(--color-accent);
 }
@@ -2189,14 +2201,42 @@ point colour for the one row that is ours.
 .wmap__sat {
 	fill: var(--color-bg);
 	stroke: var(--color-accent);
-	stroke-width: 0.4;
+	stroke-width: 0.32;
+}
+
+/* Leader and label. The map now says what each territory is without the reader
+   having to look away and match a number to a colour. */
+.wmap__leader {
+	stroke: var(--color-accent);
+	stroke-width: 0.22;
+}
+
+.wmap__tag {
+	font-family: var(--font-sans);
+	font-size: 4px;
+	font-weight: 500;
+	fill: var(--color-text);
+	dominant-baseline: middle;
+}
+
+.wmap__tagseq {
+	font-family: var(--font-mono);
+	font-size: 3.2px;
+	fill: var(--color-accent);
+}
+
+.wmap__sub {
+	font-family: var(--font-sans);
+	font-size: 3.2px;
+	fill: rgba(var(--ink), 0.55);
+	dominant-baseline: middle;
 }
 
 .wmap__node {
 	opacity: 0;
 }
 
-.wmap__seqmark {
+.wmap__seqmark--unused {
 	font-family: var(--font-mono);
 	font-size: 4.4px;
 	fill: var(--color-accent);

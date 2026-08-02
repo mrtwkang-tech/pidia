@@ -300,6 +300,120 @@ EVIDENCE = (
 """
 )
 
+
+# ──────────────────────────────────────────────────────────── 6b. model
+
+MODEL = (
+    head("Model", "What the AI does is <em>one thing</em>")
+    + lede(
+        "Pick, out of hundreds of thousands of CpG sites, the few that best "
+        "explain the disease. Nothing more. The shape of the problem is what "
+        "rules most of the candidate models out."
+    )
+    + '<h3 class="sub">From blood to a matrix</h3>'
+    + """
+<ol class="flow flow--4">
+  <li><b class="num">01</b><h3>Bisulfite conversion</h3><p>Unmethylated C &rarr; U (read as T) · methylated 5mC stays C</p></li>
+  <li><b class="num">02</b><h3>Beadchip hybridisation</h3><p>A complementary probe per CpG site · Type I/II</p></li>
+  <li><b class="num">03</b><h3>Single-base extension</h3><p>The base that attaches decides the fluorescent channel</p></li>
+  <li><b class="num">04</b><h3>Beta value</h3><p>&beta; = M / (M + U + 100) · between 0 and 1</p></li>
+</ol>
+<div class="paper">
+  <p class="paper__cite">The input matrix — rows are people, columns are the <span class="num">&beta;</span> of each CpG site, the label is disease status</p>
+  <p class="paper__note">
+    <b class="num">Hundreds of thousands</b> of columns against
+    <b class="num">hundreds</b> of rows. That ratio is the whole problem, and it
+    has a name: <b>high dimension, low sample size.</b>
+  </p>
+</div>
+"""
+    + '<h3 class="sub">Which is why it is not deep learning</h3>'
+    + """
+<div class="twocol">
+  <div class="twocol__col twocol__col--no">
+    <p class="twocol__label">Not used</p>
+    <ul class="reasons">
+      <li><b>Deep learning (CNN · Transformer)</b> — with hundreds of samples against hundreds of thousands of dimensions, overfitting arrives first. And a black box is a liability in a regulatory submission</li>
+      <li><b>k-NN</b> — at this many dimensions the notion of “distance” stops meaning anything</li>
+    </ul>
+  </div>
+  <div class="twocol__col twocol__col--yes">
+    <p class="twocol__label">Used</p>
+    <ul class="reasons">
+      <li><b>Random forest</b> — accumulating impurity decrease at every split gives a <b>variable importance</b> ranking. Bootstrapping keeps one outlier from steering it, and the tree structure catches non-linearity and interaction without being told to</li>
+      <li><b>Elastic-Net</b> — L1's feature selection with L2's even contribution. The point is the <b>group effect</b>: co-methylated CpGs are kept together or dropped together. LASSO alone keeps one of them at random</li>
+      <li><b>Logistic regression</b> — for the <b>final panel</b>, once it is down to three to five markers. The coefficients have to be explainable for the submission to be a submission</li>
+    </ul>
+  </div>
+</div>
+"""
+    + src(
+        "Zou H &amp; Hastie T, J R Stat Soc B 2005;67:301-320 (Elastic-Net) · "
+        "Breiman L, Machine Learning 2001;45:5-32 (Random Forest) · "
+        "&beta; as defined by the Illumina Infinium assay"
+    )
+    + '<h3 class="sub">The most expensive lesson in this field</h3>'
+    + charts.gapbars(
+        ("Batch-wise processed data", 0.76, "AUC 0.76"),
+        ("Held out, after harmonisation", 0.57, "AUC &lt;0.57"),
+        "Same data, same models. Every cohort, run and lab leaves a technical "
+        "fingerprint, and when cases and controls sit unevenly across batches the "
+        "model learns <b>the batch, not the biology.</b> Across 6 cohorts, 8 "
+        "batches and 12 strategies, not one of the 1,987 nominally significant "
+        "CpGs survived every batch.",
+        lead="",
+    )
+    + '<div class="caution">'
+    + '<p class="caution__label">So, our rule</p>'
+    + "<p>Until a cohort collected independently, elsewhere, has passed batch "
+    + "correction and a held-out validation, <b>we will not state an AUC.</b></p></div>"
+    + '<h3 class="sub">Settled before the model is named</h3>'
+    + """
+<ol class="method">
+  <li>
+    <h3>What is being predicted</h3>
+    <p>A separate model per disease. Cancer, neurodegeneration and chronic stress have different kinds of ground truth, so they do not share a model.</p>
+  </li>
+  <li>
+    <h3>What the ground truth is</h3>
+    <p>Histopathology for cancer; neurologist diagnosis with MRI/PET for neurodegeneration; standardised instruments and follow-up for stress. <b>The reliability of the label is the ceiling on model performance.</b></p>
+  </li>
+  <li>
+    <h3>Who the controls are</h3>
+    <p>Not healthy volunteers — people from the same risk group who did not convert during follow-up. With healthy controls the model learns risk-group membership, not disease.</p>
+  </li>
+  <li>
+    <h3>What is being controlled for</h3>
+    <p>Age, sex, medication, blood cell composition (cell-type deconvolution), batch. Without adjustment the model learns age rather than disease.</p>
+  </li>
+  <li>
+    <h3>How often the validation set is opened</h3>
+    <p>Once. Querying it repeatedly and adjusting is tuning, not validation. Repeat samples from one person all stay on the same side of the split.</p>
+  </li>
+</ol>
+"""
+    + '<h3 class="sub">Prevalence outweighs accuracy</h3>'
+    + charts.gapbars(
+        ("Psychiatric clinic (40% prevalence)", 66.7, "PPV 66.7%"),
+        ("General population (5% prevalence)", 13.6, "PPV 13.6%"),
+        "The <b>same test</b>, at 75% sensitivity and 75% specificity both times. "
+        "Only the prevalence changed. Run a psychiatric biomarker as a "
+        "population screen and 86 of every 100 positives are false. That is why "
+        "our Phase 3 quantifies <b>exposure</b> rather than diagnosing.",
+    )
+    + assumption(
+        "A worked example at 75% sensitivity and specificity, run at 5% and 40% "
+        "prevalence. Not the measured performance of any particular test — a "
+        "demonstration of how Bayes' rule behaves on this problem"
+    )
+    + src(
+        "Sales AJ et al., Acta Neuropsychiatr 2021;33:217-241 · "
+        "Barbu MC et al., 2021 — penalised regression explained 1.75% of depression variance · "
+        "Translational Psychiatry 2024 — 6 cohorts · 8 batches · 12 strategies "
+        "(all classifiers AUC &lt;0.57 after harmonisation)"
+    )
+)
+
 # ────────────────────────────────────────────────────────────── 7. limits
 
 LIMITS = (
@@ -608,13 +722,14 @@ STOPS = [
     {
         "seq": "01",
         "name": "Georgia",
+        "tag": "12.0% uninsured · 53 counties, no hospital",
         "role": "Beachhead · 0–2 yr",
         "region": "georgia",
         "paint": 3,
         "lon": -83.44,
         "lat": 32.68,
         "r": 3.0,
-        "nudge": (-7.4, 3.6),
+        "nudge": (-4.0, 14.0),
         "jump": False,
         "bow": 0,
         "sats": [],
@@ -633,13 +748,14 @@ STOPS = [
     {
         "seq": "02",
         "name": "United States",
+        "tag": "SAM $1.75B · 106.7 M aged 50–79",
         "role": "Expansion · 2–4 yr",
         "region": "usa",
         "paint": 0,
         "lon": -98.35,
         "lat": 39.50,
         "r": 3.4,
-        "nudge": (-1.8, -5.6),
+        "nudge": (0.0, -13.0),
         "jump": False,
         "bow": 0,
         "sats": [
@@ -662,13 +778,14 @@ STOPS = [
     {
         "seq": "03",
         "name": "Africa",
+        "tag": "No cold chain · 0 draw centres",
         "role": "NGO channel · 4 yr +",
         "region": "africa",
         "paint": 1,
         "lon": 21.0,
         "lat": 2.0,
         "r": 3.4,
-        "nudge": (2.9, 1.6),
+        "nudge": (15.0, 7.0),
         "jump": True,
         "bow": 26,
         "sats": [
@@ -689,13 +806,14 @@ STOPS = [
     {
         "seq": "04",
         "name": "Korea",
+        "tag": "National screening · IVD pathway",
         "role": "Development · IP base",
         "region": "korea",
         "paint": 2,
         "lon": 127.6,
         "lat": 36.4,
         "r": 2.6,
-        "nudge": (3.0, 1.6),
+        "nudge": (5.5, -6.0),
         "jump": True,
         "bow": -22,
         "sats": [],
@@ -806,6 +924,7 @@ SECTIONS = [
     {"id": "flow", "label": "Solution", "cls": "sec", "html": FLOW},
     {"id": "kit", "label": "Kit", "cls": "kitscroll", "html": KIT},
     {"id": "evidence", "label": "Evidence", "cls": "sec", "html": EVIDENCE},
+    {"id": "model", "label": "Model", "cls": "sec", "html": MODEL},
     {"id": "limits", "label": "Limits", "cls": "sec", "html": LIMITS},
     {"id": "roadmap", "label": "Roadmap", "cls": "sec", "html": ROADMAP_SEC},
     {"id": "market", "label": "Market", "cls": "sec", "html": MARKET},
