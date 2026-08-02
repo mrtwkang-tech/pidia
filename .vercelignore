@@ -1,0 +1,14 @@
+# Build inputs and generators — the site is the generated HTML/CSS/JS only.
+_build/
+_deploy/
+
+# Local tooling state
+.gstack/
+.claude/
+__pycache__/
+*.pyc
+
+# Holds a VERCEL_OIDC_TOKEN written by `vercel link`, and the project link itself.
+# Vercel already declines to serve these — this makes it explicit.
+.env.local
+.vercel/

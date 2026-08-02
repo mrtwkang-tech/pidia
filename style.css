@@ -1,0 +1,2496 @@
+/* ========================================
+Tokens — white paper, one hue at two weights
+
+The page is white and every surface on it is white. Cards, panels and table
+cells are separated by a hairline, not by a fill, so the only thing on the page
+carrying colour is the thing being emphasised.
+
+#b8e5e0 sits at 72% lightness. That makes it unusable as ink — 1.37:1 on white,
+invisible — and excellent as a fill, since near-black on it reads 13:1. So the
+hue is carried at two weights and the weight is decided by the job:
+
+  --color-point   #b8e5e0   fills only. Eight blocks on the whole page, and
+                            every one of them means the same thing: this row,
+                            this tier, this phase is the one to look at.
+  --color-accent  #0a5b52   the same hue with the lights off, for type and
+                            rules. 8:1 on white.
+
+Blood red is the only value that leaves the hue, and it appears exclusively
+where blood is depicted. Straw yellow stays in the 3D scene alone: plasma is
+straw-coloured in fact, so it is a measurement of the object, not a choice
+about the page.
+======================================== */
+:root {
+	/* Raw channels, so every tint below derives from one place. The accent has no
+	   channel form because nothing needs it at partial alpha any more — it is
+	   type and rules, and both want it solid. */
+	--ink: 9, 28, 26;
+	--point-rgb: 184, 229, 224;
+
+	--color-bg: #ffffff;
+	/* Same white as the page on purpose. The token stays because "raised
+	   surface" is still a distinct role — if this palette ever grows a fill
+	   again, eleven card surfaces change on this one line. */
+	--color-bg-soft: #ffffff;
+	/* The only neutral that is neither white nor ink. Reserved for the two
+	   surfaces that have to read as set *back* rather than raised. */
+	--color-bg-sink: #f4f6f7;
+	--color-text: #091c1a;
+	--color-text-muted: rgba(var(--ink), 0.68);
+	--color-text-dim: rgba(var(--ink), 0.52);
+	--color-line: rgba(var(--ink), 0.16);
+	--color-line-soft: rgba(var(--ink), 0.08);
+
+	--color-accent: #0a5b52;
+	--color-point: #b8e5e0;
+	--color-blood: #8f1d24;
+
+	/* Three roles, and the split is by job rather than by script.
+
+	   Display — headings, the wordmark, the thesis line. Newsreader carries the
+	   Latin and Noto Serif KR the Hangul; both are editorial serifs with a live
+	   weight axis, so a heading at 600 and a hero at 700 come off one file each.
+	   A page this dense with journals, cohort sizes and DOIs should look like the
+	   literature it cites, not like a pitch.
+
+	   Body — Wanted Sans covers Latin and Hangul in one family, so a run like
+	   "GRAIL 침투율 0.17%" is set in a single face instead of two meeting
+	   mid-word. That is the whole reason it is not paired with a Latin sans.
+
+	   Data — Roboto Mono, scoped to Latin/numerals only. Deliberately the plainest
+	   of the three: column alignment is its job, and a decorated zero in a table
+	   of AUCs and prices is a costume. */
+	--font-display: Newsreader, "Noto Serif KR", ui-serif, Georgia,
+		"Apple SD Gothic Neo", serif;
+	--font-sans: "Wanted Sans Variable", "Wanted Sans", -apple-system,
+		BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+	--font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+	--pad: clamp(1.25rem, 4vw, 4rem);
+	--maxw: 62rem;
+	--rail-w: 13rem;
+	--panel-w: clamp(18rem, 30vw, 23rem);
+	--topbar-h: 60px;
+}
+
+/* ========================================
+Reset & Base
+======================================== */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+	scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+	display: none;
+}
+
+body {
+	font-family: var(--font-sans);
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.68;
+	letter-spacing: -0.011em;
+	color: var(--color-text);
+	background: var(--color-bg);
+	/* clip, not hidden — `hidden` makes body a scroll container in some engines
+	   and silently breaks descendant position:sticky on iOS. */
+	overflow-x: clip;
+	-webkit-font-smoothing: antialiased;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+button {
+	font: inherit;
+	color: inherit;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+/* Korean breaks anywhere by default, which splits words mid-phrase.
+
+   Tracking is much closer to zero than the grotesque wanted. A serif's fit is
+   drawn into the sidebearings — the serifs themselves are the spacing — so
+   pulling it tight the way you would a grotesque collides the brackets. */
+h1,
+h2,
+h3,
+h4 {
+	font-family: var(--font-display);
+	word-break: keep-all;
+	font-weight: 600;
+	letter-spacing: -0.014em;
+	text-wrap: balance;
+}
+
+em {
+	font-style: normal;
+	font-weight: inherit;
+	color: var(--color-accent);
+}
+
+b,
+strong {
+	font-weight: 600;
+}
+
+/* The data face. Latin and figures only — never wraps Hangul, so the two
+   families never meet inside one string. */
+.num {
+	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
+	font-weight: 400;
+	letter-spacing: -0.03em;
+}
+
+/* Nothing in 2,353 lines of the previous stylesheet gave keyboard focus a
+   visible state. The rail puts ten tab stops in front of the content. */
+:focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 3px;
+	border-radius: 2px;
+}
+
+.skip {
+	position: fixed;
+	top: 0.5rem;
+	left: 0.5rem;
+	z-index: 100;
+	padding: 0.6rem 1rem;
+	background: var(--color-text);
+	color: var(--color-bg);
+	font-size: 0.8125rem;
+	border-radius: 3px;
+	transform: translateY(-160%);
+	transition: transform 0.2s ease;
+}
+
+.skip:focus {
+	transform: none;
+}
+
+/* ========================================
+Rail — section index
+The kit gets one entry with a progress fill and a step readout. The seven
+labelled step controls live inside the pin; duplicating them here would put two
+competing controls for the same thing on screen at once.
+======================================== */
+.rail {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 20;
+	width: var(--rail-w);
+	height: 100svh;
+	display: flex;
+	align-items: center;
+	padding-left: var(--pad);
+	pointer-events: none;
+}
+
+.rail ol {
+	display: grid;
+	gap: 0.05rem;
+	pointer-events: auto;
+}
+
+.rail a {
+	display: grid;
+	grid-template-columns: 1.75rem 1fr;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.3rem 0;
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+	transition: color 0.25s ease;
+}
+
+.rail a i {
+	display: block;
+	height: 1px;
+	background: currentColor;
+	transition: transform 0.3s ease;
+	transform: scaleX(0.42);
+	transform-origin: left center;
+}
+
+.rail a:hover {
+	color: var(--color-text-muted);
+}
+
+.rail a.is-active {
+	color: var(--color-text);
+}
+
+.rail a.is-active i {
+	transform: scaleX(1);
+	background: var(--color-accent);
+}
+
+.rail__count {
+	grid-column: 2;
+	font-size: 0.625rem;
+	color: var(--color-accent);
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}
+
+.rail__kit a.is-active .rail__count {
+	opacity: 1;
+}
+
+/* ========================================
+Topbar — wordmark only. The rail carries navigation now.
+======================================== */
+.topbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 21;
+	display: flex;
+	align-items: center;
+	height: var(--topbar-h);
+	padding-inline: var(--pad);
+	pointer-events: none;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	pointer-events: auto;
+}
+
+.logo__icon {
+	width: 12px;
+	height: 12px;
+	color: var(--color-accent);
+}
+
+/* PIDIA is the one string on the page that is Latin all the way through, so the
+   wordmark is pure Newsreader with no Hangul beside it to match. */
+.logo__text {
+	font-family: var(--font-display);
+	font-size: 0.9375rem;
+	font-weight: 700;
+	letter-spacing: 0.13em;
+}
+
+/* ========================================
+Section shell
+======================================== */
+main {
+	padding-left: var(--rail-w);
+}
+
+.sec {
+	position: relative;
+	/* The canvas is fixed at z-index 0. Without a stacking context of its own a
+	   reading section paints *underneath* it, which the old build got away with
+	   only because the canvas happened to sit at opacity 0. */
+	z-index: 1;
+	background: var(--color-bg);
+	max-width: var(--maxw);
+	padding: clamp(4.5rem, 8vh, 7rem) var(--pad);
+	scroll-margin-top: var(--topbar-h);
+}
+
+.sec + .sec {
+	border-top: 1px solid var(--color-line-soft);
+}
+
+.sec--hero {
+	/* The object needs the room; the copy sits over it. */
+	background: none;
+	min-height: 100svh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-block: calc(var(--topbar-h) + 3rem) 4rem;
+}
+
+.sec__head {
+	margin-bottom: 2.5rem;
+}
+
+.kicker {
+	font-size: 0.75rem;
+	color: var(--color-accent);
+	margin-bottom: 0.875rem;
+}
+
+.sec__title {
+	font-size: clamp(1.5rem, 3.4vw, 2.25rem);
+	line-height: 1.22;
+}
+
+.lede {
+	max-width: 40rem;
+	margin-bottom: 2.5rem;
+	font-size: 1.0625rem;
+	line-height: 1.7;
+	color: var(--color-text-muted);
+}
+
+.prose {
+	max-width: 40rem;
+	display: grid;
+	gap: 1rem;
+	margin-top: 2rem;
+	color: var(--color-text-muted);
+}
+
+.sub {
+	margin: 3.5rem 0 1.25rem;
+	font-size: 1.0625rem;
+	font-weight: 600;
+}
+
+/* Provenance. Every figure on the page has one of these under it. */
+.src {
+	margin-top: 0.875rem;
+	font-size: 0.75rem;
+	line-height: 1.6;
+	color: var(--color-text-dim);
+	max-width: 44rem;
+}
+
+.src::before {
+	content: "출처 ";
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	letter-spacing: 0.04em;
+	opacity: 0.7;
+}
+
+.src--assumed::before {
+	content: "가정 ";
+	color: var(--color-accent);
+}
+
+/* ========================================
+Hero
+======================================== */
+.eyebrow {
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	letter-spacing: 0.02em;
+	color: var(--color-text-dim);
+}
+
+.hero__title {
+	margin-top: 1.5rem;
+	font-size: clamp(2.25rem, 6vw, 4rem);
+	font-weight: 700;
+	line-height: 1.08;
+	letter-spacing: -0.022em;
+}
+
+.hero__lede {
+	margin-top: 1.75rem;
+	max-width: 32rem;
+	font-size: 1.0625rem;
+	line-height: 1.7;
+	color: var(--color-text-muted);
+}
+
+.thesis {
+	margin-top: 2.5rem;
+	max-width: 34rem;
+	padding-left: 1.125rem;
+	border-left: 2px solid var(--color-accent);
+}
+
+.thesis blockquote {
+	font-family: var(--font-display);
+	font-size: clamp(1.0625rem, 1.9vw, 1.3125rem);
+	line-height: 1.5;
+	letter-spacing: -0.01em;
+	word-break: keep-all;
+}
+
+.thesis--inline {
+	margin-top: 3rem;
+}
+
+.sec--hero .dims {
+	margin-top: 3rem;
+}
+
+/* Dimension callouts — the real CAD figures */
+.dims {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+	gap: 1px;
+	/* Padding would sit inside the grid background and show as a slab above the
+	   row; the gap colour has to start at the cells. */
+	margin-top: auto;
+	background: var(--color-line-soft);
+	border-top: 1px solid var(--color-line-soft);
+}
+
+.dims div {
+	display: grid;
+	gap: 0.2rem;
+	padding: 0.875rem 0 0;
+	background: var(--color-bg);
+}
+
+.dims dt {
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+.dims dd {
+	font-size: 0.9375rem;
+}
+
+/* ========================================
+Stats — a row of headline figures
+======================================== */
+.stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+	gap: 1px;
+	background: var(--color-line-soft);
+	border: 1px solid var(--color-line-soft);
+}
+
+.stat {
+	display: grid;
+	gap: 0.3rem;
+	padding: 1.5rem 1.25rem;
+	background: var(--color-bg-soft);
+}
+
+.stat b {
+	font-size: clamp(1.5rem, 3vw, 2rem);
+	font-weight: 500;
+	line-height: 1;
+}
+
+.stat span {
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.stat i {
+	font-style: normal;
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+/* ========================================
+Cards
+======================================== */
+.cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+	gap: 1px;
+	background: var(--color-line-soft);
+	border: 1px solid var(--color-line-soft);
+}
+
+.cards--3 {
+	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.card {
+	padding: 1.75rem 1.5rem;
+	background: var(--color-bg-soft);
+}
+
+.card--lead {
+	background: var(--color-point);
+}
+
+.card h3 {
+	font-size: 1.125rem;
+}
+
+.card__sub {
+	margin-top: 0.2rem;
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+}
+
+.card p:not(.card__sub) {
+	margin-top: 0.875rem;
+	font-size: 0.875rem;
+	line-height: 1.65;
+	color: var(--color-text-muted);
+}
+
+.reasons {
+	display: grid;
+	gap: 0.5rem;
+	margin-top: 1rem;
+	font-size: 0.8125rem;
+	line-height: 1.55;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.reasons li {
+	padding-left: 0.75rem;
+	border-left: 1px solid var(--color-line);
+}
+
+/* ========================================
+Papers — the peer-reviewed evidence blocks
+======================================== */
+.paper {
+	margin-top: 1.25rem;
+	padding: 1.75rem;
+	background: var(--color-bg-soft);
+	border: 1px solid var(--color-line);
+}
+
+.paper--lead {
+	border-color: var(--color-accent);
+	border-left-width: 2px;
+}
+
+.paper__cite {
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+}
+
+.paper__nums {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+	gap: 1.25rem;
+	margin-top: 1.25rem;
+	padding-block: 1.25rem;
+	border-top: 1px solid var(--color-line-soft);
+	border-bottom: 1px solid var(--color-line-soft);
+}
+
+.paper__nums b {
+	display: block;
+	font-size: clamp(1.625rem, 3.4vw, 2.25rem);
+	font-weight: 400;
+	line-height: 1;
+	color: var(--color-accent);
+}
+
+.paper--lead .paper__nums b {
+	color: var(--color-text);
+}
+
+.paper__nums span {
+	display: block;
+	margin-top: 0.4rem;
+	font-size: 0.75rem;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.paper__nums i {
+	display: block;
+	font-style: normal;
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+.paper__cohort {
+	margin-top: 1.125rem;
+	font-size: 0.875rem;
+}
+
+.paper__note {
+	margin-top: 0.75rem;
+	font-size: 0.8125rem;
+	line-height: 1.65;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+/* ========================================
+Facts — label/value list
+======================================== */
+.facts {
+	display: grid;
+	gap: 1px;
+	background: var(--color-line-soft);
+	border: 1px solid var(--color-line-soft);
+}
+
+.facts li {
+	display: grid;
+	grid-template-columns: 5rem 1fr;
+	align-items: baseline;
+	gap: 1.25rem;
+	padding: 0.875rem 1.25rem;
+	background: var(--color-bg-soft);
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+}
+
+.facts b {
+	font-size: 1.0625rem;
+	font-weight: 400;
+	color: var(--color-text);
+}
+
+/* ========================================
+Cost structure
+======================================== */
+.costgrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+	gap: 1px;
+	background: var(--color-line-soft);
+	border: 1px solid var(--color-line-soft);
+}
+
+.costgrid__col {
+	padding: 1.75rem 1.5rem;
+	background: var(--color-bg-soft);
+}
+
+.costgrid__col h3 {
+	font-size: 0.8125rem;
+	font-weight: 400;
+	color: var(--color-text-dim);
+}
+
+.costlist {
+	margin-top: 1rem;
+}
+
+.costlist li {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.5rem 0;
+	border-bottom: 1px solid var(--color-line-soft);
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+}
+
+.costlist b {
+	font-size: 0.9375rem;
+	font-weight: 400;
+	color: var(--color-text);
+	white-space: nowrap;
+}
+
+.costlist__sum {
+	border-bottom: none;
+	border-top: 1px solid var(--color-line);
+	margin-top: 0.3rem;
+	padding-top: 0.75rem;
+	color: var(--color-text);
+}
+
+.costlist__sum b {
+	font-size: 1.125rem;
+	color: var(--color-accent);
+}
+
+/* ========================================
+Method — the design-principles list. Numbering is real here: these are
+sequential decisions, each depending on the one above.
+======================================== */
+.method {
+	counter-reset: m;
+	display: grid;
+	gap: 1px;
+	background: var(--color-line-soft);
+	border: 1px solid var(--color-line-soft);
+}
+
+.method > li {
+	counter-increment: m;
+	display: grid;
+	grid-template-columns: 3rem 1fr;
+	gap: 0.5rem 1.5rem;
+	padding: 1.75rem 1.5rem;
+	background: var(--color-bg-soft);
+}
+
+.method > li::before {
+	content: counter(m, decimal-leading-zero);
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+	color: var(--color-accent);
+}
+
+.method h3 {
+	font-size: 1.0625rem;
+}
+
+.method p {
+	grid-column: 2;
+	max-width: 42rem;
+	font-size: 0.875rem;
+	line-height: 1.7;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.method p + p {
+	margin-top: 0.75rem;
+}
+
+.method__seq {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.25rem;
+	margin-top: 1.25rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--color-line-soft);
+	font-size: 0.75rem;
+}
+
+.method__seq .num {
+	color: var(--color-accent);
+	margin-right: 0.3rem;
+}
+
+.method__seq i {
+	font-style: normal;
+	color: var(--color-text-dim);
+	margin-left: 0.3rem;
+}
+
+/* ========================================
+Kit — pinned scroll scrub
+
+The spacer is the scroll budget: seven dwells plus one viewport for the pin to
+sit in. `svh` and not `dvh`, because a mobile URL bar collapsing mid-scrub would
+move the denominator the progress is measured against.
+======================================== */
+.kitscroll {
+	--kit-steps: 7;
+	--kit-dwell: max(85svh, 30rem);
+	position: relative;
+	z-index: 1;
+	height: calc(var(--kit-steps) * var(--kit-dwell) + 100svh);
+	/* renderPanel() replaces the panel's children mid-pin, and scroll anchoring
+	   would chase that height change. */
+	overflow-anchor: none;
+}
+
+.kitscroll__pin {
+	position: sticky;
+	top: 0;
+	height: 100svh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	max-width: var(--maxw);
+	padding: calc(var(--topbar-h) + 1.25rem) var(--pad) 1.5rem;
+	/* Orbit and drag pass through to the canvas underneath. */
+	pointer-events: none;
+}
+
+.sec__head--stage {
+	margin-bottom: 0;
+}
+
+.stage__hint {
+	justify-self: end;
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+/* No travel to scrub — short viewport, or reduced motion collapsing the
+   spacer — so the step controls carry the section on their own. */
+.reduced-motion .kitscroll {
+	--kit-dwell: 0px;
+}
+
+@media (max-height: 560px) {
+	.kitscroll {
+		--kit-dwell: 0px;
+	}
+
+	.kitscroll__pin .sec__head {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.kitscroll {
+		--kit-dwell: 0px;
+	}
+
+	* {
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* ========================================
+Responsive
+======================================== */
+@media (max-width: 1080px) {
+	:root {
+		--rail-w: 0px;
+	}
+
+	main {
+		padding-left: 0;
+	}
+
+	/* The rail becomes a scroll-progress line rather than a list — a vertical
+	   index has nowhere to live at this width, and a bottom bar would collide
+	   with the step controls inside the pin. */
+	.rail {
+		top: var(--topbar-h);
+		left: 0;
+		width: 100%;
+		height: 2px;
+		padding: 0;
+		background: var(--color-line-soft);
+	}
+
+	.rail ol {
+		display: flex;
+		width: 100%;
+	}
+
+	.rail li {
+		flex: 1;
+	}
+
+	.rail a {
+		grid-template-columns: 1fr;
+		gap: 0;
+		padding: 0;
+		height: 2px;
+	}
+
+	.rail a span,
+	.rail__count {
+		display: none;
+	}
+
+	.rail a i {
+		transform: scaleX(0);
+		height: 2px;
+	}
+
+	.rail a.is-active i,
+	.rail li:has(~ li a.is-active) a i {
+		transform: scaleX(1);
+	}
+}
+
+@media (max-width: 720px) {
+	.method > li {
+		grid-template-columns: 1fr;
+	}
+
+	.method p {
+		grid-column: 1;
+	}
+
+	.paper {
+		padding: 1.25rem;
+	}
+}
+
+/* ========================================
+Canvas
+======================================== */
+.webgl {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	opacity: 0;
+	transition: opacity 0.45s ease;
+	cursor: grab;
+}
+
+.webgl:active {
+	cursor: grabbing;
+}
+
+/* ========================================
+Kit step panel
+======================================== */
+.panel {
+	align-self: center;
+	width: var(--panel-w);
+	max-height: 100%;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	pointer-events: auto;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(var(--ink), 0.24) transparent;
+}
+
+.panel__kicker {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+	font-size: 0.8125rem;
+	letter-spacing: normal;
+	color: var(--color-text-dim);
+}
+
+.panel__kicker b {
+	font-weight: 500;
+	color: var(--color-accent);
+}
+
+.panel__title {
+	margin-top: 0.75rem;
+	font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+	line-height: 1.3;
+}
+
+.panel__lede {
+	margin-top: 0.875rem;
+	font-size: 0.875rem;
+	line-height: 1.6;
+	color: var(--color-text-muted);
+}
+
+.panel__specs {
+	margin-top: 1.375rem;
+	border-top: 1px solid var(--color-line);
+}
+
+.panel__specs div {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.4375rem 0;
+	border-bottom: 1px solid var(--color-line-soft);
+}
+
+.panel__specs dt {
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+	white-space: nowrap;
+}
+
+.panel__specs dd {
+	font-size: 0.75rem;
+	text-align: right;
+}
+
+.panel__lists {
+	display: grid;
+	gap: 1.375rem;
+	margin-top: 1.375rem;
+}
+
+.panel__lists:empty {
+	margin-top: 0;
+}
+
+.panel__lists h3 {
+	font-size: 0.8125rem;
+	font-weight: 400;
+	letter-spacing: normal;
+	color: var(--color-text-dim);
+}
+
+.panel__lists ol {
+	margin-top: 0.5rem;
+	counter-reset: proto;
+}
+
+.panel__lists li {
+	position: relative;
+	padding-left: 1.75rem;
+	font-size: 0.8125rem;
+	line-height: 1.6;
+	color: var(--color-text-muted);
+	counter-increment: proto;
+}
+
+.panel__lists li::before {
+	content: counter(proto, decimal-leading-zero);
+	position: absolute;
+	left: 0;
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+.panel__note {
+	margin-top: 1.375rem;
+	padding-left: 0.75rem;
+	border-left: 1px solid var(--color-accent);
+	font-size: 0.8125rem;
+	line-height: 1.65;
+	color: var(--color-text-muted);
+}
+
+.panel__note:empty {
+	display: none;
+}
+
+.stepnav {
+	display: flex;
+	justify-content: center;
+	padding-bottom: 2rem;
+}
+
+.stepper {
+	display: flex;
+	align-items: stretch;
+	gap: 0.25rem;
+}
+
+.stepper li {
+	display: flex;
+	min-width: 0;
+}
+
+.stepper button {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	padding: 0.5rem 0.625rem 0;
+	text-align: left;
+	white-space: nowrap;
+	pointer-events: auto;
+}
+
+.stepper i {
+	display: block;
+	height: 1px;
+	background: var(--color-line);
+	transition: background-color 0.3s ease;
+}
+
+.stepper span {
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+	transition: color 0.3s ease;
+}
+
+.stepper button:hover span {
+	color: var(--color-text-muted);
+}
+
+.stepper button[aria-current="true"] span {
+	color: var(--color-text);
+}
+
+.stepper button[aria-current="true"] i {
+	background: var(--color-accent);
+}
+
+/* ========================================
+Market — comparison table
+======================================== */
+
+.compare__scroll {
+	overflow-x: auto;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(var(--ink), 0.24) transparent;
+}
+
+.ctable {
+	width: 100%;
+	min-width: 46rem;
+	font-size: 0.8125rem;
+}
+
+.ctable th[scope="col"] {
+	padding: 0.5rem 1rem 0.5rem 0;
+	border-bottom: 1px solid var(--color-line);
+	font-size: 0.625rem;
+	font-weight: 400;
+	letter-spacing: normal;
+	color: var(--color-text-dim);
+	text-align: left;
+	white-space: nowrap;
+}
+
+.ctable th[scope="row"] {
+	font-weight: 400;
+	color: var(--color-text);
+	text-align: left;
+}
+
+.ctable td,
+.ctable th[scope="row"] {
+	padding: 0.6875rem 1rem 0.6875rem 0;
+	border-bottom: 1px solid var(--color-line-soft);
+	color: var(--color-text-muted);
+	vertical-align: top;
+}
+
+.ctable b {
+	font-weight: 400;
+	color: var(--color-text);
+}
+
+.ctable__ours th[scope="row"],
+.ctable__ours td {
+	background: var(--color-point);
+	color: var(--color-text);
+}
+
+/* ========================================
+Footer
+======================================== */
+.footer {
+	position: relative;
+	z-index: 2;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+	gap: 2rem;
+	padding-block: 2.5rem 3.5rem;
+	padding-inline: max(var(--pad), calc((100vw - var(--maxw)) / 2));
+	border-top: 1px solid var(--color-line-soft);
+	background: var(--color-bg);
+}
+
+.footer__brand p {
+	margin-top: 0.4375rem;
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+}
+
+.footer__note {
+	font-size: 0.6875rem;
+	line-height: 1.65;
+	color: var(--color-text-dim);
+}
+
+/* ========================================
+Kit page — step buttons
+======================================== */
+.stepnav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.stepbtn {
+	display: grid;
+	place-items: center;
+	flex: none;
+	width: 32px;
+	height: 32px;
+	border: 1px solid var(--color-line);
+	border-radius: 999px;
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+	pointer-events: auto;
+	transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.stepbtn:hover:not(:disabled) {
+	border-color: var(--color-accent);
+	color: var(--color-text);
+}
+
+.stepbtn:disabled {
+	opacity: 0.25;
+	cursor: default;
+}
+
+/* ========================================
+Market — TAM / SAM / SOM funnel
+======================================== */
+.funnel {
+	/* Block, not grid: a percentage width on a grid item resolves against a
+	   column that is itself sized from the items, and all three tiers collapsed
+	   onto their min-width. */
+	display: block;
+}
+
+.funnel__step {
+	width: var(--w);
+	min-width: 15rem;
+	padding: 1.25rem 1.5rem;
+	background: linear-gradient(
+		90deg,
+		rgba(var(--ink), 0.05),
+		rgba(var(--ink), 0.015)
+	);
+	border: 1px solid var(--color-line);
+	border-left: 3px solid var(--color-text-muted);
+}
+
+.funnel__step--ours {
+	background: linear-gradient(
+		90deg,
+		var(--color-point),
+		rgba(var(--point-rgb), 0.15)
+	);
+	/* Same hairline as its neighbours. A mint border on white loses the tier's
+	   right edge exactly where the fill has faded out. */
+	border-color: var(--color-line);
+	border-left-color: var(--color-accent);
+}
+
+.funnel__tier {
+	display: flex;
+	align-items: baseline;
+	gap: 0.625rem;
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	letter-spacing: normal;
+	color: var(--color-text-dim);
+}
+
+.funnel__tier b {
+	font-family: var(--font-sans);
+	font-size: 0.6875rem;
+	font-weight: 500;
+	letter-spacing: 0;
+	color: var(--color-text-muted);
+}
+
+.funnel__val {
+	margin-top: 0.125rem;
+	font-variant-numeric: tabular-nums;
+	font-size: clamp(1.75rem, 4vw, 2.75rem);
+	font-weight: 400;
+	line-height: 1.1;
+	letter-spacing: -0.03em;
+}
+
+.funnel__val i {
+	font-style: normal;
+	font-size: 0.5em;
+	color: var(--color-text-muted);
+}
+
+.funnel__desc {
+	margin-top: 0.375rem;
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+}
+
+.funnel__arrow {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.5rem 0 0.5rem 1.5rem;
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+.funnel__arrow::before {
+	content: "↓";
+	font-family: var(--font-mono);
+}
+
+
+/* ========================================
+Deck components
+The pitch deck's argument is built out of comparisons, admissions and staged
+plans, so the page needs shapes for those rather than more prose blocks.
+======================================== */
+
+/* A single headline figure, given the room it deserves */
+.stats--lead {
+	grid-template-columns: 1fr;
+	border: none;
+	background: none;
+	margin-bottom: 1.5rem;
+}
+
+.stats--lead .stat {
+	padding: 0;
+	background: none;
+}
+
+.stats--lead .stat b {
+	font-size: clamp(2.75rem, 8vw, 5rem);
+	letter-spacing: -0.04em;
+}
+
+/* 80 / 20 proportion bar — the deck's single most quotable statistic */
+.split {
+	margin-block: 1.5rem 0;
+}
+
+.split__bar {
+	display: flex;
+	height: 3.5rem;
+	border: 1px solid var(--color-line);
+}
+
+.split__seg {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+	width: var(--w);
+	padding-inline: 1rem;
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+	border-right: 1px solid var(--color-line);
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.split__seg:last-child {
+	border-right: none;
+}
+
+/* The deck's single most quotable statistic, so the 80 gets the point colour at
+   full strength rather than a wash of it. */
+.split__seg--a {
+	background: var(--color-point);
+	color: var(--color-text);
+}
+
+.split__seg b {
+	font-size: 1.25rem;
+	font-weight: 500;
+}
+
+.split__seg--a b {
+	color: var(--color-accent);
+}
+
+.split__note {
+	margin-top: 0.875rem;
+	font-size: 0.9375rem;
+}
+
+/* Card variants */
+.card__tag {
+	font-size: 0.75rem;
+	color: var(--color-accent);
+	margin-bottom: 0.625rem;
+}
+
+.card--muted {
+	background: var(--color-bg-sink);
+}
+
+.card--muted .card__tag {
+	color: var(--color-text-dim);
+}
+
+.quote {
+	margin: 0.875rem 0;
+	padding-left: 0.875rem;
+	border-left: 2px solid var(--color-line);
+	font-size: 0.9375rem;
+	line-height: 1.55;
+	word-break: keep-all;
+}
+
+/* Six-step flow. Numbering is real here — it is a sequence.
+
+   Column counts are divisors of six, not auto-fit. auto-fit resolved to four at
+   desktop width and left two cells empty, and an empty cell in this grid is not
+   blank — the gap technique paints the container through it, so the hole read as
+   a deliberate mint block sitting inside the sequence. */
+.flow {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1px;
+	margin-bottom: 1px;
+	background: var(--color-line-soft);
+	border: 1px solid var(--color-line-soft);
+}
+
+@media (max-width: 60rem) {
+	.flow {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 34rem) {
+	.flow {
+		grid-template-columns: 1fr;
+	}
+}
+
+.flow li {
+	display: grid;
+	gap: 0.3rem;
+	align-content: start;
+	padding: 1.25rem 1.125rem;
+	background: var(--color-bg-soft);
+}
+
+.flow b {
+	font-size: 0.75rem;
+	font-weight: 400;
+	color: var(--color-accent);
+}
+
+.flow h3 {
+	font-size: 0.9375rem;
+}
+
+.flow p {
+	font-size: 0.75rem;
+	line-height: 1.55;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+/* Admissions. The deck states its own weaknesses before it is asked, and that
+   is the most credible thing on the page — so it gets a shape, not a footnote. */
+.caution {
+	margin-top: 1.5rem;
+	padding: 1.25rem 1.5rem;
+	/* No fill. The 2px rule already marks it, and on white paper a block that is
+	   both filled and ruled is marked twice for one idea. */
+	border-left: 2px solid var(--color-accent);
+	font-size: 0.875rem;
+	line-height: 1.7;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.caution--rule {
+	border-left-color: var(--color-text);
+}
+
+.caution__label {
+	margin-bottom: 0.5rem;
+	font-size: 0.75rem;
+	color: var(--color-accent);
+}
+
+.caution--rule .caution__label {
+	color: var(--color-text);
+}
+
+.caution b {
+	color: var(--color-text);
+}
+
+/* Phased roadmap — three tiers with declining evidence strength */
+.phases {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+	gap: 1px;
+	background: var(--color-line-soft);
+	border: 1px solid var(--color-line-soft);
+}
+
+.phase {
+	display: grid;
+	gap: 0.4rem;
+	align-content: start;
+	padding: 1.5rem 1.375rem;
+	background: var(--color-bg-soft);
+}
+
+.phase--now {
+	background: var(--color-point);
+}
+
+.phase__no {
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+}
+
+.phase--now .phase__no {
+	color: var(--color-accent);
+}
+
+.phase h3 {
+	font-size: 1.25rem;
+}
+
+.phase p:not(.phase__no):not(.phase__grade) {
+	font-size: 0.8125rem;
+	line-height: 1.6;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.phase__grade {
+	margin-top: 0.4rem;
+	padding-top: 0.6rem;
+	border-top: 1px solid var(--color-line-soft);
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+}
+
+/* Two-column claim / counter-claim */
+.twocol {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+	gap: 1px;
+	background: var(--color-line-soft);
+	border: 1px solid var(--color-line-soft);
+}
+
+.twocol__col {
+	padding: 1.5rem 1.375rem;
+	background: var(--color-bg-soft);
+}
+
+.twocol__col > p:not(.twocol__label) {
+	font-size: 0.875rem;
+	line-height: 1.65;
+	word-break: keep-all;
+}
+
+.twocol__label {
+	margin-bottom: 0.875rem;
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+}
+
+.twocol__col--caution,
+.twocol__col--no {
+	background: var(--color-bg-sink);
+}
+
+.twocol__col--no .twocol__label::before {
+	content: "✕ ";
+}
+
+.twocol__col--yes .twocol__label {
+	color: var(--color-accent);
+}
+
+.twocol__col--yes .twocol__label::before {
+	content: "✓ ";
+}
+
+/* Milestones — a real sequence with a flagged riskiest item */
+.ms {
+	display: grid;
+	gap: 1px;
+	background: var(--color-line-soft);
+	border: 1px solid var(--color-line-soft);
+}
+
+.ms__item {
+	display: grid;
+	grid-template-columns: 8rem 1fr auto;
+	gap: 0.4rem 1.5rem;
+	align-items: baseline;
+	padding: 1.5rem 1.375rem;
+	background: var(--color-bg-soft);
+}
+
+.ms__item--risk {
+	background: var(--color-point);
+}
+
+.ms__no {
+	grid-row: 1 / span 2;
+	font-size: 0.8125rem;
+	color: var(--color-text-dim);
+}
+
+.ms__item--risk .ms__no {
+	color: var(--color-accent);
+}
+
+.ms__item h3 {
+	font-size: 1.0625rem;
+}
+
+.ms__item > p:not(.ms__no):not(.ms__tag) {
+	grid-column: 2;
+	max-width: 40rem;
+	font-size: 0.8125rem;
+	line-height: 1.65;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.ms__tag {
+	grid-column: 3;
+	grid-row: 1;
+	justify-self: end;
+	padding: 0.2rem 0.6rem;
+	border: 1px solid var(--color-line);
+	border-radius: 999px;
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+	white-space: nowrap;
+}
+
+.ms__item--risk .ms__tag {
+	border-color: var(--color-accent);
+	color: var(--color-accent);
+}
+
+/* The dimension table now sits inside the kit section rather than floating at
+   the foot of the hero, so it reads as a spec table beside the object. */
+.sec .dims {
+	margin-top: 0;
+	border-top: none;
+	border: 1px solid var(--color-line-soft);
+}
+
+.sec .dims div {
+	padding: 1rem 1.125rem;
+	background: var(--color-bg-soft);
+}
+
+@media (max-width: 720px) {
+	.ms__item {
+		grid-template-columns: 1fr;
+	}
+
+	.ms__no {
+		grid-row: auto;
+	}
+
+	.ms__item > p:not(.ms__no):not(.ms__tag),
+	.ms__tag {
+		grid-column: 1;
+	}
+
+	.ms__tag {
+		justify-self: start;
+	}
+}
+
+/* ========================================
+Figures
+
+Every one of these is drawn from a number stated elsewhere in the same section,
+so the figure never has to introduce a value the prose has not sourced. They
+share three marks: a hairline for structure, ink for the general case, and the
+point colour for the one row that is ours.
+======================================== */
+
+/* ── Dot fields ─────────────────────────────────────────────────────────────
+   For proportions a bar cannot show. 0.17% of a bar is thinner than its own
+   outline; 1.7 dots in a field of 1,000 is countable. */
+.field {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(11rem, 15rem);
+	align-items: center;
+	gap: 1.75rem;
+	margin-block: 1.75rem;
+	padding: 1.5rem;
+	border: 1px solid var(--color-line);
+}
+
+.field__svg {
+	width: 100%;
+	height: auto;
+	overflow: visible;
+}
+
+.field__rest,
+.field__hit {
+	fill: none;
+	stroke-linecap: round;
+	stroke-width: 3;
+}
+
+.field__rest {
+	stroke: var(--color-line);
+}
+
+/* The marked dots are the whole figure, so they get the one value on the page
+   that is allowed to carry emphasis at this size. */
+.field__hit {
+	stroke: var(--color-accent);
+	stroke-width: 5.5;
+}
+
+.field__cap {
+	display: grid;
+	gap: 0.375rem;
+}
+
+.field__cap b {
+	font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+	font-weight: 500;
+	line-height: 1;
+	color: var(--color-accent);
+}
+
+.field__cap span {
+	font-size: 0.875rem;
+	word-break: keep-all;
+}
+
+.field__cap i {
+	font-style: normal;
+	font-size: 0.75rem;
+	line-height: 1.6;
+	color: var(--color-text-dim);
+	word-break: keep-all;
+}
+
+/* ── Ranked bars ────────────────────────────────────────────────────────── */
+.bar {
+	margin-block: 1.5rem;
+	display: grid;
+	gap: 1px;
+	border: 1px solid var(--color-line);
+	background: var(--color-line-soft);
+}
+
+.bar__row {
+	display: grid;
+	grid-template-columns: minmax(7rem, 10rem) minmax(0, 1fr) 5.5rem;
+	align-items: center;
+	gap: 0.875rem;
+	padding: 0.6rem 1rem;
+	background: var(--color-bg-soft);
+	font-size: 0.8125rem;
+}
+
+.bar__name {
+	font-weight: 500;
+}
+
+.bar__track {
+	display: block;
+	height: 0.625rem;
+}
+
+.bar__track i {
+	display: block;
+	width: var(--w);
+	height: 100%;
+	background: rgba(var(--ink), 0.18);
+}
+
+.bar__val {
+	text-align: right;
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+}
+
+/* Third column on wide screens, wrapped under the name on narrow. */
+.bar__note {
+	grid-column: 2 / -1;
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+	word-break: keep-all;
+}
+
+.bar__row--ours {
+	background: var(--color-point);
+}
+
+.bar__row--ours .bar__track i {
+	background: var(--color-accent);
+}
+
+.bar__row--ours .bar__name,
+.bar__row--ours .bar__val {
+	color: var(--color-text);
+	font-weight: 500;
+}
+
+.bar__row--ours .bar__note {
+	color: rgba(var(--ink), 0.7);
+}
+
+.bar__cap {
+	padding: 0.75rem 1rem;
+	background: var(--color-bg-soft);
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+	word-break: keep-all;
+}
+
+/* ── Two-bar gap ────────────────────────────────────────────────────────── */
+.gap {
+	margin-block: 1.5rem;
+	padding: 1.5rem;
+	border: 1px solid var(--color-line);
+}
+
+.gap__row {
+	display: grid;
+	grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr) 4.5rem;
+	align-items: center;
+	gap: 1rem;
+	font-size: 0.8125rem;
+}
+
+.gap__row + .gap__row {
+	margin-top: 0.625rem;
+}
+
+.gap__name {
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.gap__track {
+	display: block;
+	height: 1.75rem;
+}
+
+.gap__track i {
+	display: block;
+	width: var(--w);
+	height: 100%;
+	background: var(--color-point);
+}
+
+/* The measured figure is opaque; the estimate is not. */
+.gap__row--real .gap__track i {
+	background: var(--color-accent);
+}
+
+.gap__row--real .gap__name,
+.gap__row--real .gap__val {
+	color: var(--color-text);
+	font-weight: 500;
+}
+
+.gap__val {
+	text-align: right;
+}
+
+.gap__cap {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	align-items: baseline;
+	gap: 0.875rem;
+	margin-top: 1.25rem;
+	padding-top: 1.125rem;
+	border-top: 1px solid var(--color-line);
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.gap__cap b {
+	font-size: 1.75rem;
+	font-weight: 500;
+	line-height: 1;
+	color: var(--color-accent);
+}
+
+/* ── Deviation from a reference ─────────────────────────────────────────── */
+.delta {
+	margin-block: 1.5rem;
+	padding: 1.5rem;
+	border: 1px solid var(--color-line);
+}
+
+.delta__head,
+.delta__row {
+	display: grid;
+	grid-template-columns: minmax(7rem, 11rem) minmax(0, 1fr) 4rem 4rem;
+	align-items: center;
+	gap: 0.875rem;
+}
+
+.delta__head {
+	padding-bottom: 0.75rem;
+	margin-bottom: 0.875rem;
+	border-bottom: 1px solid var(--color-line);
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+.delta__head span:nth-child(2) {
+	text-align: center;
+}
+
+.delta__head span:nth-child(n + 3) {
+	text-align: right;
+}
+
+.delta__row {
+	font-size: 0.8125rem;
+}
+
+.delta__row + .delta__row {
+	margin-top: 0.75rem;
+}
+
+.delta__name {
+	word-break: keep-all;
+}
+
+/* The centre line is the national average. Bars grow out of it in either
+   direction, so "which side" carries the meaning and length carries the size. */
+.delta__track {
+	position: relative;
+	display: block;
+	height: 1.5rem;
+	border-left: 1px solid var(--color-line);
+	border-right: 1px solid var(--color-line);
+}
+
+.delta__track::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 0;
+	bottom: 0;
+	border-left: 1px solid var(--color-text-dim);
+}
+
+.delta__bar {
+	position: absolute;
+	top: 0.25rem;
+	bottom: 0.25rem;
+	width: var(--w);
+	background: rgba(var(--ink), 0.18);
+}
+
+.delta__bar--pos {
+	left: 50%;
+}
+
+.delta__bar--neg {
+	right: 50%;
+}
+
+/* Not "bad" — the direction that makes the market. */
+.delta__bar.is-market {
+	background: var(--color-accent);
+}
+
+.delta__val,
+.delta__ref {
+	text-align: right;
+}
+
+.delta__ref {
+	color: var(--color-text-dim);
+}
+
+.delta__cap {
+	margin-top: 1.25rem;
+	padding-top: 1.125rem;
+	border-top: 1px solid var(--color-line);
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+/* ── Timeline ───────────────────────────────────────────────────────────── */
+.tl {
+	margin-block: 1.5rem;
+	border: 1px solid var(--color-line);
+}
+
+.tl__scroll {
+	overflow-x: auto;
+}
+
+.tl__grid {
+	min-width: 42rem;
+	padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.tl__row {
+	display: grid;
+	grid-template-columns: 11rem minmax(0, 1fr);
+	align-items: center;
+	gap: 1rem;
+}
+
+.tl__row + .tl__row {
+	margin-top: 0.375rem;
+}
+
+.tl__label {
+	display: grid;
+	gap: 0.125rem;
+	font-size: 0.75rem;
+}
+
+.tl__label b {
+	font-weight: 500;
+}
+
+.tl__label i {
+	font-style: normal;
+	color: var(--color-text-dim);
+}
+
+.tl__track {
+	display: grid;
+	grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+	align-items: center;
+	min-height: 1.75rem;
+}
+
+.tl__row--head {
+	margin-bottom: 0.625rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid var(--color-line);
+}
+
+.tl__row--head .tl__track {
+	min-height: 0;
+}
+
+.tl__col {
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+.tl__bar {
+	display: flex;
+	align-items: center;
+	height: 1.75rem;
+	padding-inline: 0.625rem;
+	font-size: 0.6875rem;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+/* Phase bars carry the fill; milestone bars are ticks under them, so they are
+   drawn lighter and shorter to read as events rather than durations. */
+.tl__bar--now {
+	background: var(--color-point);
+	color: var(--color-text);
+}
+
+.tl__bar--next {
+	background: rgba(var(--point-rgb), 0.45);
+}
+
+.tl__bar--later {
+	background: rgba(var(--ink), 0.06);
+	color: var(--color-text-dim);
+}
+
+.tl__bar--ms {
+	height: 1.125rem;
+	background: none;
+	border-left: 2px solid var(--color-line);
+	color: var(--color-text-dim);
+}
+
+.tl__bar--ms.tl__bar--ms {
+	padding-inline: 0.5rem;
+}
+
+.tl__bar.ms--risk,
+.tl__bar--ms.ms--risk {
+	border-left-color: var(--color-accent);
+	color: var(--color-accent);
+}
+
+.tl__cap {
+	padding: 0.875rem 1.25rem;
+	border-top: 1px solid var(--color-line);
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+	word-break: keep-all;
+}
+
+/* ── World map ──────────────────────────────────────────────────────────────
+   Land is 6,832 dots in one path — each is a zero-length subpath rendered
+   through a round cap, so the whole raster is a single DOM node. */
+.wmap {
+	margin-block: 1.75rem;
+	border: 1px solid var(--color-line);
+}
+
+.wmap__canvas {
+	position: relative;
+	padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.wmap__svg {
+	display: block;
+	width: 100%;
+	height: auto;
+	overflow: visible;
+}
+
+.wmap__land {
+	fill: none;
+	stroke: rgba(var(--ink), 0.17);
+	stroke-width: 0.42;
+	stroke-linecap: round;
+}
+
+.wmap__arc {
+	fill: none;
+	stroke: var(--color-accent);
+	stroke-width: 0.5;
+	stroke-linecap: round;
+}
+
+/* Dashed because it is a market, not a route anyone has committed to flying. */
+.wmap__arc--tam,
+.wmap__arc--fan {
+	stroke: var(--color-text-dim);
+	stroke-width: 0.35;
+	stroke-dasharray: 1.6 1.8;
+}
+
+.wmap__ring {
+	fill: none;
+	stroke: var(--color-accent);
+	stroke-width: 0.45;
+}
+
+.wmap__pin {
+	fill: var(--color-accent);
+}
+
+.wmap__sat {
+	fill: none;
+	stroke: var(--color-text-dim);
+	stroke-width: 0.4;
+}
+
+.wmap__node--tam .wmap__ring {
+	stroke: var(--color-text-dim);
+	stroke-dasharray: 1.2 1.2;
+}
+
+.wmap__node--tam .wmap__pin {
+	fill: var(--color-text-dim);
+}
+
+/* Stop 02 is the whole country, so it is drawn as an area with Georgia's pin
+   inside it rather than as a second pin five degrees away. */
+.wmap__halo {
+	fill: rgba(var(--point-rgb), 0.5);
+	stroke: var(--color-accent);
+	stroke-width: 0.3;
+	stroke-dasharray: 1.4 1.4;
+}
+
+/* Numbers only. The cards under the map carry the names — repeating them as
+   floating labels collided them, because the first two stops overlap. */
+.wmap__seqmark {
+	font-family: var(--font-mono);
+	font-size: 4.6px;
+	fill: var(--color-accent);
+	dominant-baseline: middle;
+}
+
+.wmap__node--tam .wmap__seqmark {
+	fill: var(--color-text-dim);
+}
+
+.wmap__stops {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+	gap: 1px;
+	border-top: 1px solid var(--color-line);
+	background: var(--color-line-soft);
+}
+
+.wmap__stop {
+	display: grid;
+	align-content: start;
+	gap: 0.375rem;
+	padding: 1.25rem;
+	background: var(--color-bg-soft);
+}
+
+.wmap__seq {
+	font-size: 0.6875rem;
+	color: var(--color-accent);
+}
+
+.wmap__stop h3 {
+	font-size: 1.0625rem;
+}
+
+.wmap__role {
+	font-size: 0.75rem;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.wmap__kpi {
+	display: grid;
+	gap: 0.25rem;
+	margin-top: 0.5rem;
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+.wmap__kpi li::before {
+	content: "— ";
+}
+
+/* The addressable market is not a plan, and the card says so by not looking
+   like the two beside it. */
+.wmap__stop--tam {
+	background: var(--color-bg-sink);
+}
+
+.wmap__stop--tam .wmap__seq {
+	color: var(--color-text-dim);
+}
+
+@media (max-width: 60rem) {
+	.field {
+		grid-template-columns: 1fr;
+	}
+
+	.bar__row,
+	.gap__row {
+		grid-template-columns: minmax(0, 1fr) 5rem;
+	}
+
+	.bar__track,
+	.gap__track {
+		grid-column: 1 / -1;
+		grid-row: 2;
+	}
+
+	.bar__note {
+		grid-column: 1 / -1;
+	}
+
+	.delta__head,
+	.delta__row {
+		grid-template-columns: minmax(0, 1fr) 4rem 4rem;
+	}
+
+	.delta__track {
+		grid-column: 1 / -1;
+		grid-row: 2;
+	}
+
+	.delta__head span:nth-child(2) {
+		display: none;
+	}
+}
+
+/* ── Milestone descent ──────────────────────────────────────────────────── */
+.msg {
+	margin-block: 1.75rem 1rem;
+	padding: 1.5rem 1.5rem 0;
+	border: 1px solid var(--color-line);
+}
+
+.msg__svg {
+	display: block;
+	width: 100%;
+	height: auto;
+	overflow: visible;
+}
+
+/* Uniform scale keeps the dots round; this keeps the hairlines hair-width at
+   any container size. */
+.msg__svg * {
+	vector-effect: non-scaling-stroke;
+}
+
+.msg__axis {
+	stroke: var(--color-line);
+	stroke-width: 1;
+}
+
+.msg__line {
+	fill: none;
+	stroke: var(--color-accent);
+	stroke-width: 2;
+	stroke-linejoin: round;
+}
+
+.msg__drop {
+	stroke: var(--color-line);
+	stroke-width: 1;
+	stroke-dasharray: 3 3;
+}
+
+.msg__dot {
+	fill: var(--color-bg);
+	stroke: var(--color-accent);
+	stroke-width: 2;
+}
+
+.msg__dot--risk {
+	fill: var(--color-accent);
+}
+
+.msg__axislabel {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 0.5rem;
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+.msg__items {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 1px;
+	margin-top: 1.25rem;
+	background: var(--color-line-soft);
+	border-top: 1px solid var(--color-line);
+}
+
+.msg__item {
+	display: grid;
+	align-content: start;
+	gap: 0.2rem;
+	padding: 1rem 0.875rem;
+	background: var(--color-bg-soft);
+}
+
+.msg__item b {
+	font-size: 0.9375rem;
+	font-weight: 500;
+}
+
+.msg__when {
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+.msg__what {
+	margin-top: 0.25rem;
+	font-size: 0.75rem;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.msg__item--risk {
+	background: var(--color-point);
+}
+
+.msg__item--risk .msg__when,
+.msg__item--risk .msg__what {
+	color: rgba(var(--ink), 0.72);
+}
+
+.msg__cap {
+	padding: 0.875rem 0;
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+	word-break: keep-all;
+}
+
+/* ── Map: the route draws itself ────────────────────────────────────────────
+   Held until the figure is on screen — scroll.js adds .is-drawn — because a
+   sequence that plays on load is a sequence nobody sees. Each leg and node
+   carries its own index, so the stagger is arithmetic rather than a list of
+   hand-written delays. */
+.wmap__arc {
+	/* Longer than any leg in a 210-unit viewBox, so no path has to be measured. */
+	stroke-dasharray: 400;
+	stroke-dashoffset: 400;
+}
+
+.wmap__node,
+.wmap__halo {
+	opacity: 0;
+}
+
+.wmap.is-drawn .wmap__arc {
+	animation: wmap-draw 1s ease-out forwards;
+	animation-delay: calc(0.45s + var(--leg) * 1.35s);
+}
+
+.wmap.is-drawn .wmap__node,
+.wmap.is-drawn .wmap__halo {
+	animation: wmap-pop 0.45s ease-out forwards;
+	animation-delay: calc(var(--i) * 1.35s);
+}
+
+@keyframes wmap-draw {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+@keyframes wmap-pop {
+	from {
+		opacity: 0;
+		transform: scale(0.4);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* Scale from each node's own centre rather than the SVG origin. */
+.wmap__node,
+.wmap__halo {
+	transform-box: fill-box;
+	transform-origin: center;
+}
+
+.wmap__note {
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+/* Motion is the whole figure here, so reduced motion gets the finished state
+   rather than a shortened version of the animation. */
+.reduced-motion .wmap__arc {
+	stroke-dashoffset: 0;
+}
+
+.reduced-motion .wmap__node,
+.reduced-motion .wmap__halo {
+	opacity: 1;
+}
+
+@media (max-width: 46rem) {
+	.msg__items {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+/* ── Language switch ────────────────────────────────────────────────────────
+   Sits opposite the wordmark in the topbar. Two links rather than a toggle:
+   each language has its own URL, so it can be linked to and bookmarked. */
+.langs {
+	margin-left: auto;
+	display: flex;
+	gap: 0.125rem;
+	align-items: center;
+	pointer-events: auto;
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	letter-spacing: 0.06em;
+}
+
+.langs a {
+	padding: 0.25rem 0.5rem;
+	color: var(--color-text-dim);
+	border: 1px solid transparent;
+	transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.langs a:hover {
+	color: var(--color-text);
+}
+
+.langs a.is-on {
+	color: var(--color-accent);
+	border-color: var(--color-line);
+}

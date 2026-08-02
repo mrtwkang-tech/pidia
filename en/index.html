@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PIDIA — Removing the threshold to getting tested</title>
+  <meta name="description" content="Multi-omics screening that starts at home, with no draw centre and no appointment. We do not compete on accuracy. We compete on reach. We start in Georgia." />
+  <link rel="alternate" hreflang="ko" href="/" />
+  <link rel="alternate" hreflang="en" href="/en/" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300..700&amp;family=Noto+Serif+KR:wght@300..800&amp;family=Roboto+Mono:wght@400;500&amp;display=swap" />
+  <link rel="stylesheet" href="/style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js",
+        "jsm/": "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/"
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+  <canvas class="webgl"></canvas>
+
+  <a class="skip" href="#hero">Skip to content</a>
+  <nav class="rail" aria-label="Sections">
+    <ol>
+      <li><a href="#hero"><i></i><span>Overview</span></a></li>
+      <li><a href="#stakes"><i></i><span>Problem</span></a></li>
+      <li><a href="#people"><i></i><span>Three people</span></a></li>
+      <li><a href="#proof"><i></i><span>Threshold</span></a></li>
+      <li><a href="#flow"><i></i><span>Solution</span></a></li>
+      <li class="rail__kit"><a href="#kit"><i></i><span>Kit</span><b class="rail__count num" aria-live="polite">01 / 07</b></a></li>
+      <li><a href="#evidence"><i></i><span>Evidence</span></a></li>
+      <li><a href="#limits"><i></i><span>Limits</span></a></li>
+      <li><a href="#roadmap"><i></i><span>Roadmap</span></a></li>
+      <li><a href="#market"><i></i><span>Market</span></a></li>
+      <li><a href="#georgia"><i></i><span>Beachhead</span></a></li>
+      <li><a href="#milestones"><i></i><span>Milestones</span></a></li>
+    </ol>
+  </nav>
+
+
+  <header class="topbar">
+    <a href="#hero" class="logo">
+      <svg class="logo__icon" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+        <polygon points="0,0 32,16 0,32" />
+      </svg>
+      <span class="logo__text">PIDIA</span>
+    </a>
+    <nav class="langs" aria-label="Language"><a href="/">KO</a><a href="/en/" class="is-on" aria-current="true">EN</a></nav>
+  </header>
+
+  <main id="main">
+    <section class="sec sec--hero" id="hero">
+
+<p class="eyebrow">cfDNA methylation &middot; Self-collection &middot; Georgia</p>
+<h1 class="hero__title">Removing the<br />threshold to<br /><em>getting tested</em></h1>
+<p class="hero__lede">
+  Multi-omics read from a few drops of blood. No draw centre, no appointment, no
+  prior authorisation — it starts at home. Cancer first, then the brain, then the
+  mind: the same plasma, with only the panel swapped.
+</p>
+<figure class="thesis">
+  <blockquote>We do not fight GRAIL on accuracy.<br />We fight on reach.</blockquote>
+</figure>
+
+    </section>
+
+    <section class="sec" id="stakes">
+<header class="sec__head"><p class="kicker">The problem</p><h2 class="sec__title">People do not die for want of the technology. They die because <em>the test is expensive, far away, or does not exist</em></h2></header><p class="lede">Without insurance a single colonoscopy runs into the thousands. Rural counties have no hospital to be screened in at all. For mental health the threshold starts with saying it out loud at work — and depression still has no blood test to measure.</p><div class="stats stats--lead"><div class="stat"><b class="num">5,940,000</b><span>people who did not die of the five major US cancers over 45 years</span><i>1975–2020</i></div></div>
+<div class="split">
+  <div class="split__bar">
+    <span class="split__seg split__seg--a" style="--w: 80%"><b class="num">80%</b>Prevention &middot; early detection</span>
+    <span class="split__seg" style="--w: 20%"><b class="num">20%</b>Treatment</span>
+  </div>
+  <p class="split__note">4.75 million of them lived because it was found earlier, not because of a new drug.</p>
+</div>
+<p class="src">Goddard KAB et al. JAMA Oncology 2025;11(2):162-167 · NCI CISNET modelled estimate, five cancers (lung, breast, colorectal, prostate, cervical)</p><h3 class="sub">So even the tests that already exist reach almost no one</h3><div class="stats"><div class="stat"><b class="num">18.7%</b><span>of those eligible for lung cancer screening are screened</span><i>1 in 5</i></div><div class="stat"><b class="num">73%</b><span>of US adults are behind on at least one routine cancer screening</span><i>n = 7,510</i></div><div class="stat"><b class="num">62,110</b><span>additional 5-year survivors if every eligible person were simply screened</span><i>~12,400 a year</i></div></div><p class="src">American Cancer Society / JAMA 2025-11-19 (2024 NHIS, 12.76 M eligible) · Prevent Cancer Foundation 2026 Early Detection Survey (7,510 adults)</p>
+    </section>
+
+    <section class="sec" id="people">
+<header class="sec__head"><p class="kicker">Three people</p><h2 class="sec__title">The threshold shows up with three faces</h2></header>
+<div class="cards cards--3">
+  <article class="card">
+    <p class="card__tag">Expensive &middot; Cost</p>
+    <h3>Marcus, <span class="num">58</span></h3>
+    <p class="card__sub">Columbus, Georgia &middot; uninsured</p>
+    <blockquote class="quote">A colonoscopy? For me that is <span class="num">$2,750</span>.</blockquote>
+    <ul class="reasons">
+      <li><b class="num">36%</b> of US adults delayed needed care because of cost</li>
+      <li><b class="num">75%</b> the same figure among uninsured adults</li>
+    </ul>
+  </article>
+  <article class="card">
+    <p class="card__tag">Far away &middot; Distance</p>
+    <h3>Daniel, <span class="num">34</span></h3>
+    <p class="card__sub">Rural Georgia county &middot; high HIV risk</p>
+    <blockquote class="quote">One test is a four-hour round trip.</blockquote>
+    <ul class="reasons">
+      <li><b class="num">53</b> Georgia counties with no hospital at all</li>
+      <li><b class="num">92 M</b> Americans living in a primary care shortage area</li>
+    </ul>
+  </article>
+  <article class="card">
+    <p class="card__tag">Unmeasurable &middot; Measurability</p>
+    <h3>Jihyun, <span class="num">29</span></h3>
+    <p class="card__sub">Office worker &middot; 8 months of depressive symptoms</p>
+    <blockquote class="quote">I know something is wrong. What do I tell my employer?</blockquote>
+    <ul class="reasons">
+      <li><b class="num">15%</b> of workers have told a manager about a mental health problem</li>
+      <li><b class="num">0</b> objective blood markers in clinical use for depression</li>
+    </ul>
+  </article>
+</div>
+<p class="src">KFF Health Tracking Poll 2025-05 · Georgia Rural Health Transformation (state) · HRSA State of the Primary Care Workforce 2025 · NAMI/Ipsos 2026-03 · Abi-Dargham A et al., World Psychiatry 2023;22:236-262</p>
+    </section>
+
+    <section class="sec" id="proof">
+<header class="sec__head"><p class="kicker">This is a threshold problem</p><h2 class="sec__title">The best technology in the world reached <em>0.17 people in 100</em></h2></header><p class="lede">GRAIL's Galleri finds more than 50 cancers from a single blood draw. 99.5% specificity, and more than two billion dollars invested. It is the best there is.</p>
+<figure class="field">
+  <svg class="field__svg" viewBox="0 0 500 200" preserveAspectRatio="xMinYMid meet"
+       role="img" aria-label="US adults aged 50–79 who took Galleri — 2 / 1000">
+    <path class="field__rest" d="M5.0,5.0h0M15.0,5.0h0M25.0,5.0h0M35.0,5.0h0M45.0,5.0h0M55.0,5.0h0M65.0,5.0h0M75.0,5.0h0M85.0,5.0h0M95.0,5.0h0M105.0,5.0h0M115.0,5.0h0M125.0,5.0h0M135.0,5.0h0M145.0,5.0h0M155.0,5.0h0M165.0,5.0h0M175.0,5.0h0M185.0,5.0h0M195.0,5.0h0M205.0,5.0h0M215.0,5.0h0M225.0,5.0h0M235.0,5.0h0M245.0,5.0h0M255.0,5.0h0M265.0,5.0h0M275.0,5.0h0M285.0,5.0h0M295.0,5.0h0M305.0,5.0h0M315.0,5.0h0M325.0,5.0h0M335.0,5.0h0M345.0,5.0h0M355.0,5.0h0M365.0,5.0h0M375.0,5.0h0M385.0,5.0h0M395.0,5.0h0M405.0,5.0h0M415.0,5.0h0M425.0,5.0h0M435.0,5.0h0M445.0,5.0h0M455.0,5.0h0M465.0,5.0h0M475.0,5.0h0M485.0,5.0h0M495.0,5.0h0M5.0,15.0h0M15.0,15.0h0M25.0,15.0h0M35.0,15.0h0M45.0,15.0h0M55.0,15.0h0M65.0,15.0h0M75.0,15.0h0M85.0,15.0h0M95.0,15.0h0M105.0,15.0h0M115.0,15.0h0M125.0,15.0h0M135.0,15.0h0M145.0,15.0h0M155.0,15.0h0M165.0,15.0h0M175.0,15.0h0M185.0,15.0h0M195.0,15.0h0M205.0,15.0h0M215.0,15.0h0M225.0,15.0h0M235.0,15.0h0M245.0,15.0h0M255.0,15.0h0M265.0,15.0h0M275.0,15.0h0M285.0,15.0h0M295.0,15.0h0M305.0,15.0h0M315.0,15.0h0M325.0,15.0h0M335.0,15.0h0M345.0,15.0h0M355.0,15.0h0M365.0,15.0h0M375.0,15.0h0M385.0,15.0h0M395.0,15.0h0M405.0,15.0h0M415.0,15.0h0M425.0,15.0h0M435.0,15.0h0M445.0,15.0h0M455.0,15.0h0M465.0,15.0h0M475.0,15.0h0M485.0,15.0h0M495.0,15.0h0M5.0,25.0h0M15.0,25.0h0M25.0,25.0h0M35.0,25.0h0M45.0,25.0h0M55.0,25.0h0M65.0,25.0h0M75.0,25.0h0M85.0,25.0h0M95.0,25.0h0M105.0,25.0h0M115.0,25.0h0M125.0,25.0h0M135.0,25.0h0M145.0,25.0h0M155.0,25.0h0M165.0,25.0h0M175.0,25.0h0M185.0,25.0h0M195.0,25.0h0M205.0,25.0h0M215.0,25.0h0M225.0,25.0h0M235.0,25.0h0M245.0,25.0h0M255.0,25.0h0M265.0,25.0h0M275.0,25.0h0M285.0,25.0h0M295.0,25.0h0M305.0,25.0h0M315.0,25.0h0M325.0,25.0h0M335.0,25.0h0M345.0,25.0h0M355.0,25.0h0M365.0,25.0h0M375.0,25.0h0M385.0,25.0h0M395.0,25.0h0M405.0,25.0h0M415.0,25.0h0M425.0,25.0h0M435.0,25.0h0M445.0,25.0h0M455.0,25.0h0M465.0,25.0h0M475.0,25.0h0M485.0,25.0h0M495.0,25.0h0M5.0,35.0h0M15.0,35.0h0M25.0,35.0h0M35.0,35.0h0M45.0,35.0h0M55.0,35.0h0M65.0,35.0h0M75.0,35.0h0M85.0,35.0h0M95.0,35.0h0M105.0,35.0h0M115.0,35.0h0M125.0,35.0h0M135.0,35.0h0M145.0,35.0h0M155.0,35.0h0M165.0,35.0h0M175.0,35.0h0M185.0,35.0h0M195.0,35.0h0M205.0,35.0h0M215.0,35.0h0M225.0,35.0h0M235.0,35.0h0M245.0,35.0h0M255.0,35.0h0M265.0,35.0h0M275.0,35.0h0M285.0,35.0h0M295.0,35.0h0M305.0,35.0h0M315.0,35.0h0M325.0,35.0h0M335.0,35.0h0M345.0,35.0h0M355.0,35.0h0M365.0,35.0h0M375.0,35.0h0M385.0,35.0h0M395.0,35.0h0M405.0,35.0h0M415.0,35.0h0M425.0,35.0h0M435.0,35.0h0M445.0,35.0h0M455.0,35.0h0M465.0,35.0h0M475.0,35.0h0M485.0,35.0h0M495.0,35.0h0M5.0,45.0h0M15.0,45.0h0M25.0,45.0h0M35.0,45.0h0M45.0,45.0h0M55.0,45.0h0M65.0,45.0h0M75.0,45.0h0M85.0,45.0h0M95.0,45.0h0M105.0,45.0h0M115.0,45.0h0M125.0,45.0h0M135.0,45.0h0M145.0,45.0h0M155.0,45.0h0M165.0,45.0h0M175.0,45.0h0M185.0,45.0h0M195.0,45.0h0M205.0,45.0h0M215.0,45.0h0M225.0,45.0h0M235.0,45.0h0M245.0,45.0h0M255.0,45.0h0M265.0,45.0h0M275.0,45.0h0M285.0,45.0h0M295.0,45.0h0M305.0,45.0h0M315.0,45.0h0M325.0,45.0h0M335.0,45.0h0M345.0,45.0h0M355.0,45.0h0M365.0,45.0h0M375.0,45.0h0M385.0,45.0h0M395.0,45.0h0M405.0,45.0h0M415.0,45.0h0M425.0,45.0h0M435.0,45.0h0M445.0,45.0h0M455.0,45.0h0M465.0,45.0h0M475.0,45.0h0M485.0,45.0h0M495.0,45.0h0M5.0,55.0h0M15.0,55.0h0M25.0,55.0h0M35.0,55.0h0M45.0,55.0h0M55.0,55.0h0M65.0,55.0h0M75.0,55.0h0M85.0,55.0h0M95.0,55.0h0M105.0,55.0h0M115.0,55.0h0M125.0,55.0h0M135.0,55.0h0M145.0,55.0h0M155.0,55.0h0M165.0,55.0h0M175.0,55.0h0M185.0,55.0h0M195.0,55.0h0M205.0,55.0h0M215.0,55.0h0M225.0,55.0h0M235.0,55.0h0M245.0,55.0h0M255.0,55.0h0M265.0,55.0h0M275.0,55.0h0M285.0,55.0h0M295.0,55.0h0M305.0,55.0h0M315.0,55.0h0M325.0,55.0h0M335.0,55.0h0M345.0,55.0h0M355.0,55.0h0M365.0,55.0h0M375.0,55.0h0M385.0,55.0h0M395.0,55.0h0M405.0,55.0h0M415.0,55.0h0M425.0,55.0h0M435.0,55.0h0M445.0,55.0h0M455.0,55.0h0M465.0,55.0h0M475.0,55.0h0M485.0,55.0h0M495.0,55.0h0M5.0,65.0h0M15.0,65.0h0M25.0,65.0h0M35.0,65.0h0M45.0,65.0h0M55.0,65.0h0M65.0,65.0h0M75.0,65.0h0M85.0,65.0h0M95.0,65.0h0M105.0,65.0h0M115.0,65.0h0M125.0,65.0h0M135.0,65.0h0M145.0,65.0h0M155.0,65.0h0M165.0,65.0h0M175.0,65.0h0M185.0,65.0h0M195.0,65.0h0M205.0,65.0h0M215.0,65.0h0M225.0,65.0h0M235.0,65.0h0M245.0,65.0h0M255.0,65.0h0M265.0,65.0h0M275.0,65.0h0M285.0,65.0h0M295.0,65.0h0M305.0,65.0h0M315.0,65.0h0M325.0,65.0h0M335.0,65.0h0M345.0,65.0h0M355.0,65.0h0M365.0,65.0h0M375.0,65.0h0M385.0,65.0h0M395.0,65.0h0M405.0,65.0h0M415.0,65.0h0M425.0,65.0h0M435.0,65.0h0M445.0,65.0h0M455.0,65.0h0M465.0,65.0h0M475.0,65.0h0M485.0,65.0h0M495.0,65.0h0M5.0,75.0h0M15.0,75.0h0M25.0,75.0h0M35.0,75.0h0M45.0,75.0h0M55.0,75.0h0M65.0,75.0h0M75.0,75.0h0M85.0,75.0h0M95.0,75.0h0M105.0,75.0h0M115.0,75.0h0M125.0,75.0h0M135.0,75.0h0M145.0,75.0h0M155.0,75.0h0M165.0,75.0h0M175.0,75.0h0M185.0,75.0h0M195.0,75.0h0M205.0,75.0h0M215.0,75.0h0M225.0,75.0h0M235.0,75.0h0M245.0,75.0h0M255.0,75.0h0M265.0,75.0h0M275.0,75.0h0M285.0,75.0h0M295.0,75.0h0M305.0,75.0h0M315.0,75.0h0M325.0,75.0h0M335.0,75.0h0M345.0,75.0h0M355.0,75.0h0M365.0,75.0h0M375.0,75.0h0M385.0,75.0h0M395.0,75.0h0M405.0,75.0h0M415.0,75.0h0M425.0,75.0h0M435.0,75.0h0M445.0,75.0h0M455.0,75.0h0M465.0,75.0h0M475.0,75.0h0M485.0,75.0h0M495.0,75.0h0M5.0,85.0h0M15.0,85.0h0M25.0,85.0h0M35.0,85.0h0M45.0,85.0h0M55.0,85.0h0M65.0,85.0h0M75.0,85.0h0M85.0,85.0h0M95.0,85.0h0M105.0,85.0h0M115.0,85.0h0M125.0,85.0h0M135.0,85.0h0M145.0,85.0h0M155.0,85.0h0M165.0,85.0h0M175.0,85.0h0M185.0,85.0h0M195.0,85.0h0M205.0,85.0h0M215.0,85.0h0M225.0,85.0h0M235.0,85.0h0M245.0,85.0h0M255.0,85.0h0M265.0,85.0h0M275.0,85.0h0M285.0,85.0h0M295.0,85.0h0M305.0,85.0h0M315.0,85.0h0M325.0,85.0h0M335.0,85.0h0M345.0,85.0h0M355.0,85.0h0M365.0,85.0h0M375.0,85.0h0M385.0,85.0h0M395.0,85.0h0M405.0,85.0h0M415.0,85.0h0M425.0,85.0h0M435.0,85.0h0M445.0,85.0h0M455.0,85.0h0M465.0,85.0h0M475.0,85.0h0M485.0,85.0h0M495.0,85.0h0M5.0,95.0h0M15.0,95.0h0M25.0,95.0h0M35.0,95.0h0M45.0,95.0h0M55.0,95.0h0M65.0,95.0h0M75.0,95.0h0M85.0,95.0h0M95.0,95.0h0M105.0,95.0h0M115.0,95.0h0M125.0,95.0h0M135.0,95.0h0M145.0,95.0h0M155.0,95.0h0M165.0,95.0h0M175.0,95.0h0M185.0,95.0h0M195.0,95.0h0M205.0,95.0h0M215.0,95.0h0M225.0,95.0h0M235.0,95.0h0M245.0,95.0h0M255.0,95.0h0M265.0,95.0h0M275.0,95.0h0M285.0,95.0h0M295.0,95.0h0M305.0,95.0h0M315.0,95.0h0M325.0,95.0h0M335.0,95.0h0M345.0,95.0h0M355.0,95.0h0M365.0,95.0h0M375.0,95.0h0M385.0,95.0h0M395.0,95.0h0M405.0,95.0h0M415.0,95.0h0M425.0,95.0h0M435.0,95.0h0M445.0,95.0h0M455.0,95.0h0M465.0,95.0h0M475.0,95.0h0M485.0,95.0h0M495.0,95.0h0M5.0,105.0h0M15.0,105.0h0M25.0,105.0h0M35.0,105.0h0M45.0,105.0h0M55.0,105.0h0M65.0,105.0h0M75.0,105.0h0M85.0,105.0h0M95.0,105.0h0M105.0,105.0h0M115.0,105.0h0M125.0,105.0h0M135.0,105.0h0M145.0,105.0h0M155.0,105.0h0M165.0,105.0h0M175.0,105.0h0M185.0,105.0h0M195.0,105.0h0M205.0,105.0h0M215.0,105.0h0M225.0,105.0h0M235.0,105.0h0M245.0,105.0h0M255.0,105.0h0M265.0,105.0h0M275.0,105.0h0M285.0,105.0h0M295.0,105.0h0M305.0,105.0h0M315.0,105.0h0M325.0,105.0h0M335.0,105.0h0M345.0,105.0h0M355.0,105.0h0M365.0,105.0h0M375.0,105.0h0M385.0,105.0h0M395.0,105.0h0M405.0,105.0h0M415.0,105.0h0M425.0,105.0h0M435.0,105.0h0M445.0,105.0h0M455.0,105.0h0M465.0,105.0h0M475.0,105.0h0M485.0,105.0h0M495.0,105.0h0M5.0,115.0h0M15.0,115.0h0M25.0,115.0h0M35.0,115.0h0M45.0,115.0h0M55.0,115.0h0M65.0,115.0h0M75.0,115.0h0M85.0,115.0h0M95.0,115.0h0M105.0,115.0h0M115.0,115.0h0M125.0,115.0h0M135.0,115.0h0M145.0,115.0h0M155.0,115.0h0M165.0,115.0h0M175.0,115.0h0M185.0,115.0h0M195.0,115.0h0M205.0,115.0h0M215.0,115.0h0M225.0,115.0h0M235.0,115.0h0M245.0,115.0h0M255.0,115.0h0M265.0,115.0h0M275.0,115.0h0M285.0,115.0h0M295.0,115.0h0M305.0,115.0h0M315.0,115.0h0M325.0,115.0h0M335.0,115.0h0M345.0,115.0h0M355.0,115.0h0M365.0,115.0h0M375.0,115.0h0M385.0,115.0h0M395.0,115.0h0M405.0,115.0h0M415.0,115.0h0M425.0,115.0h0M435.0,115.0h0M445.0,115.0h0M455.0,115.0h0M465.0,115.0h0M475.0,115.0h0M485.0,115.0h0M495.0,115.0h0M5.0,125.0h0M15.0,125.0h0M25.0,125.0h0M35.0,125.0h0M45.0,125.0h0M55.0,125.0h0M65.0,125.0h0M75.0,125.0h0M85.0,125.0h0M95.0,125.0h0M105.0,125.0h0M115.0,125.0h0M125.0,125.0h0M135.0,125.0h0M145.0,125.0h0M155.0,125.0h0M165.0,125.0h0M175.0,125.0h0M185.0,125.0h0M195.0,125.0h0M205.0,125.0h0M215.0,125.0h0M225.0,125.0h0M235.0,125.0h0M245.0,125.0h0M255.0,125.0h0M265.0,125.0h0M275.0,125.0h0M285.0,125.0h0M295.0,125.0h0M305.0,125.0h0M315.0,125.0h0M325.0,125.0h0M335.0,125.0h0M345.0,125.0h0M355.0,125.0h0M365.0,125.0h0M375.0,125.0h0M385.0,125.0h0M395.0,125.0h0M405.0,125.0h0M415.0,125.0h0M425.0,125.0h0M435.0,125.0h0M445.0,125.0h0M455.0,125.0h0M465.0,125.0h0M475.0,125.0h0M485.0,125.0h0M495.0,125.0h0M5.0,135.0h0M15.0,135.0h0M25.0,135.0h0M35.0,135.0h0M45.0,135.0h0M55.0,135.0h0M65.0,135.0h0M75.0,135.0h0M85.0,135.0h0M95.0,135.0h0M105.0,135.0h0M115.0,135.0h0M125.0,135.0h0M135.0,135.0h0M145.0,135.0h0M155.0,135.0h0M165.0,135.0h0M175.0,135.0h0M185.0,135.0h0M195.0,135.0h0M205.0,135.0h0M215.0,135.0h0M225.0,135.0h0M235.0,135.0h0M245.0,135.0h0M255.0,135.0h0M265.0,135.0h0M275.0,135.0h0M285.0,135.0h0M295.0,135.0h0M305.0,135.0h0M315.0,135.0h0M325.0,135.0h0M335.0,135.0h0M345.0,135.0h0M355.0,135.0h0M365.0,135.0h0M375.0,135.0h0M385.0,135.0h0M395.0,135.0h0M405.0,135.0h0M415.0,135.0h0M425.0,135.0h0M435.0,135.0h0M445.0,135.0h0M455.0,135.0h0M465.0,135.0h0M475.0,135.0h0M485.0,135.0h0M495.0,135.0h0M5.0,145.0h0M15.0,145.0h0M25.0,145.0h0M35.0,145.0h0M45.0,145.0h0M55.0,145.0h0M65.0,145.0h0M75.0,145.0h0M85.0,145.0h0M95.0,145.0h0M105.0,145.0h0M115.0,145.0h0M125.0,145.0h0M135.0,145.0h0M145.0,145.0h0M155.0,145.0h0M165.0,145.0h0M175.0,145.0h0M185.0,145.0h0M195.0,145.0h0M205.0,145.0h0M215.0,145.0h0M225.0,145.0h0M235.0,145.0h0M245.0,145.0h0M255.0,145.0h0M265.0,145.0h0M275.0,145.0h0M285.0,145.0h0M295.0,145.0h0M305.0,145.0h0M315.0,145.0h0M325.0,145.0h0M335.0,145.0h0M345.0,145.0h0M355.0,145.0h0M365.0,145.0h0M375.0,145.0h0M385.0,145.0h0M395.0,145.0h0M405.0,145.0h0M415.0,145.0h0M425.0,145.0h0M435.0,145.0h0M445.0,145.0h0M455.0,145.0h0M465.0,145.0h0M475.0,145.0h0M485.0,145.0h0M495.0,145.0h0M5.0,155.0h0M15.0,155.0h0M25.0,155.0h0M35.0,155.0h0M45.0,155.0h0M55.0,155.0h0M65.0,155.0h0M75.0,155.0h0M85.0,155.0h0M95.0,155.0h0M105.0,155.0h0M115.0,155.0h0M125.0,155.0h0M135.0,155.0h0M145.0,155.0h0M155.0,155.0h0M165.0,155.0h0M175.0,155.0h0M185.0,155.0h0M195.0,155.0h0M205.0,155.0h0M215.0,155.0h0M225.0,155.0h0M235.0,155.0h0M245.0,155.0h0M255.0,155.0h0M265.0,155.0h0M275.0,155.0h0M285.0,155.0h0M295.0,155.0h0M305.0,155.0h0M315.0,155.0h0M325.0,155.0h0M335.0,155.0h0M345.0,155.0h0M355.0,155.0h0M365.0,155.0h0M375.0,155.0h0M385.0,155.0h0M395.0,155.0h0M405.0,155.0h0M415.0,155.0h0M425.0,155.0h0M435.0,155.0h0M445.0,155.0h0M455.0,155.0h0M465.0,155.0h0M475.0,155.0h0M485.0,155.0h0M495.0,155.0h0M5.0,165.0h0M15.0,165.0h0M25.0,165.0h0M35.0,165.0h0M45.0,165.0h0M55.0,165.0h0M65.0,165.0h0M75.0,165.0h0M85.0,165.0h0M95.0,165.0h0M105.0,165.0h0M115.0,165.0h0M125.0,165.0h0M135.0,165.0h0M145.0,165.0h0M155.0,165.0h0M165.0,165.0h0M175.0,165.0h0M185.0,165.0h0M195.0,165.0h0M205.0,165.0h0M215.0,165.0h0M225.0,165.0h0M235.0,165.0h0M245.0,165.0h0M255.0,165.0h0M265.0,165.0h0M275.0,165.0h0M285.0,165.0h0M295.0,165.0h0M305.0,165.0h0M315.0,165.0h0M325.0,165.0h0M335.0,165.0h0M345.0,165.0h0M355.0,165.0h0M365.0,165.0h0M375.0,165.0h0M385.0,165.0h0M395.0,165.0h0M405.0,165.0h0M415.0,165.0h0M425.0,165.0h0M435.0,165.0h0M445.0,165.0h0M455.0,165.0h0M465.0,165.0h0M475.0,165.0h0M485.0,165.0h0M495.0,165.0h0M5.0,175.0h0M15.0,175.0h0M25.0,175.0h0M35.0,175.0h0M45.0,175.0h0M55.0,175.0h0M65.0,175.0h0M75.0,175.0h0M85.0,175.0h0M95.0,175.0h0M105.0,175.0h0M115.0,175.0h0M125.0,175.0h0M135.0,175.0h0M145.0,175.0h0M155.0,175.0h0M165.0,175.0h0M175.0,175.0h0M185.0,175.0h0M195.0,175.0h0M205.0,175.0h0M215.0,175.0h0M225.0,175.0h0M235.0,175.0h0M245.0,175.0h0M255.0,175.0h0M265.0,175.0h0M275.0,175.0h0M285.0,175.0h0M295.0,175.0h0M305.0,175.0h0M315.0,175.0h0M325.0,175.0h0M335.0,175.0h0M345.0,175.0h0M355.0,175.0h0M365.0,175.0h0M375.0,175.0h0M385.0,175.0h0M395.0,175.0h0M405.0,175.0h0M415.0,175.0h0M425.0,175.0h0M435.0,175.0h0M445.0,175.0h0M455.0,175.0h0M465.0,175.0h0M475.0,175.0h0M485.0,175.0h0M495.0,175.0h0M5.0,185.0h0M15.0,185.0h0M25.0,185.0h0M35.0,185.0h0M45.0,185.0h0M55.0,185.0h0M65.0,185.0h0M75.0,185.0h0M85.0,185.0h0M95.0,185.0h0M105.0,185.0h0M115.0,185.0h0M125.0,185.0h0M135.0,185.0h0M145.0,185.0h0M155.0,185.0h0M165.0,185.0h0M175.0,185.0h0M185.0,185.0h0M195.0,185.0h0M205.0,185.0h0M215.0,185.0h0M225.0,185.0h0M235.0,185.0h0M245.0,185.0h0M255.0,185.0h0M265.0,185.0h0M275.0,185.0h0M285.0,185.0h0M295.0,185.0h0M305.0,185.0h0M315.0,185.0h0M325.0,185.0h0M335.0,185.0h0M345.0,185.0h0M355.0,185.0h0M365.0,185.0h0M375.0,185.0h0M385.0,185.0h0M395.0,185.0h0M405.0,185.0h0M415.0,185.0h0M425.0,185.0h0M435.0,185.0h0M445.0,185.0h0M455.0,185.0h0M465.0,185.0h0M475.0,185.0h0M485.0,185.0h0M495.0,185.0h0M5.0,195.0h0M15.0,195.0h0M25.0,195.0h0M35.0,195.0h0M45.0,195.0h0M55.0,195.0h0M65.0,195.0h0M75.0,195.0h0M85.0,195.0h0M95.0,195.0h0M105.0,195.0h0M115.0,195.0h0M125.0,195.0h0M135.0,195.0h0M145.0,195.0h0M155.0,195.0h0M165.0,195.0h0M175.0,195.0h0M185.0,195.0h0M195.0,195.0h0M205.0,195.0h0M215.0,195.0h0M225.0,195.0h0M235.0,195.0h0M245.0,195.0h0M255.0,195.0h0M265.0,195.0h0M275.0,195.0h0M285.0,195.0h0M295.0,195.0h0M305.0,195.0h0M315.0,195.0h0M325.0,195.0h0M335.0,195.0h0M345.0,195.0h0M355.0,195.0h0M365.0,195.0h0M375.0,195.0h0M385.0,195.0h0M395.0,195.0h0M405.0,195.0h0M415.0,195.0h0M425.0,195.0h0M435.0,195.0h0M445.0,195.0h0M455.0,195.0h0M465.0,195.0h0M475.0,195.0h0M485.0,195.0h0M495.0,195.0h0" />
+    <path class="field__hit" d="M5.0,5.0h0M15.0,5.0h0" />
+  </svg>
+  <figcaption class="field__cap">
+    <b class="num">0.17%</b>
+    <span>US adults aged 50–79 who took Galleri</span>
+    <i>1.7 people in 1,000 · 185,000 tests in 2025 across 106.7 M people</i>
+  </figcaption>
+</figure>
+<div class="stats"><div class="stat"><b class="num">$949</b><span>Galleri list price</span></div><div class="stat"><b class="num">$147M</b><span>GRAIL revenue, FY2025</span></div><div class="stat"><b class="num">$80M</b><span>Guardant Shield, FY2025</span></div></div><h3 class="sub">The market is open in the reports only</h3>
+<figure class="gap" role="img" aria-label="Market research estimate $1.3B 대 Actual revenue, listed companies $227M">
+  <div class="gap__row">
+    <span class="gap__name">Market research estimate</span>
+    <span class="gap__track"><i style="--w: 100.0%"></i></span>
+    <span class="gap__val num">$1.3B</span>
+  </div>
+  <div class="gap__row gap__row--real">
+    <span class="gap__name">Actual revenue, listed companies</span>
+    <span class="gap__track"><i style="--w: 17.5%"></i></span>
+    <span class="gap__val num">$227M</span>
+  </div>
+  <figcaption class="gap__cap"><b class="num">5.7&times;</b>The gap between the market as reported and the money actually billed. What is left is not an accuracy problem. It is a threshold problem.</figcaption>
+</figure>
+<p class="src">GRAIL FY2025 results (2026-02-19) · Guardant Health FY2025 · U.S. Census ACS 2019-2023 (106.7 M US adults aged 50–79) · Grand View Research / GM Insights MCED market estimates</p>
+    </section>
+
+    <section class="sec" id="flow">
+<header class="sec__head"><p class="kicker">Solution</p><h2 class="sec__title">A test you had to steel yourself for, <em>on the day you decide</em></h2></header>
+<ol class="flow">
+  <li><b class="num">01</b><h3>Self-collection</h3><p>Stabilising tube &middot; lancet + microtube</p></li>
+  <li><b class="num">02</b><h3>Paperfuge</h3><p>Plasma in 90 seconds &middot; $0.20 of hardware</p></li>
+  <li><b class="num">03</b><h3>Ambient return</h3><p>Stable 3–5 days &middot; no cold chain</p></li>
+  <li><b class="num">04</b><h3>cfDNA + methylation</h3><p>Targeted panel &middot; PCR readout</p></li>
+  <li><b class="num">05</b><h3>ML classifier</h3><p>Multi-omics training &middot; tissue of origin</p></li>
+  <li><b class="num">06</b><h3>App report</h3><p>Risk trend &middot; what to do next</p></li>
+</ol>
+<div class="cards cards--3">
+  <article class="card">
+    <p class="card__tag">Expensive &rarr; low cost</p>
+    <p>Not whole-genome sequencing — only the markers already discovered, read on cheap PCR. A targeted panel and paperfuge prep bring the unit cost down.</p>
+  </article>
+  <article class="card">
+    <p class="card__tag">Far away &rarr; shipped</p>
+    <p>Stabilising collection tubes hold cfDNA yield and background variance for 3–5 days at ambient temperature. The lab goes to the person.</p>
+  </article>
+  <article class="card">
+    <p class="card__tag">Unmeasurable &rarr; quantified</p>
+    <p>The body is already a number. We extend that to the brain and the mind, read off the same plasma.</p>
+  </article>
+</div>
+<div class="caution">
+  <p class="caution__label">We will say this first</p>
+  <p>
+    Step 02 — whether paperfuge plasma yields analysis-grade cfDNA <b>has no
+    published paper behind it.</b> That experiment is our first milestone. We
+    compare yield, 167 bp fragment integrity and gDNA contamination against
+    standard two-stage centrifugation, by ddPCR.
+  </p>
+</div>
+<p class="src">Bhamla MS et al., Nature Biomedical Engineering 2017;1:0009 — paperfuge 125,000 rpm / 30,000 g / $0.20 / plasma separation &lt;1.5 min · Medina Diaz I et al., PLoS ONE 2016;11:e0166354 (Streck BCT, n=60) · Sorber L et al., Cancers 2019;11:458</p><h3 class="sub">Prototype, measured</h3>
+<dl class="dims">
+  <div><dt>Lancet pen</dt><dd class="num">&#216;25 &times; 50</dd></div>
+  <div><dt>Cartridge</dt><dd class="num">&#216;12 &times; 45</dd></div>
+  <div><dt>Separation disc</dt><dd class="num">&#216;65</dd></div>
+  <div><dt>Return case</dt><dd class="num">105 &times; 80 &times; 26</dd></div>
+</dl>
+<p class="src">Measured from the CAD prototype · millimetres</p>
+    </section>
+
+    <section class="kitscroll" id="kit">
+
+<div class="kitscroll__pin">
+  <header class="sec__head sec__head--stage">
+    <p class="kicker">How it works</p>
+    <h2 class="sec__title">From home to report</h2>
+  </header>
+
+  <section class="panel">
+    <p class="panel__kicker"></p>
+    <h3 class="panel__title"></h3>
+    <p class="panel__lede"></p>
+    <dl class="panel__specs"></dl>
+    <div class="panel__lists"></div>
+    <p class="panel__note"></p>
+  </section>
+
+  <nav class="stepnav">
+    <button class="stepbtn" data-dir="-1" type="button" aria-label="Previous step">&#8592;</button>
+    <ol class="stepper"></ol>
+    <button class="stepbtn" data-dir="1" type="button" aria-label="Next step">&#8594;</button>
+  </nav>
+
+  <p class="stage__hint">Scroll to advance &middot; &#8592; &#8594; keys &middot; drag to rotate</p>
+</div>
+
+    </section>
+
+    <section class="sec" id="evidence">
+<header class="sec__head"><p class="kicker">Why cfDNA methylation</p><h2 class="sec__title">What existing blood tests <em>cannot do</em></h2></header>
+<div class="cards cards--3">
+  <article class="card card--muted">
+    <h3>PSA</h3>
+    <p>AUC <b class="num">0.678</b> — “no cutoff simultaneously satisfies sensitivity and specificity” (JAMA 2005, n=8,575)</p>
+  </article>
+  <article class="card card--muted">
+    <h3>CA-125</h3>
+    <p><b class="num">200,000</b>-person RCT, <b class="num">16</b> years of follow-up — stage shifted earlier, mortality did not fall (Lancet 2021)</p>
+  </article>
+  <article class="card card--muted">
+    <h3>CBC · CMP</h3>
+    <p>No diagnostic accuracy evidence exists for early cancer detection at all</p>
+  </article>
+</div>
+
+<div class="paper paper--lead">
+  <p class="paper__cite">Targeted methylation MCED — specificity <span class="num">99.3%</span> · n = <span class="num">6,689</span> · more than <span class="num">100,000</span> methylation regions</p>
+  <p class="paper__note">
+    In a controlled comparison training and validating ten classifiers on the
+    same samples, <b>whole-genome methylation performed best.</b>
+  </p>
+  <p class="src">Liu MC et al., Annals of Oncology 2020;31:745-759 · Jamshidi A et al., Cancer Cell 2022;40:1537-1549</p>
+</div>
+
+<h3 class="sub">Modelling approach</h3>
+<ul class="facts">
+  <li><b class="num">12%</b><span>Methylation array plus random forest classified roughly 100 CNS tumour types, changed up to 12% of actual diagnoses, and was adopted into the WHO classification — Capper, Nature 2018</span></li>
+  <li><b class="num">10:1</b><span>Ten classifiers trained and independently validated on the same samples. Whole-genome methylation was best at tissue of origin — Jamshidi, Cancer Cell 2022</span></li>
+  <li><b class="num">30M</b><span>Omics foundation models lift performance in the low-data regime — Geneformer, Nature 2023. Methylation-specific models are still preprints</span></li>
+</ul>
+<div class="caution caution--rule">
+  <p class="caution__label">Our modelling rule</p>
+  <p>
+    Until a cohort collected independently, elsewhere, has passed batch
+    correction and a held-out validation, <b>we will not state an AUC.</b>
+  </p>
+</div>
+
+    </section>
+
+    <section class="sec" id="limits">
+<header class="sec__head"><p class="kicker">What we do not claim</p><h2 class="sec__title">Before the panel asks, <em>we will say it first</em></h2></header><p class="lede">These three are limits of the whole field, and we are not an exception to them.</p>
+<ol class="method">
+  <li>
+    <h3>Stage I sensitivity is low</h3>
+    <p>
+      <b class="num">16.8–18%</b> at stage I across all cancers. The pitch is
+      early detection, and the earliest point is the weakest one.
+    </p>
+  </li>
+  <li>
+    <h3>Real-world PPV was <span class="num">38%</span></h3>
+    <p>
+      PATHFINDER, <b class="num">6,662</b> people — of the <b class="num">92</b>
+      with a positive signal, <b class="num">35</b> actually had cancer.
+    </p>
+  </li>
+  <li>
+    <h3>The large RCT missed its primary endpoint</h3>
+    <p>
+      NHS-Galleri, <b class="num">143,000</b> people — it did not achieve the
+      primary endpoint of reducing stage III/IV diagnoses. Presented before peer review.
+    </p>
+  </li>
+</ol>
+
+<figure class="field">
+  <svg class="field__svg" viewBox="0 0 230 40" preserveAspectRatio="xMinYMid meet"
+       role="img" aria-label="of 92 signal positives, the ones that were really cancer — 35 / 92">
+    <path class="field__rest" d="M5.0,5.0h0M15.0,5.0h0M25.0,5.0h0M35.0,5.0h0M45.0,5.0h0M55.0,5.0h0M65.0,5.0h0M75.0,5.0h0M85.0,5.0h0M95.0,5.0h0M105.0,5.0h0M115.0,5.0h0M125.0,5.0h0M135.0,5.0h0M145.0,5.0h0M155.0,5.0h0M165.0,5.0h0M175.0,5.0h0M185.0,5.0h0M195.0,5.0h0M205.0,5.0h0M215.0,5.0h0M225.0,5.0h0M5.0,15.0h0M15.0,15.0h0M25.0,15.0h0M35.0,15.0h0M45.0,15.0h0M55.0,15.0h0M65.0,15.0h0M75.0,15.0h0M85.0,15.0h0M95.0,15.0h0M105.0,15.0h0M115.0,15.0h0M125.0,15.0h0M135.0,15.0h0M145.0,15.0h0M155.0,15.0h0M165.0,15.0h0M175.0,15.0h0M185.0,15.0h0M195.0,15.0h0M205.0,15.0h0M215.0,15.0h0M225.0,15.0h0M5.0,25.0h0M15.0,25.0h0M25.0,25.0h0M35.0,25.0h0M45.0,25.0h0M55.0,25.0h0M65.0,25.0h0M75.0,25.0h0M85.0,25.0h0M95.0,25.0h0M105.0,25.0h0M115.0,25.0h0M125.0,25.0h0M135.0,25.0h0M145.0,25.0h0M155.0,25.0h0M165.0,25.0h0M175.0,25.0h0M185.0,25.0h0M195.0,25.0h0M205.0,25.0h0M215.0,25.0h0M225.0,25.0h0M5.0,35.0h0M15.0,35.0h0M25.0,35.0h0M35.0,35.0h0M45.0,35.0h0M55.0,35.0h0M65.0,35.0h0M75.0,35.0h0M85.0,35.0h0M95.0,35.0h0M105.0,35.0h0M115.0,35.0h0M125.0,35.0h0M135.0,35.0h0M145.0,35.0h0M155.0,35.0h0M165.0,35.0h0M175.0,35.0h0M185.0,35.0h0M195.0,35.0h0M205.0,35.0h0M215.0,35.0h0M225.0,35.0h0" />
+    <path class="field__hit" d="M5.0,5.0h0M15.0,5.0h0M25.0,5.0h0M35.0,5.0h0M45.0,5.0h0M55.0,5.0h0M65.0,5.0h0M75.0,5.0h0M85.0,5.0h0M95.0,5.0h0M105.0,5.0h0M115.0,5.0h0M125.0,5.0h0M135.0,5.0h0M145.0,5.0h0M155.0,5.0h0M165.0,5.0h0M175.0,5.0h0M185.0,5.0h0M195.0,5.0h0M205.0,5.0h0M215.0,5.0h0M225.0,5.0h0M5.0,15.0h0M15.0,15.0h0M25.0,15.0h0M35.0,15.0h0M45.0,15.0h0M55.0,15.0h0M65.0,15.0h0M75.0,15.0h0M85.0,15.0h0M95.0,15.0h0M105.0,15.0h0M115.0,15.0h0" />
+  </svg>
+  <figcaption class="field__cap">
+    <b class="num">38%</b>
+    <span>of 92 signal positives, the ones that were really cancer</span>
+    <i>PATHFINDER, 6,662 people · the other 57 were cleared after further work-up</i>
+  </figcaption>
+</figure>
+
+<figure class="thesis thesis--inline">
+  <blockquote>
+    Do not believe a team that says it will out-algorithm a company with two
+    billion dollars and a 100,000-person cohort. We win on reach.
+  </blockquote>
+</figure>
+<p class="src">Klein EA et al., Annals of Oncology 2021;32:1167-1177 (n=4,077) · Schrag D et al., Lancet 2023;402:1251-1260 (PATHFINDER, n=6,662) · NHS-Galleri, presented ASCO 2026 — peer-reviewed paper not yet published</p>
+    </section>
+
+    <section class="sec" id="roadmap">
+<header class="sec__head"><p class="kicker">Roadmap</p><h2 class="sec__title">Same plasma, <em>one axis at a time</em></h2></header><p class="lede">The point is not to read three axes from one draw. It is that the same plasma preparation carries a different panel each time.</p>
+<ol class="phases">
+  <li class="phase phase--now">
+    <p class="phase__no"><span class="num">PHASE 1</span> · <span class="num">0–2</span> yr</p>
+    <h3>Cancer</h3>
+    <p>Basic blood panel + cfDNA methylation multi-cancer screening</p>
+    <p class="phase__grade">Evidence established &middot; commercially viable</p>
+  </li>
+  <li class="phase">
+    <p class="phase__no"><span class="num">PHASE 2</span> · <span class="num">2–4</span> yr</p>
+    <h3>Neurodegenerative disease</h3>
+    <p>Alzheimer's &middot; Parkinson's &middot; ALS — reading the brain from blood is already FDA-cleared</p>
+    <p class="phase__grade">Evidence strong &middot; modality under review</p>
+  </li>
+  <li class="phase">
+    <p class="phase__no"><span class="num">PHASE 3</span> · <span class="num">4</span> yr +</p>
+    <h3>Chronic stress, quantified</h3>
+    <p>Not a psychiatric diagnosis — a molecular record of cumulative stress exposure</p>
+    <p class="phase__grade">Exploratory research module</p>
+  </li>
+</ol>
+
+<h3 class="sub">Put the three axes and the four milestones on one timeline</h3>
+
+<figure class="tl">
+  <div class="tl__scroll">
+    <div class="tl__grid" style="--cols: 8">
+      <div class="tl__row tl__row--head"><span class="tl__label"></span>
+        <span class="tl__track"><span class="tl__col">0</span><span class="tl__col">6 mo</span><span class="tl__col">12</span><span class="tl__col">18</span><span class="tl__col">24</span><span class="tl__col">3 yr</span><span class="tl__col">4 yr</span><span class="tl__col">5 yr+</span></span></div>
+    <div class="tl__row"><span class="tl__label"><b>Phase 1</b><i>Cancer</i></span><span class="tl__track"><span class="tl__bar tl__bar--now" style="grid-column: 1 / 5">cfDNA methylation, multi-cancer</span></span></div>
+    <div class="tl__row"><span class="tl__label"><b>Phase 2</b><i>Neurodegeneration</i></span><span class="tl__track"><span class="tl__bar tl__bar--next" style="grid-column: 5 / 8">Alzheimer's · Parkinson's · ALS</span></span></div>
+    <div class="tl__row"><span class="tl__label"><b>Phase 3</b><i>Chronic stress</i></span><span class="tl__track"><span class="tl__bar tl__bar--later" style="grid-column: 8 / 9">Exploratory module</span></span></div>
+    <div class="tl__row"><span class="tl__label"><b>M1</b><i>Paperfuge validation</i></span><span class="tl__track"><span class="tl__bar tl__bar--ms ms--risk" style="grid-column: 1 / 2">Highest risk</span></span></div>
+    <div class="tl__row"><span class="tl__label"><b>M2</b><i>Georgia pilot n=500</i></span><span class="tl__track"><span class="tl__bar tl__bar--ms" style="grid-column: 2 / 3">Logistics</span></span></div>
+    <div class="tl__row"><span class="tl__label"><b>M3</b><i>CLIA lab · LDT path</i></span><span class="tl__track"><span class="tl__bar tl__bar--ms" style="grid-column: 3 / 4">Regulatory</span></span></div>
+    <div class="tl__row"><span class="tl__label"><b>M4</b><i>Phase 2 cohort</i></span><span class="tl__track"><span class="tl__bar tl__bar--ms" style="grid-column: 4 / 5">Expansion</span></span></div>
+    </div>
+  </div>
+  <figcaption class="tl__cap">M1–M4 all close inside Phase 1. Phase 2 begins after that.</figcaption>
+</figure>
+
+<h3 class="sub">Phase 2 — the premise that blood can read the brain has already cleared</h3>
+<div class="twocol">
+  <div class="twocol__col">
+    <p class="twocol__label">Established</p>
+    <ul class="facts">
+      <li><b class="num">2025.05</b><span>FDA clears the first Alzheimer's blood test (Lumipulse pTau217/A&beta;42) — PPV 91.7%, NPV 97.3%, n=499</span></li>
+      <li><b class="num">0.97</b><span>Plasma p-tau217 AUC in primary care. Seeing the same patients, physicians were 61% accurate against the test's 91% — JAMA 2024</span></li>
+      <li><b class="num">2016</b><span>First detection of brain-derived DNA in plasma by cfDNA methylation — PNAS</span></li>
+    </ul>
+  </div>
+  <div class="twocol__col twocol__col--caution">
+    <p class="twocol__label">Still unresolved</p>
+    <ul class="reasons">
+      <li>AUC 0.91 in ALS — but <b class="num">n=30</b> (JCI 2026)</li>
+      <li>The largest study (<b class="num">n=281</b>, Sci Rep 2025) was <b>negative</b> — no gain over serum NfL and GFAP</li>
+      <li>The PNAS 2016 detection was in acute brain injury</li>
+    </ul>
+  </div>
+</div>
+<div class="caution">
+  <p>
+    So the Phase 2 claim is not “we will catch Alzheimer's with methylation.”
+    The plasma a paperfuge produces is <b>modality-neutral</b>. The same drop
+    runs a p-tau217 immunoassay today and a methylation panel tomorrow.
+  </p>
+</div>
+
+<h3 class="sub">Phase 3 — deliberately conservative ground</h3>
+<div class="twocol">
+  <div class="twocol__col twocol__col--no">
+    <p class="twocol__label">We do not claim</p>
+    <p><b>A “blood test for depression” does not exist.</b></p>
+    <ul class="reasons">
+      <li>Reanalysing eight cohorts of methylation depression classifiers (<b class="num">n=1,942</b>), proper normalisation collapsed AUC below <b class="num">0.57</b> and held-out predictive power disappeared</li>
+      <li>Serotonin transporter (SLC6A4) methylation had an effect size of <b class="num">0.06</b> across a 2,296-person meta-analysis — effectively null</li>
+    </ul>
+  </div>
+  <div class="twocol__col twocol__col--yes">
+    <p class="twocol__label">We do claim</p>
+    <p><b>Methylation is the most reproducible molecular record of chronic stress <i>exposure</i>.</b></p>
+    <ul class="reasons">
+      <li>NR3C1 methylation increased in <b class="num">89%</b> of 40 adversity-exposure studies</li>
+      <li>PGC-PTSD, 23 cohorts, <b class="num">n=5,077</b> — 11 genome-wide significant CpGs</li>
+      <li>Pre-deployment methylation risk scores predicted post-deployment PTSD onset (Wani 2024)</li>
+    </ul>
+  </div>
+</div>
+<div class="prose">
+  <p>
+    The incumbent measure is weak too — hair cortisol, the standard for chronic
+    stress, showed no consistent association with subjective stress or mood
+    disorder across an <b class="num">N=10,289</b> meta-analysis. <b>Beating a weak
+    incumbent on a hard problem is a reasonable claim. Having a blood test for
+    depression is not.</b>
+  </p>
+</div>
+<p class="src">FDA 2025-05-16 · Palmqvist S et al., JAMA 2024;332:1245-1257 · Lehmann-Werman R et al., PNAS 2016;113:E1826 · Chatterton Z et al., Sci Rep 2025;15:38844 · Sokolov AV &amp; Schi&ouml;th HB, Transl Psychiatry 2024;14:287 · Turecki G &amp; Meaney MJ, Biol Psychiatry 2016;79:87-96 · Katrinli S et al., Genome Med 2024;16:147 · Stalder T et al., Psychoneuroendocrinology 2017;77:261-274</p>
+    </section>
+
+    <section class="sec" id="market">
+<header class="sec__head"><p class="kicker">Market</p><h2 class="sec__title">The band we take first</h2></header>
+<div class="funnel">
+  <div class="funnel__step" style="--w: 100%">
+    <p class="funnel__tier">TAM</p>
+    <p class="funnel__val num">$1.3B &rarr; $5.3B</p>
+    <p class="funnel__desc">Global multi-cancer early detection (MCED), 2025 &rarr; 2035 · CAGR 14.8–17%, cross-checked across two firms</p>
+  </div>
+  <div class="funnel__arrow"><span>United States only</span></div>
+  <div class="funnel__step" style="--w: 62%">
+    <p class="funnel__tier">SAM</p>
+    <p class="funnel__val num">$1.75<i>B</i></p>
+    <p class="funnel__desc">US MCED $522.8M + US direct-to-consumer lab testing $1.23B</p>
+  </div>
+  <div class="funnel__arrow"><span>3.32 M Georgians aged 50–79 &times; 2% penetration &times; $400 ASP</span></div>
+  <div class="funnel__step funnel__step--ours" style="--w: 34%">
+    <p class="funnel__tier">SOM <b>year 5</b></p>
+    <p class="funnel__val num">$27<i>M ARR</i></p>
+    <p class="funnel__desc">Conservative case: 0.5% in year 3 = $6.6M</p>
+  </div>
+</div>
+<p class="src src--assumed">Penetration anchor — GRAIL sits at 0.17% US penetration at a $949 price point. Do not believe a plan that assumes 5% or more. The 2035 forecasts differ by 2.5× between firms (Fact.MR: $8.2B → $16.3B, CAGR 6.5%)</p><h3 class="sub">Competitive landscape</h3>
+<figure class="bar" role="img" aria-label="Bar length is proportional to list price. The top of the market is 28× the bottom.">
+  <div class="bar__row"><span class="bar__name">MindX Sciences</span><span class="bar__track"><i style="--w: 100.0%"></i></span><span class="bar__val num">$1,958</span><span class="bar__note">Single service &middot; high cost</span></div>
+  <div class="bar__row"><span class="bar__name">Guardant Shield</span><span class="bar__track"><i style="--w: 76.4%"></i></span><span class="bar__val num">$1,495</span><span class="bar__note">Colorectal screening</span></div>
+  <div class="bar__row"><span class="bar__name">GRAIL Galleri</span><span class="bar__track"><i style="--w: 48.5%"></i></span><span class="bar__val num">$949</span><span class="bar__note">50+ cancer MCED</span></div>
+  <div class="bar__row"><span class="bar__name">Exact Cancerguard</span><span class="bar__track"><i style="--w: 35.2%"></i></span><span class="bar__val num">$689</span><span class="bar__note">MCED</span></div>
+  <div class="bar__row"><span class="bar__name">TruDiagnostic</span><span class="bar__track"><i style="--w: 25.5%"></i></span><span class="bar__val num">$499</span><span class="bar__note">Biological age</span></div>
+  <div class="bar__row bar__row--ours"><span class="bar__name">PIDIA</span><span class="bar__track"><i style="--w: 23.0%"></i></span><span class="bar__val num">$400–500</span><span class="bar__note">Multi-disease methylation panel &middot; no draw centre</span></div>
+  <div class="bar__row"><span class="bar__name">Function Health</span><span class="bar__track"><i style="--w: 18.6%"></i></span><span class="bar__val num">$365/yr</span><span class="bar__note">160+ tests bundled &middot; biggest threat</span></div>
+  <div class="bar__row"><span class="bar__name">myLAB Box</span><span class="bar__track"><i style="--w: 9.7%"></i></span><span class="bar__val num">$189</span><span class="bar__note">Self-test kit</span></div>
+  <div class="bar__row"><span class="bar__name">Everlywell HIV</span><span class="bar__track"><i style="--w: 3.5%"></i></span><span class="bar__val num">$69</span><span class="bar__note">Single analyte</span></div>
+  <figcaption class="bar__cap">Bar length is proportional to list price. The top of the market is 28× the bottom.</figcaption>
+</figure>
+
+<div class="cards">
+  <article class="card card--muted">
+    <p class="card__tag">Biggest threat</p>
+    <h3>Function Health</h3>
+    <p>160+ tests for $365 a year. $298M raised at a $2.5B valuation. They resell Galleri and Alzheimer's testing as add-ons.</p>
+  </article>
+  <article class="card card--lead">
+    <p class="card__tag">The empty band</p>
+    <h3>A multi-disease methylation panel at $400–700</h3>
+    <p>Cheaper than Cancerguard, more clinical than TruDiagnostic, a quarter of MindX.</p>
+  </article>
+</div>
+<p class="src">Each company's published pricing and FY2025 results (checked 2026-07)</p><h3 class="sub">Three things only we have</h3>
+<ol class="method">
+  <li>
+    <h3>Threshold — there is no draw centre</h3>
+    <p>Function Health sends you to a Quest location. We end at the mailbox. In 53 Georgia counties there is no clinic to go to in the first place.</p>
+  </li>
+  <li>
+    <h3>Extension — same plasma, different panel</h3>
+    <p>Competitors add analytes. We share the preparation and change only the panel. Phase 1's logistics become Phase 2 and 3's asset.</p>
+  </li>
+  <li>
+    <h3>Focus — we start in one state</h3>
+    <p>Not the whole country. One state, so shipping temperature, regulation and the partner lab are a single controlled variable — then we expand.</p>
+  </li>
+</ol>
+<figure class="thesis thesis--inline">
+  <blockquote>We are not a team building a more accurate test. We are a team building the path a test takes to reach a person.</blockquote>
+</figure>
+
+    </section>
+
+    <section class="sec" id="georgia">
+<header class="sec__head"><p class="kicker">Beachhead</p><h2 class="sec__title">Why we start in <em>Georgia</em></h2></header><p class="lede">All three personas live inside one state, and the entire three-phase roadmap can be validated in the same population.</p><div class="stats"><div class="stat"><b class="num">471.9</b><span>Cancer incidence per 100,000</span><i>vs 448.6 national average · +5.2%</i></div><div class="stat"><b class="num">12.0%</b><span>Uninsured · 49th of 50 states</span><i>~1.34 M people paying cash</i></div><div class="stat"><b class="num">53</b><span>Counties with no hospital at all (of 159)</span><i>2.4 M rural residents</i></div><div class="stat"><b class="num">65,195</b><span>People living with HIV</span><i>44% aged 50+ · 2,442 new cases a year</i></div></div>
+<figure class="delta" role="img" aria-label="More cancer, less screening. A beachhead is where two indicators lean the same way.">
+  <div class="delta__head">
+    <span></span><span>Deviation from the US average</span>
+    <span>Georgia</span><span>US average</span>
+  </div>
+  <div class="delta__row"><span class="delta__name">Cancer incidence per 100k</span><span class="delta__track"><i class="delta__bar delta__bar--pos is-market" style="--w: 50.0%"></i></span><span class="delta__val num">471.9</span><span class="delta__ref num">448.6</span></div>
+  <div class="delta__row"><span class="delta__name">Colorectal screening rate</span><span class="delta__track"><i class="delta__bar delta__bar--neg is-market" style="--w: 21.2%"></i></span><span class="delta__val num">69.5%</span><span class="delta__ref num">71.1%</span></div>
+  <figcaption class="delta__cap">More cancer, less screening. A beachhead is where two indicators lean the same way.</figcaption>
+</figure>
+<h3 class="sub">The Phase 2 and 3 populations are in the same state</h3><div class="stats"><div class="stat"><b class="num">188,300</b><span>Rural Georgians 65+ with Alzheimer's or dementia</span></div><div class="stat"><b class="num">19 : 15</b><span>Rural vs non-rural suicide rate per 100,000</span></div><div class="stat"><b class="num">69.5%</b><span>Colorectal screening · 32nd of 50</span><i>US average 71.1%</i></div></div><p class="src">NCI State Cancer Profiles (2018-2022, age-adjusted) · America's Health Rankings 2024 (CDC BRFSS) · Georgia Rural Health Transformation, official state application · Georgia DPH HIV Surveillance Fact Sheet 2023</p>
+    </section>
+
+    <section class="sec" id="milestones">
+<header class="sec__head"><p class="kicker">Milestones</p><h2 class="sec__title">We test the <em>most uncertain thing first</em></h2></header>
+<figure class="msg">
+  <svg class="msg__svg" viewBox="0 0 120 26" role="img" aria-label="The drop is largest at the first step. That is why the order is what it is.">
+    <line class="msg__axis" x1="2.4" y1="23.6" x2="117.6" y2="23.6" />
+    <line class="msg__drop" x1="31.2" y1="2.4" x2="31.2" y2="13.8" />
+    <line class="msg__drop" x1="60.0" y1="13.8" x2="60.0" y2="17.2" />
+    <line class="msg__drop" x1="88.8" y1="17.2" x2="88.8" y2="19.8" />
+    <line class="msg__drop" x1="117.6" y1="19.8" x2="117.6" y2="21.5" />
+    <path class="msg__line" d="M2.4,2.4 H31.2V13.8 H60.0V17.2 H88.8V19.8 H117.6V21.5" />
+    <circle class="msg__dot msg__dot--risk" cx="31.2" cy="13.8" r="1.1" />
+    <circle class="msg__dot" cx="60.0" cy="17.2" r="1.1" />
+    <circle class="msg__dot" cx="88.8" cy="19.8" r="1.1" />
+    <circle class="msg__dot" cx="117.6" cy="21.5" r="1.1" />
+  </svg>
+  <p class="msg__axislabel"><span>Remaining uncertainty</span><span>Time &rarr;</span></p>
+  <ol class="msg__items">
+    <li class="msg__item msg__item--risk" style="--i: 0"><b class="num">M1</b><span class="msg__when num">6 mo</span><span class="msg__what">Paperfuge cfDNA quality</span></li>    <li class="msg__item" style="--i: 1"><b class="num">M2</b><span class="msg__when num">12 mo</span><span class="msg__what">Georgia pilot, n=500</span></li>    <li class="msg__item" style="--i: 2"><b class="num">M3</b><span class="msg__when num">18 mo</span><span class="msg__what">CLIA lab · LDT path</span></li>    <li class="msg__item" style="--i: 3"><b class="num">M4</b><span class="msg__when num">24 mo</span><span class="msg__what">Phase 2 cohort</span></li>
+  </ol>
+  <figcaption class="msg__cap">The drop is largest at the first step. That is why the order is what it is.</figcaption>
+</figure>
+<p class="src src--assumed">The order of the drops is the risk ranking the deck states. The heights render that ranking rather than measure it, which is why the vertical axis carries no numbers.</p>
+
+<figure class="wmap">
+  <div class="wmap__canvas">
+    <svg class="wmap__svg" viewBox="0 0 210 102" role="img"
+      aria-label="Market entry sequence on a world map — Georgia, then US metros, then Africa, then Korea">
+      <path class="wmap__land" d="M57,0h0M58,0h0M59,0h0M60,0h0M61,0h0M62,0h0M63,0h0M64,0h0M65,0h0M66,0h0M67,0h0M68,0h0M78,0h0M79,0h0M80,0h0M81,0h0M82,0h0M83,0h0M84,0h0M85,0h0M86,0h0M87,0h0M88,0h0M89,0h0M90,0h0M91,0h0M92,0h0M52,1h0M53,1h0M54,1h0M55,1h0M56,1h0M57,1h0M58,1h0M59,1h0M60,1h0M61,1h0M62,1h0M63,1h0M64,1h0M65,1h0M66,1h0M67,1h0M69,1h0M70,1h0M71,1h0M72,1h0M73,1h0M74,1h0M75,1h0M76,1h0M77,1h0M78,1h0M79,1h0M80,1h0M81,1h0M82,1h0M83,1h0M84,1h0M85,1h0M86,1h0M87,1h0M88,1h0M89,1h0M91,1h0M52,2h0M53,2h0M54,2h0M55,2h0M56,2h0M57,2h0M58,2h0M59,2h0M60,2h0M61,2h0M62,2h0M63,2h0M64,2h0M65,2h0M68,2h0M69,2h0M70,2h0M71,2h0M72,2h0M73,2h0M74,2h0M75,2h0M76,2h0M77,2h0M78,2h0M79,2h0M80,2h0M81,2h0M82,2h0M83,2h0M84,2h0M85,2h0M86,2h0M87,2h0M88,2h0M89,2h0M90,2h0M91,2h0M92,2h0M93,2h0M94,2h0M95,2h0M96,2h0M97,2h0M49,3h0M50,3h0M51,3h0M52,3h0M57,3h0M58,3h0M59,3h0M60,3h0M61,3h0M62,3h0M63,3h0M66,3h0M67,3h0M68,3h0M69,3h0M70,3h0M71,3h0M72,3h0M73,3h0M74,3h0M75,3h0M76,3h0M77,3h0M78,3h0M79,3h0M80,3h0M81,3h0M82,3h0M83,3h0M84,3h0M85,3h0M86,3h0M87,3h0M88,3h0M89,3h0M90,3h0M91,3h0M92,3h0M93,3h0M94,3h0M116,3h0M118,3h0M132,3h0M133,3h0M134,3h0M159,3h0M160,3h0M161,3h0M49,4h0M50,4h0M51,4h0M52,4h0M53,4h0M55,4h0M56,4h0M57,4h0M58,4h0M59,4h0M60,4h0M61,4h0M62,4h0M67,4h0M68,4h0M69,4h0M70,4h0M71,4h0M72,4h0M73,4h0M74,4h0M75,4h0M76,4h0M77,4h0M78,4h0M79,4h0M80,4h0M81,4h0M82,4h0M83,4h0M84,4h0M85,4h0M86,4h0M87,4h0M88,4h0M89,4h0M90,4h0M91,4h0M92,4h0M93,4h0M112,4h0M114,4h0M115,4h0M117,4h0M118,4h0M119,4h0M120,4h0M159,4h0M160,4h0M161,4h0M162,4h0M43,5h0M44,5h0M50,5h0M51,5h0M52,5h0M53,5h0M55,5h0M56,5h0M57,5h0M58,5h0M59,5h0M60,5h0M65,5h0M66,5h0M67,5h0M68,5h0M69,5h0M70,5h0M71,5h0M72,5h0M73,5h0M74,5h0M75,5h0M76,5h0M77,5h0M78,5h0M79,5h0M80,5h0M81,5h0M82,5h0M83,5h0M84,5h0M85,5h0M86,5h0M87,5h0M88,5h0M89,5h0M90,5h0M91,5h0M92,5h0M93,5h0M111,5h0M112,5h0M113,5h0M114,5h0M115,5h0M116,5h0M161,5h0M162,5h0M164,5h0M165,5h0M45,6h0M46,6h0M48,6h0M55,6h0M56,6h0M57,6h0M58,6h0M59,6h0M60,6h0M62,6h0M63,6h0M64,6h0M65,6h0M66,6h0M67,6h0M68,6h0M69,6h0M70,6h0M71,6h0M72,6h0M73,6h0M74,6h0M75,6h0M76,6h0M77,6h0M78,6h0M79,6h0M80,6h0M81,6h0M82,6h0M83,6h0M84,6h0M85,6h0M86,6h0M87,6h0M88,6h0M89,6h0M90,6h0M91,6h0M92,6h0M93,6h0M112,6h0M113,6h0M114,6h0M115,6h0M117,6h0M118,6h0M163,6h0M164,6h0M35,7h0M36,7h0M54,7h0M55,7h0M56,7h0M57,7h0M58,7h0M66,7h0M67,7h0M68,7h0M69,7h0M70,7h0M71,7h0M72,7h0M73,7h0M74,7h0M75,7h0M76,7h0M77,7h0M78,7h0M79,7h0M80,7h0M81,7h0M82,7h0M83,7h0M84,7h0M85,7h0M86,7h0M87,7h0M88,7h0M89,7h0M90,7h0M91,7h0M92,7h0M93,7h0M113,7h0M114,7h0M165,7h0M166,7h0M34,8h0M35,8h0M36,8h0M41,8h0M47,8h0M49,8h0M50,8h0M51,8h0M53,8h0M54,8h0M55,8h0M56,8h0M57,8h0M58,8h0M64,8h0M65,8h0M66,8h0M67,8h0M68,8h0M69,8h0M70,8h0M71,8h0M72,8h0M73,8h0M74,8h0M75,8h0M76,8h0M77,8h0M78,8h0M79,8h0M80,8h0M81,8h0M82,8h0M83,8h0M84,8h0M85,8h0M86,8h0M87,8h0M88,8h0M89,8h0M90,8h0M91,8h0M143,8h0M144,8h0M164,8h0M165,8h0M166,8h0M167,8h0M168,8h0M169,8h0M37,9h0M38,9h0M39,9h0M41,9h0M42,9h0M45,9h0M46,9h0M47,9h0M51,9h0M52,9h0M56,9h0M70,9h0M71,9h0M72,9h0M73,9h0M74,9h0M75,9h0M76,9h0M77,9h0M78,9h0M79,9h0M80,9h0M81,9h0M82,9h0M83,9h0M84,9h0M85,9h0M86,9h0M87,9h0M88,9h0M89,9h0M90,9h0M91,9h0M92,9h0M139,9h0M140,9h0M141,9h0M142,9h0M159,9h0M160,9h0M161,9h0M162,9h0M163,9h0M164,9h0M165,9h0M166,9h0M167,9h0M168,9h0M169,9h0M170,9h0M171,9h0M185,9h0M186,9h0M187,9h0M188,9h0M39,10h0M40,10h0M41,10h0M49,10h0M51,10h0M52,10h0M53,10h0M54,10h0M55,10h0M56,10h0M57,10h0M71,10h0M72,10h0M73,10h0M74,10h0M75,10h0M76,10h0M77,10h0M78,10h0M79,10h0M80,10h0M81,10h0M82,10h0M83,10h0M84,10h0M85,10h0M86,10h0M87,10h0M88,10h0M89,10h0M90,10h0M91,10h0M92,10h0M138,10h0M139,10h0M156,10h0M157,10h0M158,10h0M159,10h0M160,10h0M161,10h0M162,10h0M163,10h0M164,10h0M165,10h0M166,10h0M167,10h0M168,10h0M169,10h0M186,10h0M187,10h0M188,10h0M191,10h0M192,10h0M32,11h0M33,11h0M34,11h0M35,11h0M36,11h0M50,11h0M72,11h0M73,11h0M74,11h0M75,11h0M76,11h0M77,11h0M78,11h0M79,11h0M80,11h0M81,11h0M82,11h0M83,11h0M84,11h0M85,11h0M86,11h0M87,11h0M88,11h0M89,11h0M90,11h0M91,11h0M92,11h0M137,11h0M138,11h0M156,11h0M157,11h0M158,11h0M159,11h0M160,11h0M161,11h0M162,11h0M163,11h0M164,11h0M165,11h0M166,11h0M167,11h0M168,11h0M169,11h0M32,12h0M33,12h0M34,12h0M35,12h0M36,12h0M37,12h0M42,12h0M43,12h0M46,12h0M47,12h0M49,12h0M50,12h0M51,12h0M53,12h0M54,12h0M55,12h0M56,12h0M57,12h0M58,12h0M59,12h0M73,12h0M74,12h0M75,12h0M76,12h0M77,12h0M78,12h0M79,12h0M80,12h0M81,12h0M82,12h0M83,12h0M84,12h0M85,12h0M86,12h0M87,12h0M88,12h0M89,12h0M90,12h0M136,12h0M137,12h0M152,12h0M153,12h0M154,12h0M155,12h0M156,12h0M157,12h0M158,12h0M159,12h0M160,12h0M161,12h0M162,12h0M163,12h0M164,12h0M165,12h0M166,12h0M167,12h0M168,12h0M169,12h0M170,12h0M171,12h0M172,12h0M173,12h0M177,12h0M178,12h0M179,12h0M32,13h0M33,13h0M34,13h0M36,13h0M37,13h0M38,13h0M39,13h0M40,13h0M41,13h0M42,13h0M43,13h0M46,13h0M47,13h0M48,13h0M49,13h0M52,13h0M53,13h0M54,13h0M55,13h0M56,13h0M57,13h0M59,13h0M60,13h0M73,13h0M74,13h0M75,13h0M76,13h0M77,13h0M78,13h0M79,13h0M80,13h0M81,13h0M82,13h0M83,13h0M84,13h0M85,13h0M86,13h0M87,13h0M88,13h0M89,13h0M90,13h0M136,13h0M145,13h0M146,13h0M150,13h0M151,13h0M152,13h0M153,13h0M154,13h0M155,13h0M156,13h0M157,13h0M158,13h0M159,13h0M160,13h0M161,13h0M162,13h0M163,13h0M164,13h0M165,13h0M166,13h0M167,13h0M168,13h0M169,13h0M170,13h0M171,13h0M172,13h0M173,13h0M174,13h0M175,13h0M176,13h0M177,13h0M178,13h0M179,13h0M186,13h0M187,13h0M188,13h0M189,13h0M190,13h0M191,13h0M0,14h0M33,14h0M34,14h0M36,14h0M37,14h0M38,14h0M39,14h0M40,14h0M41,14h0M42,14h0M43,14h0M47,14h0M49,14h0M50,14h0M53,14h0M54,14h0M55,14h0M56,14h0M57,14h0M58,14h0M59,14h0M60,14h0M61,14h0M62,14h0M74,14h0M75,14h0M76,14h0M77,14h0M78,14h0M79,14h0M80,14h0M81,14h0M82,14h0M83,14h0M84,14h0M85,14h0M86,14h0M87,14h0M88,14h0M89,14h0M90,14h0M91,14h0M136,14h0M137,14h0M144,14h0M145,14h0M146,14h0M148,14h0M149,14h0M150,14h0M151,14h0M152,14h0M153,14h0M154,14h0M155,14h0M156,14h0M157,14h0M158,14h0M159,14h0M160,14h0M161,14h0M162,14h0M163,14h0M164,14h0M165,14h0M166,14h0M167,14h0M168,14h0M169,14h0M170,14h0M171,14h0M172,14h0M173,14h0M174,14h0M175,14h0M176,14h0M177,14h0M178,14h0M179,14h0M180,14h0M182,14h0M183,14h0M184,14h0M185,14h0M186,14h0M187,14h0M188,14h0M189,14h0M190,14h0M191,14h0M192,14h0M11,15h0M12,15h0M13,15h0M14,15h0M15,15h0M16,15h0M17,15h0M30,15h0M39,15h0M40,15h0M41,15h0M42,15h0M43,15h0M44,15h0M49,15h0M50,15h0M53,15h0M54,15h0M55,15h0M56,15h0M57,15h0M58,15h0M59,15h0M60,15h0M61,15h0M62,15h0M63,15h0M64,15h0M73,15h0M74,15h0M75,15h0M76,15h0M77,15h0M78,15h0M79,15h0M80,15h0M81,15h0M82,15h0M83,15h0M84,15h0M85,15h0M86,15h0M87,15h0M88,15h0M89,15h0M119,15h0M120,15h0M121,15h0M122,15h0M144,15h0M145,15h0M146,15h0M148,15h0M149,15h0M150,15h0M151,15h0M152,15h0M153,15h0M154,15h0M155,15h0M156,15h0M157,15h0M158,15h0M159,15h0M160,15h0M161,15h0M162,15h0M163,15h0M164,15h0M165,15h0M166,15h0M167,15h0M168,15h0M169,15h0M170,15h0M171,15h0M172,15h0M173,15h0M174,15h0M175,15h0M176,15h0M177,15h0M178,15h0M179,15h0M180,15h0M181,15h0M182,15h0M183,15h0M184,15h0M185,15h0M186,15h0M187,15h0M188,15h0M189,15h0M190,15h0M191,15h0M192,15h0M193,15h0M194,15h0M195,15h0M196,15h0M197,15h0M10,16h0M11,16h0M12,16h0M13,16h0M14,16h0M15,16h0M16,16h0M17,16h0M18,16h0M19,16h0M20,16h0M21,16h0M22,16h0M23,16h0M26,16h0M27,16h0M28,16h0M29,16h0M30,16h0M31,16h0M33,16h0M34,16h0M37,16h0M38,16h0M39,16h0M40,16h0M41,16h0M42,16h0M43,16h0M44,16h0M47,16h0M48,16h0M50,16h0M51,16h0M55,16h0M56,16h0M60,16h0M61,16h0M62,16h0M63,16h0M64,16h0M65,16h0M75,16h0M76,16h0M77,16h0M78,16h0M79,16h0M80,16h0M81,16h0M82,16h0M83,16h0M84,16h0M85,16h0M86,16h0M87,16h0M88,16h0M89,16h0M90,16h0M116,16h0M117,16h0M118,16h0M119,16h0M120,16h0M121,16h0M122,16h0M123,16h0M124,16h0M140,16h0M141,16h0M144,16h0M145,16h0M146,16h0M148,16h0M149,16h0M150,16h0M151,16h0M152,16h0M153,16h0M154,16h0M155,16h0M156,16h0M157,16h0M158,16h0M159,16h0M160,16h0M161,16h0M162,16h0M163,16h0M164,16h0M165,16h0M166,16h0M167,16h0M168,16h0M169,16h0M170,16h0M171,16h0M172,16h0M173,16h0M174,16h0M175,16h0M176,16h0M177,16h0M178,16h0M179,16h0M180,16h0M181,16h0M182,16h0M183,16h0M184,16h0M185,16h0M186,16h0M187,16h0M188,16h0M189,16h0M190,16h0M191,16h0M192,16h0M193,16h0M194,16h0M195,16h0M196,16h0M197,16h0M198,16h0M199,16h0M200,16h0M201,16h0M202,16h0M204,16h0M205,16h0M206,16h0M207,16h0M208,16h0M0,17h0M8,17h0M9,17h0M10,17h0M11,17h0M12,17h0M13,17h0M14,17h0M15,17h0M16,17h0M17,17h0M18,17h0M19,17h0M20,17h0M21,17h0M22,17h0M23,17h0M24,17h0M25,17h0M26,17h0M27,17h0M28,17h0M29,17h0M30,17h0M31,17h0M32,17h0M33,17h0M34,17h0M35,17h0M36,17h0M37,17h0M42,17h0M43,17h0M50,17h0M51,17h0M52,17h0M53,17h0M55,17h0M56,17h0M62,17h0M63,17h0M64,17h0M74,17h0M75,17h0M76,17h0M77,17h0M78,17h0M79,17h0M80,17h0M81,17h0M82,17h0M83,17h0M84,17h0M85,17h0M86,17h0M87,17h0M88,17h0M114,17h0M115,17h0M116,17h0M117,17h0M118,17h0M119,17h0M120,17h0M121,17h0M122,17h0M123,17h0M124,17h0M125,17h0M126,17h0M127,17h0M130,17h0M135,17h0M138,17h0M139,17h0M140,17h0M141,17h0M142,17h0M143,17h0M145,17h0M146,17h0M147,17h0M148,17h0M149,17h0M150,17h0M151,17h0M152,17h0M153,17h0M154,17h0M155,17h0M156,17h0M157,17h0M158,17h0M159,17h0M160,17h0M161,17h0M162,17h0M163,17h0M164,17h0M165,17h0M166,17h0M167,17h0M168,17h0M169,17h0M170,17h0M171,17h0M172,17h0M173,17h0M174,17h0M175,17h0M176,17h0M177,17h0M178,17h0M179,17h0M180,17h0M181,17h0M182,17h0M183,17h0M184,17h0M185,17h0M186,17h0M187,17h0M188,17h0M189,17h0M190,17h0M191,17h0M192,17h0M193,17h0M194,17h0M195,17h0M196,17h0M197,17h0M198,17h0M199,17h0M200,17h0M201,17h0M202,17h0M203,17h0M204,17h0M205,17h0M206,17h0M207,17h0M208,17h0M209,17h0M0,18h0M1,18h0M2,18h0M9,18h0M10,18h0M11,18h0M12,18h0M13,18h0M14,18h0M15,18h0M16,18h0M17,18h0M18,18h0M19,18h0M20,18h0M21,18h0M22,18h0M23,18h0M24,18h0M25,18h0M26,18h0M27,18h0M28,18h0M29,18h0M30,18h0M31,18h0M32,18h0M33,18h0M34,18h0M35,18h0M36,18h0M37,18h0M38,18h0M39,18h0M40,18h0M42,18h0M43,18h0M44,18h0M45,18h0M46,18h0M47,18h0M48,18h0M49,18h0M50,18h0M51,18h0M52,18h0M53,18h0M54,18h0M55,18h0M56,18h0M57,18h0M60,18h0M63,18h0M64,18h0M65,18h0M66,18h0M67,18h0M74,18h0M75,18h0M76,18h0M77,18h0M78,18h0M79,18h0M80,18h0M81,18h0M82,18h0M83,18h0M84,18h0M85,18h0M113,18h0M114,18h0M115,18h0M116,18h0M117,18h0M118,18h0M119,18h0M120,18h0M121,18h0M122,18h0M123,18h0M124,18h0M125,18h0M126,18h0M127,18h0M128,18h0M131,18h0M133,18h0M134,18h0M135,18h0M136,18h0M137,18h0M138,18h0M139,18h0M140,18h0M141,18h0M142,18h0M143,18h0M144,18h0M145,18h0M146,18h0M148,18h0M149,18h0M150,18h0M151,18h0M152,18h0M153,18h0M154,18h0M155,18h0M156,18h0M157,18h0M158,18h0M159,18h0M160,18h0M161,18h0M162,18h0M163,18h0M164,18h0M165,18h0M166,18h0M167,18h0M168,18h0M169,18h0M170,18h0M171,18h0M172,18h0M173,18h0M174,18h0M175,18h0M176,18h0M177,18h0M178,18h0M179,18h0M180,18h0M181,18h0M182,18h0M183,18h0M184,18h0M185,18h0M186,18h0M187,18h0M188,18h0M189,18h0M190,18h0M191,18h0M192,18h0M193,18h0M194,18h0M195,18h0M196,18h0M197,18h0M198,18h0M199,18h0M200,18h0M201,18h0M202,18h0M203,18h0M204,18h0M205,18h0M206,18h0M207,18h0M208,18h0M209,18h0M0,19h0M1,19h0M2,19h0M3,19h0M4,19h0M9,19h0M10,19h0M11,19h0M12,19h0M13,19h0M14,19h0M15,19h0M16,19h0M17,19h0M18,19h0M19,19h0M20,19h0M21,19h0M22,19h0M23,19h0M24,19h0M25,19h0M26,19h0M27,19h0M28,19h0M29,19h0M30,19h0M31,19h0M32,19h0M33,19h0M34,19h0M35,19h0M36,19h0M37,19h0M38,19h0M39,19h0M40,19h0M41,19h0M42,19h0M43,19h0M44,19h0M45,19h0M46,19h0M47,19h0M48,19h0M49,19h0M50,19h0M51,19h0M52,19h0M53,19h0M54,19h0M55,19h0M62,19h0M63,19h0M64,19h0M65,19h0M66,19h0M67,19h0M68,19h0M74,19h0M75,19h0M76,19h0M77,19h0M78,19h0M79,19h0M80,19h0M81,19h0M82,19h0M83,19h0M84,19h0M95,19h0M96,19h0M113,19h0M114,19h0M115,19h0M116,19h0M117,19h0M118,19h0M119,19h0M120,19h0M121,19h0M122,19h0M123,19h0M124,19h0M126,19h0M127,19h0M128,19h0M129,19h0M131,19h0M132,19h0M133,19h0M134,19h0M135,19h0M136,19h0M137,19h0M138,19h0M139,19h0M140,19h0M141,19h0M142,19h0M143,19h0M144,19h0M145,19h0M146,19h0M147,19h0M148,19h0M149,19h0M150,19h0M151,19h0M152,19h0M153,19h0M154,19h0M155,19h0M156,19h0M157,19h0M158,19h0M159,19h0M160,19h0M161,19h0M162,19h0M163,19h0M164,19h0M165,19h0M166,19h0M167,19h0M168,19h0M169,19h0M170,19h0M171,19h0M172,19h0M173,19h0M174,19h0M175,19h0M176,19h0M177,19h0M178,19h0M179,19h0M180,19h0M181,19h0M182,19h0M183,19h0M184,19h0M185,19h0M186,19h0M187,19h0M188,19h0M189,19h0M190,19h0M191,19h0M192,19h0M193,19h0M194,19h0M195,19h0M196,19h0M197,19h0M198,19h0M199,19h0M200,19h0M201,19h0M202,19h0M203,19h0M204,19h0M205,19h0M206,19h0M207,19h0M208,19h0M209,19h0M2,20h0M3,20h0M7,20h0M8,20h0M9,20h0M10,20h0M11,20h0M12,20h0M13,20h0M14,20h0M15,20h0M16,20h0M17,20h0M18,20h0M19,20h0M20,20h0M21,20h0M22,20h0M23,20h0M24,20h0M25,20h0M26,20h0M27,20h0M28,20h0M29,20h0M30,20h0M31,20h0M32,20h0M33,20h0M34,20h0M35,20h0M36,20h0M37,20h0M38,20h0M39,20h0M40,20h0M41,20h0M42,20h0M43,20h0M44,20h0M45,20h0M46,20h0M47,20h0M48,20h0M49,20h0M50,20h0M51,20h0M52,20h0M53,20h0M61,20h0M62,20h0M63,20h0M64,20h0M65,20h0M67,20h0M74,20h0M75,20h0M76,20h0M77,20h0M78,20h0M79,20h0M80,20h0M81,20h0M92,20h0M93,20h0M94,20h0M95,20h0M96,20h0M112,20h0M113,20h0M114,20h0M115,20h0M116,20h0M117,20h0M120,20h0M121,20h0M122,20h0M123,20h0M124,20h0M128,20h0M129,20h0M130,20h0M131,20h0M132,20h0M133,20h0M134,20h0M135,20h0M136,20h0M137,20h0M138,20h0M139,20h0M140,20h0M141,20h0M142,20h0M143,20h0M144,20h0M145,20h0M146,20h0M147,20h0M148,20h0M149,20h0M150,20h0M151,20h0M152,20h0M153,20h0M154,20h0M155,20h0M156,20h0M157,20h0M158,20h0M159,20h0M160,20h0M161,20h0M162,20h0M163,20h0M164,20h0M165,20h0M166,20h0M167,20h0M168,20h0M169,20h0M170,20h0M171,20h0M172,20h0M173,20h0M174,20h0M175,20h0M176,20h0M177,20h0M178,20h0M179,20h0M180,20h0M181,20h0M182,20h0M183,20h0M184,20h0M185,20h0M186,20h0M187,20h0M188,20h0M189,20h0M190,20h0M191,20h0M192,20h0M193,20h0M194,20h0M195,20h0M196,20h0M197,20h0M198,20h0M199,20h0M200,20h0M201,20h0M202,20h0M203,20h0M204,20h0M205,20h0M206,20h0M207,20h0M208,20h0M209,20h0M11,21h0M12,21h0M13,21h0M14,21h0M15,21h0M16,21h0M17,21h0M18,21h0M19,21h0M20,21h0M21,21h0M22,21h0M23,21h0M24,21h0M25,21h0M26,21h0M27,21h0M28,21h0M29,21h0M30,21h0M31,21h0M32,21h0M33,21h0M34,21h0M35,21h0M36,21h0M37,21h0M38,21h0M39,21h0M40,21h0M41,21h0M42,21h0M43,21h0M44,21h0M45,21h0M46,21h0M47,21h0M48,21h0M49,21h0M50,21h0M51,21h0M52,21h0M53,21h0M55,21h0M56,21h0M60,21h0M62,21h0M63,21h0M64,21h0M65,21h0M66,21h0M75,21h0M76,21h0M77,21h0M78,21h0M79,21h0M80,21h0M92,21h0M93,21h0M94,21h0M95,21h0M111,21h0M112,21h0M113,21h0M114,21h0M115,21h0M116,21h0M119,21h0M120,21h0M121,21h0M122,21h0M123,21h0M124,21h0M125,21h0M127,21h0M128,21h0M129,21h0M130,21h0M131,21h0M132,21h0M133,21h0M134,21h0M135,21h0M136,21h0M137,21h0M138,21h0M139,21h0M140,21h0M141,21h0M142,21h0M143,21h0M144,21h0M145,21h0M146,21h0M147,21h0M148,21h0M149,21h0M150,21h0M151,21h0M152,21h0M153,21h0M154,21h0M155,21h0M156,21h0M157,21h0M158,21h0M159,21h0M160,21h0M161,21h0M162,21h0M163,21h0M164,21h0M165,21h0M166,21h0M167,21h0M168,21h0M169,21h0M170,21h0M171,21h0M172,21h0M173,21h0M174,21h0M175,21h0M176,21h0M177,21h0M178,21h0M179,21h0M180,21h0M181,21h0M182,21h0M183,21h0M184,21h0M185,21h0M186,21h0M187,21h0M188,21h0M189,21h0M190,21h0M191,21h0M192,21h0M193,21h0M194,21h0M195,21h0M196,21h0M197,21h0M198,21h0M199,21h0M200,21h0M201,21h0M202,21h0M203,21h0M204,21h0M205,21h0M206,21h0M207,21h0M208,21h0M6,22h0M10,22h0M11,22h0M12,22h0M13,22h0M14,22h0M15,22h0M16,22h0M17,22h0M18,22h0M19,22h0M20,22h0M21,22h0M22,22h0M23,22h0M24,22h0M25,22h0M26,22h0M27,22h0M28,22h0M29,22h0M30,22h0M31,22h0M32,22h0M33,22h0M34,22h0M35,22h0M36,22h0M37,22h0M38,22h0M39,22h0M40,22h0M41,22h0M42,22h0M43,22h0M44,22h0M45,22h0M46,22h0M47,22h0M48,22h0M49,22h0M50,22h0M51,22h0M63,22h0M64,22h0M66,22h0M75,22h0M76,22h0M77,22h0M78,22h0M79,22h0M80,22h0M110,22h0M111,22h0M112,22h0M113,22h0M114,22h0M115,22h0M118,22h0M119,22h0M120,22h0M121,22h0M122,22h0M123,22h0M124,22h0M125,22h0M126,22h0M127,22h0M128,22h0M129,22h0M130,22h0M131,22h0M132,22h0M133,22h0M134,22h0M135,22h0M136,22h0M137,22h0M138,22h0M139,22h0M140,22h0M141,22h0M142,22h0M143,22h0M144,22h0M145,22h0M146,22h0M147,22h0M148,22h0M149,22h0M150,22h0M151,22h0M152,22h0M153,22h0M154,22h0M155,22h0M156,22h0M157,22h0M158,22h0M159,22h0M160,22h0M161,22h0M162,22h0M163,22h0M164,22h0M165,22h0M166,22h0M167,22h0M168,22h0M169,22h0M170,22h0M171,22h0M172,22h0M173,22h0M174,22h0M175,22h0M176,22h0M177,22h0M178,22h0M179,22h0M180,22h0M181,22h0M182,22h0M183,22h0M184,22h0M185,22h0M186,22h0M187,22h0M188,22h0M189,22h0M190,22h0M191,22h0M192,22h0M193,22h0M194,22h0M195,22h0M196,22h0M197,22h0M198,22h0M199,22h0M200,22h0M201,22h0M202,22h0M203,22h0M204,22h0M205,22h0M206,22h0M207,22h0M208,22h0M8,23h0M9,23h0M10,23h0M11,23h0M12,23h0M13,23h0M14,23h0M15,23h0M16,23h0M17,23h0M18,23h0M19,23h0M20,23h0M21,23h0M22,23h0M23,23h0M24,23h0M25,23h0M26,23h0M27,23h0M28,23h0M29,23h0M30,23h0M31,23h0M32,23h0M33,23h0M34,23h0M35,23h0M36,23h0M37,23h0M38,23h0M39,23h0M40,23h0M41,23h0M42,23h0M43,23h0M44,23h0M45,23h0M46,23h0M47,23h0M48,23h0M49,23h0M50,23h0M58,23h0M59,23h0M60,23h0M61,23h0M76,23h0M77,23h0M78,23h0M79,23h0M108,23h0M109,23h0M110,23h0M111,23h0M112,23h0M113,23h0M114,23h0M117,23h0M118,23h0M119,23h0M120,23h0M121,23h0M122,23h0M123,23h0M124,23h0M125,23h0M126,23h0M127,23h0M128,23h0M129,23h0M130,23h0M131,23h0M132,23h0M133,23h0M134,23h0M135,23h0M136,23h0M137,23h0M138,23h0M139,23h0M140,23h0M141,23h0M142,23h0M143,23h0M144,23h0M145,23h0M146,23h0M147,23h0M148,23h0M149,23h0M150,23h0M151,23h0M152,23h0M153,23h0M154,23h0M155,23h0M156,23h0M157,23h0M158,23h0M159,23h0M160,23h0M161,23h0M162,23h0M163,23h0M164,23h0M165,23h0M166,23h0M167,23h0M168,23h0M169,23h0M170,23h0M171,23h0M172,23h0M173,23h0M174,23h0M175,23h0M176,23h0M177,23h0M178,23h0M179,23h0M180,23h0M181,23h0M182,23h0M183,23h0M184,23h0M185,23h0M186,23h0M187,23h0M188,23h0M189,23h0M190,23h0M191,23h0M192,23h0M193,23h0M194,23h0M195,23h0M196,23h0M197,23h0M198,23h0M199,23h0M201,23h0M202,23h0M203,23h0M204,23h0M205,23h0M206,23h0M207,23h0M9,24h0M10,24h0M11,24h0M12,24h0M13,24h0M14,24h0M15,24h0M16,24h0M17,24h0M18,24h0M19,24h0M20,24h0M21,24h0M22,24h0M23,24h0M24,24h0M25,24h0M26,24h0M27,24h0M28,24h0M29,24h0M30,24h0M31,24h0M32,24h0M33,24h0M34,24h0M35,24h0M36,24h0M37,24h0M38,24h0M39,24h0M40,24h0M41,24h0M42,24h0M43,24h0M44,24h0M45,24h0M46,24h0M47,24h0M48,24h0M49,24h0M60,24h0M61,24h0M62,24h0M63,24h0M77,24h0M78,24h0M79,24h0M108,24h0M109,24h0M110,24h0M111,24h0M112,24h0M113,24h0M114,24h0M117,24h0M118,24h0M119,24h0M120,24h0M121,24h0M122,24h0M123,24h0M124,24h0M125,24h0M126,24h0M127,24h0M128,24h0M129,24h0M130,24h0M131,24h0M132,24h0M133,24h0M134,24h0M135,24h0M136,24h0M137,24h0M138,24h0M139,24h0M140,24h0M141,24h0M142,24h0M143,24h0M144,24h0M145,24h0M146,24h0M147,24h0M148,24h0M149,24h0M150,24h0M151,24h0M152,24h0M153,24h0M154,24h0M155,24h0M156,24h0M157,24h0M158,24h0M159,24h0M160,24h0M161,24h0M162,24h0M163,24h0M164,24h0M165,24h0M166,24h0M167,24h0M168,24h0M169,24h0M170,24h0M171,24h0M172,24h0M173,24h0M174,24h0M175,24h0M176,24h0M177,24h0M178,24h0M179,24h0M180,24h0M181,24h0M182,24h0M183,24h0M184,24h0M185,24h0M186,24h0M187,24h0M188,24h0M189,24h0M190,24h0M191,24h0M192,24h0M193,24h0M194,24h0M195,24h0M198,24h0M200,24h0M201,24h0M202,24h0M203,24h0M204,24h0M205,24h0M9,25h0M10,25h0M11,25h0M12,25h0M13,25h0M14,25h0M15,25h0M16,25h0M17,25h0M22,25h0M23,25h0M24,25h0M25,25h0M26,25h0M27,25h0M28,25h0M29,25h0M30,25h0M31,25h0M32,25h0M33,25h0M34,25h0M35,25h0M36,25h0M37,25h0M38,25h0M39,25h0M40,25h0M41,25h0M42,25h0M43,25h0M44,25h0M45,25h0M46,25h0M47,25h0M48,25h0M49,25h0M60,25h0M61,25h0M62,25h0M63,25h0M67,25h0M108,25h0M109,25h0M110,25h0M111,25h0M112,25h0M113,25h0M114,25h0M115,25h0M118,25h0M122,25h0M123,25h0M124,25h0M125,25h0M126,25h0M127,25h0M128,25h0M129,25h0M130,25h0M131,25h0M132,25h0M133,25h0M134,25h0M135,25h0M136,25h0M137,25h0M138,25h0M139,25h0M140,25h0M141,25h0M142,25h0M143,25h0M144,25h0M145,25h0M146,25h0M147,25h0M148,25h0M149,25h0M150,25h0M151,25h0M152,25h0M153,25h0M154,25h0M155,25h0M156,25h0M157,25h0M158,25h0M159,25h0M160,25h0M161,25h0M162,25h0M163,25h0M164,25h0M165,25h0M166,25h0M167,25h0M168,25h0M169,25h0M170,25h0M171,25h0M172,25h0M173,25h0M174,25h0M175,25h0M176,25h0M177,25h0M178,25h0M179,25h0M180,25h0M181,25h0M182,25h0M183,25h0M184,25h0M185,25h0M186,25h0M187,25h0M188,25h0M189,25h0M190,25h0M191,25h0M192,25h0M193,25h0M194,25h0M199,25h0M200,25h0M13,26h0M14,26h0M24,26h0M25,26h0M26,26h0M27,26h0M28,26h0M29,26h0M30,26h0M31,26h0M32,26h0M33,26h0M34,26h0M35,26h0M36,26h0M37,26h0M38,26h0M39,26h0M40,26h0M41,26h0M42,26h0M43,26h0M44,26h0M45,26h0M46,26h0M47,26h0M48,26h0M49,26h0M50,26h0M59,26h0M60,26h0M61,26h0M62,26h0M63,26h0M64,26h0M66,26h0M67,26h0M108,26h0M109,26h0M111,26h0M112,26h0M113,26h0M114,26h0M119,26h0M120,26h0M121,26h0M122,26h0M123,26h0M124,26h0M125,26h0M126,26h0M127,26h0M128,26h0M129,26h0M130,26h0M131,26h0M132,26h0M133,26h0M134,26h0M135,26h0M136,26h0M137,26h0M138,26h0M139,26h0M140,26h0M141,26h0M142,26h0M143,26h0M144,26h0M145,26h0M146,26h0M147,26h0M148,26h0M149,26h0M150,26h0M151,26h0M152,26h0M153,26h0M154,26h0M155,26h0M156,26h0M157,26h0M158,26h0M159,26h0M160,26h0M161,26h0M162,26h0M163,26h0M164,26h0M165,26h0M166,26h0M167,26h0M168,26h0M169,26h0M170,26h0M171,26h0M172,26h0M173,26h0M174,26h0M175,26h0M176,26h0M177,26h0M178,26h0M179,26h0M180,26h0M181,26h0M182,26h0M183,26h0M184,26h0M185,26h0M186,26h0M187,26h0M198,26h0M199,26h0M13,27h0M15,27h0M27,27h0M28,27h0M29,27h0M30,27h0M31,27h0M32,27h0M33,27h0M34,27h0M35,27h0M36,27h0M37,27h0M38,27h0M39,27h0M40,27h0M41,27h0M42,27h0M43,27h0M44,27h0M45,27h0M46,27h0M47,27h0M48,27h0M49,27h0M50,27h0M60,27h0M61,27h0M62,27h0M63,27h0M64,27h0M65,27h0M66,27h0M67,27h0M68,27h0M102,27h0M103,27h0M112,27h0M113,27h0M114,27h0M119,27h0M120,27h0M121,27h0M122,27h0M123,27h0M124,27h0M125,27h0M126,27h0M127,27h0M128,27h0M129,27h0M130,27h0M131,27h0M132,27h0M133,27h0M134,27h0M135,27h0M136,27h0M137,27h0M138,27h0M139,27h0M140,27h0M141,27h0M142,27h0M143,27h0M144,27h0M145,27h0M146,27h0M147,27h0M148,27h0M149,27h0M150,27h0M151,27h0M152,27h0M153,27h0M154,27h0M155,27h0M156,27h0M157,27h0M158,27h0M159,27h0M160,27h0M161,27h0M162,27h0M163,27h0M164,27h0M165,27h0M166,27h0M167,27h0M168,27h0M169,27h0M170,27h0M171,27h0M172,27h0M173,27h0M174,27h0M175,27h0M176,27h0M177,27h0M178,27h0M179,27h0M180,27h0M181,27h0M182,27h0M183,27h0M184,27h0M185,27h0M186,27h0M196,27h0M197,27h0M198,27h0M199,27h0M12,28h0M28,28h0M29,28h0M30,28h0M31,28h0M32,28h0M33,28h0M34,28h0M35,28h0M36,28h0M37,28h0M38,28h0M39,28h0M40,28h0M41,28h0M42,28h0M43,28h0M44,28h0M45,28h0M46,28h0M47,28h0M48,28h0M49,28h0M50,28h0M51,28h0M52,28h0M53,28h0M60,28h0M61,28h0M62,28h0M63,28h0M64,28h0M65,28h0M66,28h0M67,28h0M68,28h0M102,28h0M110,28h0M112,28h0M113,28h0M117,28h0M118,28h0M119,28h0M120,28h0M121,28h0M122,28h0M123,28h0M124,28h0M125,28h0M126,28h0M127,28h0M128,28h0M129,28h0M130,28h0M131,28h0M132,28h0M133,28h0M134,28h0M135,28h0M136,28h0M137,28h0M138,28h0M139,28h0M140,28h0M141,28h0M142,28h0M143,28h0M144,28h0M145,28h0M146,28h0M147,28h0M148,28h0M149,28h0M150,28h0M151,28h0M152,28h0M153,28h0M154,28h0M155,28h0M156,28h0M157,28h0M158,28h0M159,28h0M160,28h0M161,28h0M162,28h0M163,28h0M164,28h0M165,28h0M166,28h0M167,28h0M168,28h0M169,28h0M170,28h0M171,28h0M172,28h0M173,28h0M174,28h0M175,28h0M176,28h0M177,28h0M178,28h0M179,28h0M180,28h0M181,28h0M182,28h0M183,28h0M184,28h0M196,28h0M197,28h0M198,28h0M199,28h0M10,29h0M29,29h0M30,29h0M31,29h0M32,29h0M33,29h0M34,29h0M35,29h0M36,29h0M37,29h0M38,29h0M39,29h0M40,29h0M41,29h0M42,29h0M43,29h0M44,29h0M45,29h0M46,29h0M47,29h0M48,29h0M49,29h0M50,29h0M51,29h0M52,29h0M53,29h0M54,29h0M55,29h0M56,29h0M59,29h0M60,29h0M61,29h0M62,29h0M63,29h0M64,29h0M65,29h0M66,29h0M67,29h0M68,29h0M69,29h0M70,29h0M102,29h0M103,29h0M110,29h0M117,29h0M118,29h0M119,29h0M120,29h0M121,29h0M122,29h0M123,29h0M124,29h0M125,29h0M126,29h0M127,29h0M128,29h0M129,29h0M130,29h0M131,29h0M132,29h0M133,29h0M134,29h0M135,29h0M136,29h0M137,29h0M138,29h0M139,29h0M140,29h0M141,29h0M142,29h0M143,29h0M144,29h0M145,29h0M146,29h0M147,29h0M148,29h0M149,29h0M150,29h0M151,29h0M152,29h0M153,29h0M154,29h0M155,29h0M156,29h0M157,29h0M158,29h0M159,29h0M160,29h0M161,29h0M162,29h0M163,29h0M164,29h0M165,29h0M166,29h0M167,29h0M168,29h0M169,29h0M170,29h0M171,29h0M172,29h0M173,29h0M174,29h0M175,29h0M176,29h0M177,29h0M178,29h0M179,29h0M180,29h0M181,29h0M182,29h0M183,29h0M196,29h0M197,29h0M198,29h0M27,30h0M29,30h0M30,30h0M31,30h0M32,30h0M33,30h0M34,30h0M35,30h0M36,30h0M37,30h0M38,30h0M39,30h0M40,30h0M41,30h0M42,30h0M43,30h0M44,30h0M45,30h0M46,30h0M47,30h0M48,30h0M49,30h0M50,30h0M51,30h0M52,30h0M53,30h0M54,30h0M55,30h0M56,30h0M59,30h0M60,30h0M61,30h0M62,30h0M63,30h0M64,30h0M65,30h0M66,30h0M67,30h0M68,30h0M69,30h0M70,30h0M71,30h0M99,30h0M100,30h0M103,30h0M104,30h0M110,30h0M111,30h0M112,30h0M113,30h0M114,30h0M115,30h0M116,30h0M117,30h0M118,30h0M119,30h0M120,30h0M121,30h0M122,30h0M123,30h0M124,30h0M125,30h0M126,30h0M127,30h0M128,30h0M129,30h0M130,30h0M131,30h0M132,30h0M133,30h0M134,30h0M135,30h0M136,30h0M137,30h0M138,30h0M139,30h0M140,30h0M141,30h0M142,30h0M143,30h0M144,30h0M145,30h0M146,30h0M147,30h0M148,30h0M149,30h0M150,30h0M151,30h0M152,30h0M153,30h0M154,30h0M155,30h0M156,30h0M157,30h0M158,30h0M159,30h0M160,30h0M161,30h0M162,30h0M163,30h0M164,30h0M165,30h0M166,30h0M167,30h0M168,30h0M169,30h0M170,30h0M171,30h0M172,30h0M173,30h0M174,30h0M175,30h0M176,30h0M177,30h0M178,30h0M179,30h0M180,30h0M181,30h0M182,30h0M183,30h0M184,30h0M186,30h0M196,30h0M197,30h0M30,31h0M31,31h0M32,31h0M33,31h0M34,31h0M35,31h0M36,31h0M37,31h0M38,31h0M39,31h0M40,31h0M41,31h0M42,31h0M43,31h0M44,31h0M45,31h0M46,31h0M47,31h0M48,31h0M49,31h0M50,31h0M51,31h0M52,31h0M53,31h0M54,31h0M55,31h0M56,31h0M59,31h0M60,31h0M61,31h0M62,31h0M63,31h0M64,31h0M65,31h0M66,31h0M67,31h0M68,31h0M69,31h0M70,31h0M71,31h0M100,31h0M102,31h0M103,31h0M104,31h0M105,31h0M108,31h0M109,31h0M110,31h0M111,31h0M112,31h0M113,31h0M114,31h0M115,31h0M116,31h0M117,31h0M118,31h0M119,31h0M120,31h0M121,31h0M122,31h0M123,31h0M124,31h0M125,31h0M126,31h0M127,31h0M128,31h0M129,31h0M130,31h0M131,31h0M132,31h0M133,31h0M134,31h0M135,31h0M136,31h0M137,31h0M138,31h0M139,31h0M140,31h0M141,31h0M142,31h0M143,31h0M144,31h0M145,31h0M146,31h0M147,31h0M148,31h0M149,31h0M150,31h0M151,31h0M152,31h0M153,31h0M154,31h0M155,31h0M156,31h0M157,31h0M158,31h0M159,31h0M160,31h0M161,31h0M162,31h0M163,31h0M164,31h0M165,31h0M166,31h0M167,31h0M168,31h0M169,31h0M170,31h0M171,31h0M172,31h0M173,31h0M174,31h0M175,31h0M176,31h0M177,31h0M178,31h0M179,31h0M180,31h0M181,31h0M182,31h0M183,31h0M184,31h0M185,31h0M186,31h0M188,31h0M196,31h0M30,32h0M31,32h0M32,32h0M33,32h0M34,32h0M35,32h0M36,32h0M37,32h0M38,32h0M39,32h0M40,32h0M41,32h0M42,32h0M43,32h0M44,32h0M45,32h0M46,32h0M47,32h0M48,32h0M49,32h0M50,32h0M51,32h0M52,32h0M53,32h0M54,32h0M55,32h0M56,32h0M57,32h0M59,32h0M60,32h0M61,32h0M62,32h0M63,32h0M64,32h0M65,32h0M66,32h0M67,32h0M68,32h0M69,32h0M70,32h0M72,32h0M103,32h0M104,32h0M105,32h0M107,32h0M108,32h0M109,32h0M110,32h0M111,32h0M112,32h0M113,32h0M114,32h0M115,32h0M116,32h0M117,32h0M118,32h0M119,32h0M120,32h0M121,32h0M122,32h0M123,32h0M124,32h0M125,32h0M126,32h0M127,32h0M128,32h0M129,32h0M130,32h0M131,32h0M132,32h0M133,32h0M134,32h0M135,32h0M136,32h0M137,32h0M138,32h0M139,32h0M140,32h0M141,32h0M142,32h0M143,32h0M144,32h0M145,32h0M146,32h0M147,32h0M148,32h0M149,32h0M150,32h0M151,32h0M152,32h0M153,32h0M154,32h0M155,32h0M156,32h0M157,32h0M158,32h0M159,32h0M160,32h0M161,32h0M162,32h0M163,32h0M164,32h0M165,32h0M166,32h0M167,32h0M168,32h0M169,32h0M170,32h0M171,32h0M172,32h0M173,32h0M174,32h0M175,32h0M176,32h0M177,32h0M178,32h0M179,32h0M180,32h0M181,32h0M182,32h0M183,32h0M184,32h0M185,32h0M186,32h0M188,32h0M196,32h0M30,33h0M31,33h0M32,33h0M33,33h0M34,33h0M35,33h0M36,33h0M37,33h0M38,33h0M39,33h0M40,33h0M41,33h0M42,33h0M43,33h0M44,33h0M45,33h0M46,33h0M47,33h0M48,33h0M49,33h0M50,33h0M51,33h0M52,33h0M53,33h0M54,33h0M55,33h0M56,33h0M57,33h0M58,33h0M59,33h0M60,33h0M61,33h0M62,33h0M63,33h0M64,33h0M65,33h0M71,33h0M106,33h0M107,33h0M108,33h0M109,33h0M110,33h0M111,33h0M112,33h0M113,33h0M114,33h0M115,33h0M116,33h0M117,33h0M118,33h0M119,33h0M120,33h0M121,33h0M122,33h0M123,33h0M124,33h0M125,33h0M126,33h0M127,33h0M128,33h0M129,33h0M130,33h0M131,33h0M132,33h0M133,33h0M134,33h0M135,33h0M136,33h0M137,33h0M138,33h0M139,33h0M140,33h0M141,33h0M142,33h0M143,33h0M144,33h0M145,33h0M146,33h0M147,33h0M148,33h0M149,33h0M150,33h0M151,33h0M152,33h0M153,33h0M154,33h0M155,33h0M156,33h0M157,33h0M158,33h0M159,33h0M160,33h0M161,33h0M162,33h0M163,33h0M164,33h0M165,33h0M166,33h0M167,33h0M168,33h0M169,33h0M170,33h0M171,33h0M172,33h0M173,33h0M174,33h0M175,33h0M176,33h0M177,33h0M178,33h0M179,33h0M180,33h0M181,33h0M182,33h0M183,33h0M184,33h0M185,33h0M186,33h0M188,33h0M32,34h0M33,34h0M34,34h0M35,34h0M36,34h0M37,34h0M38,34h0M39,34h0M40,34h0M41,34h0M42,34h0M43,34h0M44,34h0M45,34h0M46,34h0M47,34h0M48,34h0M49,34h0M50,34h0M51,34h0M52,34h0M53,34h0M54,34h0M55,34h0M56,34h0M57,34h0M58,34h0M59,34h0M60,34h0M61,34h0M62,34h0M63,34h0M64,34h0M66,34h0M67,34h0M71,34h0M72,34h0M73,34h0M102,34h0M103,34h0M104,34h0M105,34h0M106,34h0M107,34h0M108,34h0M109,34h0M110,34h0M111,34h0M112,34h0M113,34h0M114,34h0M115,34h0M116,34h0M117,34h0M118,34h0M119,34h0M120,34h0M121,34h0M122,34h0M123,34h0M124,34h0M125,34h0M126,34h0M127,34h0M128,34h0M129,34h0M130,34h0M131,34h0M132,34h0M133,34h0M134,34h0M135,34h0M136,34h0M137,34h0M138,34h0M139,34h0M140,34h0M141,34h0M142,34h0M143,34h0M144,34h0M145,34h0M146,34h0M147,34h0M148,34h0M149,34h0M150,34h0M151,34h0M152,34h0M153,34h0M154,34h0M155,34h0M156,34h0M157,34h0M158,34h0M159,34h0M160,34h0M161,34h0M162,34h0M163,34h0M164,34h0M165,34h0M166,34h0M167,34h0M168,34h0M169,34h0M170,34h0M171,34h0M172,34h0M173,34h0M174,34h0M175,34h0M176,34h0M177,34h0M178,34h0M179,34h0M180,34h0M181,34h0M182,34h0M183,34h0M184,34h0M185,34h0M186,34h0M34,35h0M35,35h0M36,35h0M37,35h0M38,35h0M39,35h0M40,35h0M41,35h0M42,35h0M43,35h0M44,35h0M45,35h0M46,35h0M47,35h0M48,35h0M49,35h0M50,35h0M51,35h0M52,35h0M53,35h0M54,35h0M55,35h0M56,35h0M57,35h0M58,35h0M59,35h0M60,35h0M61,35h0M62,35h0M63,35h0M64,35h0M65,35h0M66,35h0M73,35h0M103,35h0M104,35h0M105,35h0M106,35h0M107,35h0M108,35h0M109,35h0M110,35h0M111,35h0M112,35h0M113,35h0M114,35h0M115,35h0M116,35h0M117,35h0M118,35h0M119,35h0M120,35h0M121,35h0M122,35h0M123,35h0M124,35h0M125,35h0M126,35h0M127,35h0M128,35h0M129,35h0M130,35h0M131,35h0M132,35h0M133,35h0M134,35h0M135,35h0M136,35h0M137,35h0M138,35h0M139,35h0M140,35h0M141,35h0M142,35h0M143,35h0M144,35h0M145,35h0M146,35h0M147,35h0M148,35h0M149,35h0M150,35h0M151,35h0M152,35h0M153,35h0M154,35h0M155,35h0M156,35h0M157,35h0M158,35h0M159,35h0M160,35h0M161,35h0M162,35h0M163,35h0M164,35h0M165,35h0M166,35h0M167,35h0M168,35h0M169,35h0M170,35h0M171,35h0M172,35h0M173,35h0M174,35h0M175,35h0M176,35h0M177,35h0M178,35h0M179,35h0M180,35h0M181,35h0M182,35h0M183,35h0M184,35h0M185,35h0M33,36h0M34,36h0M35,36h0M36,36h0M37,36h0M38,36h0M39,36h0M40,36h0M41,36h0M42,36h0M43,36h0M44,36h0M45,36h0M46,36h0M47,36h0M48,36h0M49,36h0M50,36h0M51,36h0M52,36h0M53,36h0M54,36h0M55,36h0M56,36h0M57,36h0M58,36h0M59,36h0M60,36h0M61,36h0M62,36h0M63,36h0M64,36h0M65,36h0M66,36h0M67,36h0M69,36h0M104,36h0M105,36h0M106,36h0M107,36h0M108,36h0M109,36h0M110,36h0M111,36h0M112,36h0M113,36h0M114,36h0M115,36h0M116,36h0M117,36h0M118,36h0M119,36h0M120,36h0M121,36h0M122,36h0M124,36h0M127,36h0M128,36h0M129,36h0M130,36h0M131,36h0M132,36h0M136,36h0M137,36h0M138,36h0M139,36h0M140,36h0M141,36h0M142,36h0M143,36h0M144,36h0M145,36h0M146,36h0M147,36h0M148,36h0M149,36h0M150,36h0M151,36h0M152,36h0M153,36h0M154,36h0M155,36h0M156,36h0M157,36h0M158,36h0M159,36h0M160,36h0M161,36h0M162,36h0M163,36h0M164,36h0M165,36h0M166,36h0M167,36h0M168,36h0M169,36h0M170,36h0M171,36h0M172,36h0M173,36h0M174,36h0M175,36h0M176,36h0M177,36h0M178,36h0M179,36h0M180,36h0M181,36h0M182,36h0M183,36h0M184,36h0M33,37h0M34,37h0M35,37h0M36,37h0M37,37h0M38,37h0M39,37h0M40,37h0M41,37h0M42,37h0M43,37h0M44,37h0M45,37h0M46,37h0M47,37h0M48,37h0M49,37h0M50,37h0M51,37h0M52,37h0M53,37h0M54,37h0M55,37h0M56,37h0M57,37h0M58,37h0M59,37h0M60,37h0M61,37h0M62,37h0M63,37h0M64,37h0M65,37h0M67,37h0M104,37h0M105,37h0M106,37h0M107,37h0M108,37h0M109,37h0M110,37h0M111,37h0M114,37h0M115,37h0M116,37h0M117,37h0M118,37h0M119,37h0M120,37h0M121,37h0M124,37h0M127,37h0M128,37h0M129,37h0M130,37h0M131,37h0M135,37h0M136,37h0M137,37h0M138,37h0M139,37h0M140,37h0M141,37h0M142,37h0M143,37h0M144,37h0M145,37h0M146,37h0M147,37h0M148,37h0M149,37h0M150,37h0M151,37h0M152,37h0M153,37h0M154,37h0M155,37h0M156,37h0M157,37h0M158,37h0M159,37h0M160,37h0M161,37h0M162,37h0M163,37h0M164,37h0M165,37h0M166,37h0M167,37h0M168,37h0M169,37h0M170,37h0M171,37h0M172,37h0M173,37h0M174,37h0M175,37h0M176,37h0M177,37h0M178,37h0M179,37h0M180,37h0M181,37h0M182,37h0M183,37h0M32,38h0M33,38h0M34,38h0M35,38h0M36,38h0M37,38h0M38,38h0M39,38h0M40,38h0M41,38h0M42,38h0M43,38h0M44,38h0M45,38h0M46,38h0M47,38h0M48,38h0M49,38h0M50,38h0M51,38h0M52,38h0M53,38h0M54,38h0M55,38h0M56,38h0M57,38h0M58,38h0M59,38h0M60,38h0M61,38h0M62,38h0M63,38h0M100,38h0M101,38h0M102,38h0M103,38h0M104,38h0M105,38h0M106,38h0M108,38h0M111,38h0M112,38h0M115,38h0M116,38h0M117,38h0M118,38h0M119,38h0M120,38h0M128,38h0M129,38h0M130,38h0M131,38h0M132,38h0M135,38h0M136,38h0M137,38h0M138,38h0M139,38h0M140,38h0M141,38h0M142,38h0M143,38h0M144,38h0M145,38h0M146,38h0M147,38h0M148,38h0M149,38h0M150,38h0M151,38h0M152,38h0M153,38h0M154,38h0M155,38h0M156,38h0M157,38h0M158,38h0M159,38h0M160,38h0M161,38h0M162,38h0M163,38h0M164,38h0M165,38h0M166,38h0M167,38h0M168,38h0M169,38h0M170,38h0M171,38h0M172,38h0M173,38h0M174,38h0M175,38h0M176,38h0M177,38h0M178,38h0M179,38h0M180,38h0M181,38h0M182,38h0M187,38h0M188,38h0M189,38h0M33,39h0M34,39h0M35,39h0M36,39h0M37,39h0M38,39h0M39,39h0M40,39h0M41,39h0M42,39h0M43,39h0M44,39h0M45,39h0M46,39h0M47,39h0M48,39h0M49,39h0M50,39h0M51,39h0M52,39h0M53,39h0M54,39h0M55,39h0M56,39h0M57,39h0M58,39h0M59,39h0M60,39h0M61,39h0M62,39h0M63,39h0M100,39h0M101,39h0M102,39h0M103,39h0M104,39h0M105,39h0M106,39h0M112,39h0M113,39h0M116,39h0M117,39h0M118,39h0M119,39h0M120,39h0M124,39h0M125,39h0M129,39h0M130,39h0M131,39h0M132,39h0M136,39h0M137,39h0M138,39h0M139,39h0M140,39h0M141,39h0M142,39h0M143,39h0M144,39h0M145,39h0M146,39h0M147,39h0M148,39h0M149,39h0M150,39h0M151,39h0M152,39h0M153,39h0M154,39h0M155,39h0M156,39h0M157,39h0M158,39h0M159,39h0M160,39h0M161,39h0M162,39h0M163,39h0M164,39h0M165,39h0M166,39h0M167,39h0M168,39h0M169,39h0M170,39h0M171,39h0M172,39h0M173,39h0M174,39h0M175,39h0M176,39h0M177,39h0M178,39h0M179,39h0M180,39h0M32,40h0M33,40h0M34,40h0M35,40h0M36,40h0M37,40h0M38,40h0M39,40h0M40,40h0M41,40h0M42,40h0M43,40h0M44,40h0M45,40h0M46,40h0M47,40h0M48,40h0M49,40h0M50,40h0M51,40h0M52,40h0M53,40h0M54,40h0M55,40h0M56,40h0M57,40h0M58,40h0M59,40h0M60,40h0M61,40h0M100,40h0M101,40h0M102,40h0M103,40h0M104,40h0M110,40h0M114,40h0M115,40h0M116,40h0M117,40h0M118,40h0M120,40h0M121,40h0M122,40h0M123,40h0M124,40h0M125,40h0M126,40h0M127,40h0M128,40h0M129,40h0M130,40h0M131,40h0M132,40h0M133,40h0M136,40h0M137,40h0M138,40h0M139,40h0M140,40h0M141,40h0M142,40h0M143,40h0M144,40h0M145,40h0M146,40h0M147,40h0M148,40h0M149,40h0M150,40h0M151,40h0M152,40h0M153,40h0M154,40h0M155,40h0M156,40h0M157,40h0M158,40h0M159,40h0M160,40h0M161,40h0M162,40h0M163,40h0M164,40h0M165,40h0M166,40h0M167,40h0M168,40h0M169,40h0M170,40h0M171,40h0M172,40h0M173,40h0M174,40h0M176,40h0M177,40h0M178,40h0M179,40h0M187,40h0M33,41h0M34,41h0M35,41h0M36,41h0M37,41h0M38,41h0M39,41h0M40,41h0M41,41h0M42,41h0M43,41h0M44,41h0M45,41h0M46,41h0M47,41h0M48,41h0M49,41h0M50,41h0M51,41h0M52,41h0M53,41h0M54,41h0M55,41h0M56,41h0M57,41h0M58,41h0M59,41h0M60,41h0M99,41h0M100,41h0M101,41h0M102,41h0M103,41h0M104,41h0M114,41h0M117,41h0M121,41h0M122,41h0M123,41h0M124,41h0M125,41h0M126,41h0M127,41h0M128,41h0M129,41h0M130,41h0M131,41h0M132,41h0M133,41h0M136,41h0M137,41h0M138,41h0M139,41h0M140,41h0M141,41h0M142,41h0M143,41h0M144,41h0M145,41h0M146,41h0M147,41h0M148,41h0M149,41h0M150,41h0M151,41h0M152,41h0M153,41h0M154,41h0M155,41h0M156,41h0M157,41h0M158,41h0M159,41h0M160,41h0M161,41h0M162,41h0M163,41h0M164,41h0M165,41h0M166,41h0M167,41h0M168,41h0M169,41h0M170,41h0M171,41h0M172,41h0M173,41h0M178,41h0M179,41h0M187,41h0M34,42h0M35,42h0M36,42h0M37,42h0M38,42h0M39,42h0M40,42h0M41,42h0M42,42h0M43,42h0M44,42h0M45,42h0M46,42h0M47,42h0M48,42h0M49,42h0M50,42h0M51,42h0M52,42h0M53,42h0M54,42h0M55,42h0M56,42h0M57,42h0M58,42h0M59,42h0M60,42h0M100,42h0M101,42h0M102,42h0M103,42h0M113,42h0M117,42h0M118,42h0M121,42h0M122,42h0M123,42h0M124,42h0M125,42h0M126,42h0M127,42h0M128,42h0M129,42h0M130,42h0M131,42h0M132,42h0M133,42h0M136,42h0M137,42h0M138,42h0M139,42h0M140,42h0M141,42h0M142,42h0M143,42h0M144,42h0M145,42h0M146,42h0M147,42h0M148,42h0M149,42h0M150,42h0M151,42h0M152,42h0M153,42h0M154,42h0M155,42h0M156,42h0M157,42h0M158,42h0M159,42h0M160,42h0M161,42h0M162,42h0M163,42h0M164,42h0M165,42h0M166,42h0M167,42h0M168,42h0M169,42h0M170,42h0M171,42h0M172,42h0M173,42h0M175,42h0M179,42h0M186,42h0M34,43h0M35,43h0M36,43h0M37,43h0M38,43h0M39,43h0M40,43h0M41,43h0M42,43h0M43,43h0M44,43h0M45,43h0M46,43h0M47,43h0M48,43h0M49,43h0M50,43h0M51,43h0M52,43h0M53,43h0M54,43h0M55,43h0M56,43h0M57,43h0M58,43h0M59,43h0M60,43h0M105,43h0M106,43h0M107,43h0M108,43h0M109,43h0M110,43h0M126,43h0M127,43h0M128,43h0M129,43h0M130,43h0M131,43h0M132,43h0M133,43h0M134,43h0M135,43h0M136,43h0M137,43h0M138,43h0M139,43h0M140,43h0M141,43h0M142,43h0M143,43h0M144,43h0M145,43h0M146,43h0M147,43h0M148,43h0M149,43h0M150,43h0M151,43h0M152,43h0M153,43h0M154,43h0M155,43h0M156,43h0M157,43h0M158,43h0M159,43h0M160,43h0M161,43h0M162,43h0M163,43h0M164,43h0M165,43h0M166,43h0M167,43h0M168,43h0M169,43h0M170,43h0M171,43h0M172,43h0M173,43h0M174,43h0M179,43h0M180,43h0M184,43h0M185,43h0M186,43h0M35,44h0M36,44h0M37,44h0M38,44h0M39,44h0M40,44h0M41,44h0M42,44h0M43,44h0M44,44h0M45,44h0M46,44h0M47,44h0M48,44h0M49,44h0M50,44h0M51,44h0M52,44h0M53,44h0M54,44h0M55,44h0M56,44h0M57,44h0M58,44h0M59,44h0M101,44h0M102,44h0M103,44h0M104,44h0M105,44h0M106,44h0M107,44h0M108,44h0M109,44h0M110,44h0M126,44h0M127,44h0M128,44h0M129,44h0M130,44h0M131,44h0M132,44h0M133,44h0M134,44h0M135,44h0M136,44h0M137,44h0M138,44h0M139,44h0M140,44h0M141,44h0M142,44h0M143,44h0M144,44h0M145,44h0M146,44h0M147,44h0M148,44h0M149,44h0M150,44h0M151,44h0M152,44h0M153,44h0M154,44h0M155,44h0M156,44h0M157,44h0M158,44h0M159,44h0M160,44h0M161,44h0M162,44h0M163,44h0M164,44h0M165,44h0M166,44h0M167,44h0M168,44h0M169,44h0M170,44h0M171,44h0M172,44h0M173,44h0M174,44h0M182,44h0M184,44h0M37,45h0M38,45h0M39,45h0M40,45h0M41,45h0M42,45h0M43,45h0M44,45h0M45,45h0M46,45h0M47,45h0M48,45h0M49,45h0M50,45h0M51,45h0M52,45h0M53,45h0M54,45h0M55,45h0M56,45h0M57,45h0M58,45h0M100,45h0M101,45h0M102,45h0M103,45h0M104,45h0M105,45h0M106,45h0M107,45h0M108,45h0M109,45h0M110,45h0M111,45h0M125,45h0M126,45h0M127,45h0M128,45h0M129,45h0M130,45h0M131,45h0M132,45h0M133,45h0M134,45h0M135,45h0M136,45h0M137,45h0M138,45h0M139,45h0M140,45h0M141,45h0M142,45h0M143,45h0M144,45h0M145,45h0M146,45h0M147,45h0M148,45h0M149,45h0M150,45h0M151,45h0M152,45h0M153,45h0M154,45h0M155,45h0M156,45h0M157,45h0M158,45h0M159,45h0M160,45h0M161,45h0M162,45h0M163,45h0M164,45h0M165,45h0M166,45h0M167,45h0M168,45h0M169,45h0M170,45h0M171,45h0M172,45h0M173,45h0M174,45h0M175,45h0M181,45h0M182,45h0M37,46h0M39,46h0M40,46h0M41,46h0M42,46h0M43,46h0M44,46h0M45,46h0M46,46h0M47,46h0M48,46h0M49,46h0M50,46h0M51,46h0M52,46h0M53,46h0M54,46h0M55,46h0M56,46h0M57,46h0M99,46h0M100,46h0M101,46h0M102,46h0M103,46h0M104,46h0M105,46h0M106,46h0M107,46h0M108,46h0M109,46h0M110,46h0M111,46h0M112,46h0M113,46h0M117,46h0M118,46h0M119,46h0M120,46h0M122,46h0M123,46h0M125,46h0M126,46h0M127,46h0M128,46h0M129,46h0M130,46h0M131,46h0M132,46h0M133,46h0M134,46h0M135,46h0M136,46h0M137,46h0M138,46h0M139,46h0M140,46h0M141,46h0M142,46h0M143,46h0M144,46h0M145,46h0M146,46h0M147,46h0M148,46h0M149,46h0M150,46h0M151,46h0M152,46h0M153,46h0M154,46h0M155,46h0M156,46h0M157,46h0M158,46h0M159,46h0M160,46h0M161,46h0M162,46h0M163,46h0M164,46h0M165,46h0M166,46h0M167,46h0M168,46h0M169,46h0M170,46h0M171,46h0M172,46h0M173,46h0M174,46h0M175,46h0M181,46h0M39,47h0M40,47h0M41,47h0M42,47h0M43,47h0M44,47h0M45,47h0M46,47h0M47,47h0M48,47h0M49,47h0M50,47h0M51,47h0M52,47h0M55,47h0M56,47h0M57,47h0M99,47h0M100,47h0M101,47h0M102,47h0M103,47h0M104,47h0M105,47h0M106,47h0M107,47h0M108,47h0M109,47h0M110,47h0M111,47h0M112,47h0M113,47h0M114,47h0M115,47h0M116,47h0M117,47h0M118,47h0M119,47h0M120,47h0M121,47h0M122,47h0M123,47h0M124,47h0M125,47h0M126,47h0M127,47h0M128,47h0M129,47h0M130,47h0M131,47h0M132,47h0M134,47h0M135,47h0M136,47h0M137,47h0M138,47h0M139,47h0M140,47h0M141,47h0M142,47h0M143,47h0M144,47h0M145,47h0M146,47h0M147,47h0M148,47h0M149,47h0M150,47h0M151,47h0M152,47h0M153,47h0M154,47h0M155,47h0M156,47h0M157,47h0M158,47h0M159,47h0M160,47h0M161,47h0M162,47h0M163,47h0M164,47h0M165,47h0M166,47h0M167,47h0M168,47h0M169,47h0M170,47h0M171,47h0M172,47h0M173,47h0M174,47h0M175,47h0M38,48h0M40,48h0M41,48h0M42,48h0M43,48h0M44,48h0M45,48h0M46,48h0M47,48h0M48,48h0M57,48h0M98,48h0M99,48h0M100,48h0M101,48h0M102,48h0M103,48h0M104,48h0M105,48h0M106,48h0M107,48h0M108,48h0M109,48h0M110,48h0M111,48h0M112,48h0M113,48h0M114,48h0M115,48h0M116,48h0M117,48h0M118,48h0M119,48h0M120,48h0M121,48h0M122,48h0M123,48h0M124,48h0M125,48h0M126,48h0M127,48h0M128,48h0M129,48h0M130,48h0M131,48h0M132,48h0M135,48h0M136,48h0M137,48h0M138,48h0M139,48h0M140,48h0M141,48h0M142,48h0M143,48h0M144,48h0M145,48h0M146,48h0M147,48h0M148,48h0M149,48h0M150,48h0M151,48h0M152,48h0M153,48h0M154,48h0M155,48h0M156,48h0M157,48h0M158,48h0M159,48h0M160,48h0M161,48h0M162,48h0M163,48h0M164,48h0M165,48h0M166,48h0M167,48h0M168,48h0M169,48h0M170,48h0M171,48h0M172,48h0M173,48h0M174,48h0M175,48h0M39,49h0M41,49h0M42,49h0M43,49h0M44,49h0M45,49h0M46,49h0M47,49h0M57,49h0M59,49h0M97,49h0M98,49h0M99,49h0M100,49h0M101,49h0M102,49h0M103,49h0M104,49h0M105,49h0M106,49h0M107,49h0M108,49h0M109,49h0M110,49h0M111,49h0M112,49h0M113,49h0M114,49h0M115,49h0M116,49h0M117,49h0M118,49h0M119,49h0M120,49h0M121,49h0M122,49h0M123,49h0M124,49h0M126,49h0M127,49h0M128,49h0M129,49h0M130,49h0M131,49h0M132,49h0M133,49h0M138,49h0M139,49h0M140,49h0M141,49h0M142,49h0M143,49h0M144,49h0M145,49h0M146,49h0M147,49h0M148,49h0M149,49h0M150,49h0M151,49h0M152,49h0M153,49h0M154,49h0M155,49h0M156,49h0M157,49h0M158,49h0M159,49h0M160,49h0M161,49h0M162,49h0M163,49h0M164,49h0M165,49h0M166,49h0M167,49h0M168,49h0M169,49h0M170,49h0M171,49h0M172,49h0M173,49h0M174,49h0M42,50h0M43,50h0M44,50h0M45,50h0M46,50h0M47,50h0M59,50h0M96,50h0M97,50h0M98,50h0M99,50h0M100,50h0M101,50h0M102,50h0M103,50h0M104,50h0M105,50h0M106,50h0M107,50h0M108,50h0M109,50h0M110,50h0M111,50h0M112,50h0M113,50h0M114,50h0M115,50h0M116,50h0M117,50h0M118,50h0M119,50h0M120,50h0M121,50h0M122,50h0M123,50h0M124,50h0M127,50h0M128,50h0M129,50h0M130,50h0M131,50h0M132,50h0M133,50h0M134,50h0M137,50h0M144,50h0M145,50h0M146,50h0M147,50h0M148,50h0M149,50h0M150,50h0M151,50h0M152,50h0M153,50h0M154,50h0M155,50h0M156,50h0M157,50h0M158,50h0M159,50h0M160,50h0M161,50h0M162,50h0M163,50h0M164,50h0M165,50h0M166,50h0M167,50h0M168,50h0M169,50h0M170,50h0M171,50h0M172,50h0M173,50h0M43,51h0M44,51h0M45,51h0M46,51h0M47,51h0M96,51h0M97,51h0M98,51h0M99,51h0M100,51h0M101,51h0M102,51h0M103,51h0M104,51h0M105,51h0M106,51h0M107,51h0M108,51h0M109,51h0M110,51h0M111,51h0M112,51h0M113,51h0M114,51h0M115,51h0M116,51h0M117,51h0M118,51h0M119,51h0M120,51h0M121,51h0M122,51h0M123,51h0M124,51h0M125,51h0M128,51h0M129,51h0M130,51h0M131,51h0M132,51h0M133,51h0M134,51h0M135,51h0M136,51h0M137,51h0M138,51h0M145,51h0M146,51h0M147,51h0M148,51h0M149,51h0M150,51h0M151,51h0M152,51h0M153,51h0M154,51h0M155,51h0M156,51h0M157,51h0M158,51h0M159,51h0M160,51h0M161,51h0M162,51h0M163,51h0M164,51h0M165,51h0M166,51h0M167,51h0M168,51h0M169,51h0M170,51h0M171,51h0M172,51h0M175,51h0M43,52h0M44,52h0M45,52h0M46,52h0M47,52h0M58,52h0M59,52h0M95,52h0M96,52h0M97,52h0M98,52h0M99,52h0M100,52h0M101,52h0M102,52h0M103,52h0M104,52h0M105,52h0M106,52h0M107,52h0M108,52h0M109,52h0M110,52h0M111,52h0M112,52h0M113,52h0M114,52h0M115,52h0M116,52h0M117,52h0M118,52h0M119,52h0M120,52h0M121,52h0M122,52h0M123,52h0M124,52h0M125,52h0M126,52h0M128,52h0M129,52h0M130,52h0M131,52h0M132,52h0M133,52h0M134,52h0M135,52h0M136,52h0M137,52h0M138,52h0M139,52h0M146,52h0M147,52h0M148,52h0M149,52h0M150,52h0M151,52h0M152,52h0M153,52h0M154,52h0M155,52h0M156,52h0M159,52h0M160,52h0M161,52h0M162,52h0M163,52h0M164,52h0M165,52h0M166,52h0M167,52h0M168,52h0M169,52h0M170,52h0M43,53h0M44,53h0M45,53h0M46,53h0M47,53h0M48,53h0M52,53h0M53,53h0M60,53h0M61,53h0M95,53h0M96,53h0M97,53h0M98,53h0M99,53h0M100,53h0M101,53h0M102,53h0M103,53h0M104,53h0M105,53h0M106,53h0M107,53h0M108,53h0M109,53h0M110,53h0M111,53h0M112,53h0M113,53h0M114,53h0M115,53h0M116,53h0M117,53h0M118,53h0M119,53h0M120,53h0M121,53h0M122,53h0M123,53h0M124,53h0M125,53h0M126,53h0M129,53h0M130,53h0M131,53h0M132,53h0M133,53h0M134,53h0M135,53h0M136,53h0M137,53h0M138,53h0M147,53h0M148,53h0M149,53h0M150,53h0M151,53h0M152,53h0M153,53h0M154,53h0M159,53h0M160,53h0M161,53h0M162,53h0M163,53h0M164,53h0M165,53h0M166,53h0M45,54h0M46,54h0M47,54h0M48,54h0M49,54h0M51,54h0M52,54h0M59,54h0M63,54h0M64,54h0M96,54h0M97,54h0M98,54h0M99,54h0M100,54h0M101,54h0M102,54h0M103,54h0M104,54h0M105,54h0M106,54h0M107,54h0M108,54h0M109,54h0M110,54h0M111,54h0M112,54h0M113,54h0M114,54h0M115,54h0M116,54h0M117,54h0M118,54h0M119,54h0M120,54h0M121,54h0M122,54h0M123,54h0M124,54h0M125,54h0M126,54h0M129,54h0M130,54h0M131,54h0M132,54h0M133,54h0M134,54h0M135,54h0M136,54h0M137,54h0M148,54h0M149,54h0M150,54h0M151,54h0M152,54h0M153,54h0M160,54h0M161,54h0M162,54h0M163,54h0M164,54h0M165,54h0M166,54h0M168,54h0M175,54h0M47,55h0M48,55h0M49,55h0M50,55h0M51,55h0M52,55h0M95,55h0M96,55h0M97,55h0M98,55h0M99,55h0M100,55h0M101,55h0M102,55h0M103,55h0M104,55h0M105,55h0M106,55h0M107,55h0M108,55h0M109,55h0M110,55h0M111,55h0M112,55h0M113,55h0M114,55h0M115,55h0M116,55h0M117,55h0M118,55h0M119,55h0M120,55h0M121,55h0M122,55h0M123,55h0M124,55h0M125,55h0M126,55h0M127,55h0M130,55h0M131,55h0M132,55h0M133,55h0M134,55h0M135,55h0M148,55h0M149,55h0M150,55h0M151,55h0M152,55h0M160,55h0M161,55h0M162,55h0M163,55h0M164,55h0M165,55h0M166,55h0M167,55h0M175,55h0M51,56h0M52,56h0M53,56h0M54,56h0M55,56h0M95,56h0M96,56h0M97,56h0M98,56h0M99,56h0M100,56h0M101,56h0M102,56h0M103,56h0M104,56h0M105,56h0M106,56h0M107,56h0M108,56h0M109,56h0M110,56h0M111,56h0M112,56h0M113,56h0M114,56h0M115,56h0M116,56h0M117,56h0M118,56h0M119,56h0M120,56h0M121,56h0M122,56h0M123,56h0M124,56h0M125,56h0M126,56h0M127,56h0M130,56h0M131,56h0M132,56h0M133,56h0M134,56h0M148,56h0M149,56h0M150,56h0M151,56h0M162,56h0M163,56h0M164,56h0M165,56h0M166,56h0M167,56h0M168,56h0M175,56h0M53,57h0M54,57h0M55,57h0M95,57h0M96,57h0M97,57h0M98,57h0M99,57h0M100,57h0M101,57h0M102,57h0M103,57h0M104,57h0M105,57h0M106,57h0M107,57h0M108,57h0M109,57h0M110,57h0M111,57h0M112,57h0M113,57h0M114,57h0M115,57h0M116,57h0M117,57h0M118,57h0M119,57h0M120,57h0M121,57h0M122,57h0M123,57h0M124,57h0M125,57h0M126,57h0M127,57h0M128,57h0M129,57h0M130,57h0M131,57h0M149,57h0M150,57h0M151,57h0M162,57h0M163,57h0M164,57h0M165,57h0M166,57h0M167,57h0M168,57h0M176,57h0M55,58h0M95,58h0M96,58h0M97,58h0M98,58h0M99,58h0M100,58h0M101,58h0M102,58h0M103,58h0M104,58h0M105,58h0M106,58h0M107,58h0M108,58h0M109,58h0M110,58h0M111,58h0M112,58h0M113,58h0M114,58h0M115,58h0M116,58h0M117,58h0M118,58h0M119,58h0M120,58h0M121,58h0M122,58h0M123,58h0M124,58h0M125,58h0M126,58h0M127,58h0M128,58h0M129,58h0M134,58h0M149,58h0M150,58h0M151,58h0M165,58h0M166,58h0M167,58h0M168,58h0M55,59h0M56,59h0M61,59h0M62,59h0M63,59h0M64,59h0M65,59h0M66,59h0M67,59h0M68,59h0M97,59h0M98,59h0M99,59h0M100,59h0M101,59h0M102,59h0M103,59h0M104,59h0M105,59h0M106,59h0M107,59h0M108,59h0M109,59h0M110,59h0M111,59h0M112,59h0M113,59h0M114,59h0M115,59h0M116,59h0M117,59h0M118,59h0M119,59h0M120,59h0M121,59h0M122,59h0M123,59h0M124,59h0M125,59h0M126,59h0M127,59h0M128,59h0M129,59h0M130,59h0M131,59h0M132,59h0M133,59h0M134,59h0M149,59h0M150,59h0M162,59h0M166,59h0M56,60h0M57,60h0M59,60h0M60,60h0M61,60h0M62,60h0M63,60h0M64,60h0M65,60h0M66,60h0M67,60h0M68,60h0M69,60h0M97,60h0M98,60h0M99,60h0M100,60h0M101,60h0M102,60h0M103,60h0M104,60h0M105,60h0M106,60h0M107,60h0M108,60h0M109,60h0M110,60h0M111,60h0M112,60h0M113,60h0M114,60h0M115,60h0M116,60h0M117,60h0M118,60h0M119,60h0M120,60h0M121,60h0M122,60h0M123,60h0M124,60h0M125,60h0M126,60h0M127,60h0M128,60h0M129,60h0M130,60h0M131,60h0M132,60h0M133,60h0M150,60h0M162,60h0M177,60h0M178,60h0M60,61h0M61,61h0M62,61h0M63,61h0M64,61h0M65,61h0M66,61h0M67,61h0M68,61h0M69,61h0M70,61h0M98,61h0M99,61h0M100,61h0M101,61h0M102,61h0M103,61h0M104,61h0M105,61h0M106,61h0M107,61h0M108,61h0M109,61h0M110,61h0M111,61h0M112,61h0M113,61h0M114,61h0M115,61h0M116,61h0M117,61h0M118,61h0M119,61h0M120,61h0M121,61h0M122,61h0M123,61h0M124,61h0M125,61h0M126,61h0M127,61h0M128,61h0M129,61h0M130,61h0M131,61h0M132,61h0M133,61h0M152,61h0M163,61h0M177,61h0M60,62h0M61,62h0M62,62h0M63,62h0M64,62h0M65,62h0M66,62h0M67,62h0M68,62h0M69,62h0M70,62h0M71,62h0M72,62h0M73,62h0M100,62h0M101,62h0M103,62h0M108,62h0M109,62h0M110,62h0M111,62h0M112,62h0M113,62h0M114,62h0M115,62h0M116,62h0M117,62h0M118,62h0M119,62h0M120,62h0M121,62h0M122,62h0M123,62h0M124,62h0M125,62h0M126,62h0M127,62h0M128,62h0M129,62h0M130,62h0M131,62h0M132,62h0M161,62h0M164,62h0M172,62h0M173,62h0M60,63h0M61,63h0M62,63h0M63,63h0M64,63h0M65,63h0M66,63h0M67,63h0M68,63h0M69,63h0M70,63h0M71,63h0M72,63h0M73,63h0M74,63h0M111,63h0M112,63h0M113,63h0M114,63h0M115,63h0M116,63h0M117,63h0M118,63h0M119,63h0M120,63h0M121,63h0M122,63h0M123,63h0M124,63h0M125,63h0M126,63h0M127,63h0M128,63h0M129,63h0M130,63h0M131,63h0M162,63h0M164,63h0M171,63h0M172,63h0M59,64h0M60,64h0M61,64h0M62,64h0M63,64h0M64,64h0M65,64h0M66,64h0M67,64h0M68,64h0M69,64h0M70,64h0M71,64h0M72,64h0M73,64h0M74,64h0M75,64h0M110,64h0M111,64h0M112,64h0M113,64h0M114,64h0M115,64h0M116,64h0M117,64h0M118,64h0M119,64h0M120,64h0M121,64h0M122,64h0M123,64h0M124,64h0M125,64h0M126,64h0M127,64h0M128,64h0M129,64h0M130,64h0M163,64h0M164,64h0M165,64h0M169,64h0M170,64h0M171,64h0M172,64h0M173,64h0M179,64h0M58,65h0M59,65h0M60,65h0M61,65h0M62,65h0M63,65h0M64,65h0M65,65h0M66,65h0M67,65h0M68,65h0M69,65h0M70,65h0M71,65h0M72,65h0M73,65h0M74,65h0M75,65h0M110,65h0M111,65h0M112,65h0M113,65h0M114,65h0M115,65h0M116,65h0M117,65h0M118,65h0M119,65h0M120,65h0M121,65h0M122,65h0M123,65h0M124,65h0M125,65h0M126,65h0M127,65h0M128,65h0M129,65h0M163,65h0M164,65h0M169,65h0M170,65h0M171,65h0M172,65h0M173,65h0M179,65h0M58,66h0M59,66h0M60,66h0M61,66h0M62,66h0M63,66h0M64,66h0M65,66h0M66,66h0M67,66h0M68,66h0M69,66h0M70,66h0M71,66h0M72,66h0M73,66h0M74,66h0M75,66h0M76,66h0M77,66h0M78,66h0M110,66h0M111,66h0M112,66h0M113,66h0M114,66h0M115,66h0M116,66h0M117,66h0M118,66h0M119,66h0M120,66h0M121,66h0M122,66h0M123,66h0M124,66h0M125,66h0M126,66h0M127,66h0M128,66h0M164,66h0M165,66h0M169,66h0M170,66h0M171,66h0M172,66h0M175,66h0M182,66h0M185,66h0M58,67h0M59,67h0M60,67h0M61,67h0M62,67h0M63,67h0M64,67h0M65,67h0M66,67h0M67,67h0M68,67h0M69,67h0M70,67h0M71,67h0M72,67h0M73,67h0M74,67h0M75,67h0M76,67h0M77,67h0M78,67h0M79,67h0M80,67h0M81,67h0M111,67h0M112,67h0M113,67h0M114,67h0M115,67h0M116,67h0M117,67h0M118,67h0M119,67h0M120,67h0M121,67h0M122,67h0M123,67h0M124,67h0M125,67h0M126,67h0M127,67h0M165,67h0M166,67h0M172,67h0M182,67h0M183,67h0M184,67h0M185,67h0M186,67h0M187,67h0M188,67h0M58,68h0M59,68h0M60,68h0M61,68h0M62,68h0M63,68h0M64,68h0M65,68h0M66,68h0M67,68h0M68,68h0M69,68h0M70,68h0M71,68h0M72,68h0M73,68h0M74,68h0M75,68h0M76,68h0M77,68h0M78,68h0M79,68h0M80,68h0M81,68h0M82,68h0M83,68h0M112,68h0M113,68h0M114,68h0M115,68h0M116,68h0M117,68h0M118,68h0M119,68h0M120,68h0M121,68h0M122,68h0M123,68h0M124,68h0M125,68h0M126,68h0M127,68h0M166,68h0M176,68h0M185,68h0M186,68h0M187,68h0M188,68h0M189,68h0M192,68h0M193,68h0M58,69h0M59,69h0M60,69h0M61,69h0M62,69h0M63,69h0M64,69h0M65,69h0M66,69h0M67,69h0M68,69h0M69,69h0M70,69h0M71,69h0M72,69h0M73,69h0M74,69h0M75,69h0M76,69h0M77,69h0M78,69h0M79,69h0M80,69h0M81,69h0M82,69h0M83,69h0M84,69h0M112,69h0M113,69h0M114,69h0M115,69h0M116,69h0M117,69h0M118,69h0M119,69h0M120,69h0M121,69h0M122,69h0M123,69h0M124,69h0M125,69h0M126,69h0M127,69h0M167,69h0M168,69h0M169,69h0M170,69h0M186,69h0M187,69h0M188,69h0M189,69h0M190,69h0M196,69h0M59,70h0M60,70h0M61,70h0M62,70h0M63,70h0M64,70h0M65,70h0M66,70h0M67,70h0M68,70h0M69,70h0M70,70h0M71,70h0M72,70h0M73,70h0M74,70h0M75,70h0M76,70h0M77,70h0M78,70h0M79,70h0M80,70h0M81,70h0M82,70h0M83,70h0M84,70h0M113,70h0M114,70h0M115,70h0M116,70h0M117,70h0M118,70h0M119,70h0M120,70h0M121,70h0M122,70h0M123,70h0M124,70h0M125,70h0M126,70h0M127,70h0M173,70h0M175,70h0M178,70h0M187,70h0M188,70h0M190,70h0M191,70h0M59,71h0M60,71h0M61,71h0M62,71h0M63,71h0M64,71h0M65,71h0M66,71h0M67,71h0M68,71h0M69,71h0M70,71h0M71,71h0M72,71h0M73,71h0M74,71h0M75,71h0M76,71h0M77,71h0M78,71h0M79,71h0M80,71h0M81,71h0M82,71h0M83,71h0M113,71h0M114,71h0M115,71h0M116,71h0M117,71h0M118,71h0M119,71h0M120,71h0M121,71h0M122,71h0M123,71h0M124,71h0M125,71h0M126,71h0M127,71h0M128,71h0M192,71h0M60,72h0M61,72h0M62,72h0M63,72h0M64,72h0M65,72h0M66,72h0M67,72h0M68,72h0M69,72h0M70,72h0M71,72h0M72,72h0M73,72h0M74,72h0M75,72h0M76,72h0M77,72h0M78,72h0M79,72h0M80,72h0M81,72h0M82,72h0M113,72h0M114,72h0M115,72h0M116,72h0M117,72h0M118,72h0M119,72h0M120,72h0M121,72h0M122,72h0M123,72h0M124,72h0M125,72h0M126,72h0M127,72h0M128,72h0M182,72h0M183,72h0M184,72h0M60,73h0M61,73h0M62,73h0M63,73h0M64,73h0M65,73h0M66,73h0M67,73h0M68,73h0M69,73h0M70,73h0M71,73h0M72,73h0M73,73h0M74,73h0M75,73h0M76,73h0M77,73h0M78,73h0M79,73h0M80,73h0M81,73h0M112,73h0M113,73h0M114,73h0M115,73h0M116,73h0M117,73h0M118,73h0M119,73h0M120,73h0M121,73h0M122,73h0M123,73h0M124,73h0M125,73h0M126,73h0M127,73h0M128,73h0M133,73h0M181,73h0M182,73h0M183,73h0M188,73h0M61,74h0M62,74h0M63,74h0M64,74h0M65,74h0M66,74h0M67,74h0M68,74h0M69,74h0M70,74h0M71,74h0M72,74h0M73,74h0M74,74h0M75,74h0M76,74h0M77,74h0M78,74h0M79,74h0M80,74h0M81,74h0M112,74h0M113,74h0M114,74h0M115,74h0M116,74h0M117,74h0M118,74h0M119,74h0M120,74h0M121,74h0M122,74h0M123,74h0M124,74h0M125,74h0M126,74h0M127,74h0M128,74h0M132,74h0M133,74h0M178,74h0M179,74h0M180,74h0M181,74h0M182,74h0M183,74h0M188,74h0M189,74h0M202,74h0M63,75h0M64,75h0M65,75h0M66,75h0M67,75h0M68,75h0M69,75h0M70,75h0M71,75h0M72,75h0M73,75h0M74,75h0M75,75h0M76,75h0M77,75h0M78,75h0M79,75h0M80,75h0M81,75h0M112,75h0M113,75h0M114,75h0M115,75h0M116,75h0M117,75h0M118,75h0M119,75h0M120,75h0M121,75h0M122,75h0M123,75h0M124,75h0M125,75h0M126,75h0M131,75h0M132,75h0M133,75h0M176,75h0M177,75h0M178,75h0M179,75h0M180,75h0M181,75h0M182,75h0M183,75h0M184,75h0M185,75h0M187,75h0M188,75h0M189,75h0M64,76h0M65,76h0M66,76h0M67,76h0M68,76h0M69,76h0M70,76h0M71,76h0M72,76h0M73,76h0M74,76h0M75,76h0M76,76h0M77,76h0M78,76h0M79,76h0M80,76h0M81,76h0M112,76h0M113,76h0M114,76h0M115,76h0M116,76h0M117,76h0M118,76h0M119,76h0M120,76h0M121,76h0M122,76h0M123,76h0M124,76h0M125,76h0M131,76h0M132,76h0M133,76h0M176,76h0M177,76h0M178,76h0M179,76h0M180,76h0M181,76h0M182,76h0M183,76h0M184,76h0M185,76h0M186,76h0M187,76h0M188,76h0M189,76h0M64,77h0M65,77h0M66,77h0M67,77h0M68,77h0M69,77h0M70,77h0M71,77h0M72,77h0M73,77h0M74,77h0M75,77h0M76,77h0M77,77h0M78,77h0M79,77h0M80,77h0M113,77h0M114,77h0M115,77h0M116,77h0M117,77h0M118,77h0M119,77h0M120,77h0M121,77h0M122,77h0M123,77h0M124,77h0M131,77h0M132,77h0M174,77h0M175,77h0M176,77h0M177,77h0M178,77h0M179,77h0M180,77h0M181,77h0M182,77h0M183,77h0M184,77h0M185,77h0M186,77h0M187,77h0M188,77h0M189,77h0M190,77h0M191,77h0M64,78h0M65,78h0M66,78h0M67,78h0M68,78h0M69,78h0M70,78h0M71,78h0M72,78h0M73,78h0M74,78h0M75,78h0M76,78h0M77,78h0M78,78h0M79,78h0M80,78h0M113,78h0M114,78h0M115,78h0M116,78h0M117,78h0M118,78h0M119,78h0M120,78h0M121,78h0M122,78h0M123,78h0M124,78h0M125,78h0M130,78h0M131,78h0M132,78h0M171,78h0M172,78h0M173,78h0M174,78h0M175,78h0M176,78h0M177,78h0M178,78h0M179,78h0M180,78h0M181,78h0M182,78h0M183,78h0M184,78h0M185,78h0M186,78h0M187,78h0M188,78h0M189,78h0M190,78h0M191,78h0M64,79h0M65,79h0M66,79h0M67,79h0M68,79h0M69,79h0M70,79h0M71,79h0M72,79h0M73,79h0M74,79h0M75,79h0M76,79h0M77,79h0M78,79h0M113,79h0M114,79h0M115,79h0M116,79h0M117,79h0M118,79h0M119,79h0M120,79h0M121,79h0M122,79h0M123,79h0M124,79h0M125,79h0M130,79h0M131,79h0M132,79h0M171,79h0M172,79h0M173,79h0M174,79h0M175,79h0M176,79h0M177,79h0M178,79h0M179,79h0M180,79h0M181,79h0M182,79h0M183,79h0M184,79h0M185,79h0M186,79h0M187,79h0M188,79h0M189,79h0M190,79h0M191,79h0M192,79h0M64,80h0M65,80h0M66,80h0M67,80h0M68,80h0M69,80h0M70,80h0M71,80h0M72,80h0M73,80h0M74,80h0M75,80h0M76,80h0M114,80h0M115,80h0M116,80h0M117,80h0M118,80h0M119,80h0M120,80h0M121,80h0M122,80h0M123,80h0M131,80h0M171,80h0M172,80h0M173,80h0M174,80h0M175,80h0M176,80h0M177,80h0M178,80h0M179,80h0M180,80h0M181,80h0M182,80h0M183,80h0M184,80h0M185,80h0M186,80h0M187,80h0M188,80h0M189,80h0M190,80h0M191,80h0M192,80h0M193,80h0M64,81h0M65,81h0M66,81h0M67,81h0M68,81h0M69,81h0M70,81h0M71,81h0M72,81h0M73,81h0M74,81h0M75,81h0M76,81h0M114,81h0M115,81h0M116,81h0M117,81h0M118,81h0M119,81h0M120,81h0M121,81h0M122,81h0M123,81h0M171,81h0M172,81h0M173,81h0M174,81h0M175,81h0M176,81h0M177,81h0M178,81h0M179,81h0M180,81h0M181,81h0M182,81h0M183,81h0M184,81h0M185,81h0M186,81h0M187,81h0M188,81h0M189,81h0M190,81h0M191,81h0M192,81h0M193,81h0M63,82h0M64,82h0M65,82h0M66,82h0M67,82h0M68,82h0M69,82h0M70,82h0M71,82h0M72,82h0M73,82h0M74,82h0M75,82h0M76,82h0M115,82h0M116,82h0M117,82h0M118,82h0M119,82h0M120,82h0M121,82h0M122,82h0M123,82h0M172,82h0M173,82h0M174,82h0M175,82h0M176,82h0M177,82h0M178,82h0M179,82h0M180,82h0M181,82h0M182,82h0M183,82h0M184,82h0M185,82h0M186,82h0M187,82h0M188,82h0M189,82h0M190,82h0M191,82h0M192,82h0M193,82h0M194,82h0M63,83h0M64,83h0M65,83h0M66,83h0M67,83h0M68,83h0M69,83h0M70,83h0M71,83h0M72,83h0M73,83h0M74,83h0M75,83h0M115,83h0M116,83h0M117,83h0M118,83h0M119,83h0M120,83h0M121,83h0M122,83h0M172,83h0M173,83h0M174,83h0M175,83h0M176,83h0M177,83h0M178,83h0M179,83h0M180,83h0M181,83h0M182,83h0M183,83h0M184,83h0M185,83h0M186,83h0M187,83h0M188,83h0M189,83h0M190,83h0M191,83h0M192,83h0M193,83h0M63,84h0M64,84h0M65,84h0M66,84h0M67,84h0M68,84h0M69,84h0M70,84h0M71,84h0M72,84h0M73,84h0M74,84h0M116,84h0M117,84h0M118,84h0M119,84h0M120,84h0M121,84h0M172,84h0M173,84h0M174,84h0M175,84h0M176,84h0M177,84h0M178,84h0M179,84h0M182,84h0M183,84h0M184,84h0M185,84h0M186,84h0M187,84h0M188,84h0M189,84h0M190,84h0M191,84h0M192,84h0M193,84h0M63,85h0M64,85h0M65,85h0M66,85h0M67,85h0M68,85h0M69,85h0M70,85h0M71,85h0M72,85h0M73,85h0M116,85h0M117,85h0M118,85h0M119,85h0M120,85h0M172,85h0M173,85h0M174,85h0M175,85h0M176,85h0M184,85h0M185,85h0M186,85h0M187,85h0M188,85h0M189,85h0M190,85h0M191,85h0M192,85h0M63,86h0M64,86h0M65,86h0M66,86h0M67,86h0M68,86h0M69,86h0M70,86h0M72,86h0M116,86h0M173,86h0M186,86h0M187,86h0M188,86h0M189,86h0M190,86h0M191,86h0M192,86h0M63,87h0M64,87h0M65,87h0M66,87h0M67,87h0M68,87h0M69,87h0M70,87h0M71,87h0M186,87h0M187,87h0M188,87h0M189,87h0M190,87h0M191,87h0M192,87h0M206,87h0M62,88h0M63,88h0M64,88h0M65,88h0M66,88h0M67,88h0M68,88h0M69,88h0M70,88h0M71,88h0M187,88h0M188,88h0M189,88h0M190,88h0M191,88h0M207,88h0M62,89h0M63,89h0M64,89h0M65,89h0M66,89h0M67,89h0M68,89h0M206,89h0M207,89h0M62,90h0M63,90h0M64,90h0M65,90h0M66,90h0M67,90h0M68,90h0M207,90h0M62,91h0M63,91h0M64,91h0M65,91h0M66,91h0M190,91h0M191,91h0M205,91h0M62,92h0M63,92h0M64,92h0M65,92h0M66,92h0M190,92h0M204,92h0M205,92h0M62,93h0M63,93h0M64,93h0M65,93h0M66,93h0M203,93h0M204,93h0M61,94h0M62,94h0M63,94h0M64,94h0M65,94h0M203,94h0M61,95h0M62,95h0M63,95h0M64,95h0M65,95h0M66,95h0M61,96h0M62,96h0M63,96h0M64,96h0M65,96h0M145,96h0M61,97h0M62,97h0M63,97h0M64,97h0M61,98h0M62,98h0M63,98h0M64,98h0M70,98h0M61,99h0M62,99h0M63,99h0M64,99h0M62,100h0M63,100h0M64,100h0M65,100h0M64,101h0M65,101h0" />
+      <circle class="wmap__halo" style="--i: 1" cx="47.63" cy="41.10" r="13" />
+      <path class="wmap__arc" style="--leg: 0" d="M55.77,44.94 Q51.70,36.02 47.63,41.10" />
+      <path class="wmap__arc" style="--leg: 1" d="M47.63,41.10 Q87.05,23.62 126.48,66.15" />
+      <path class="wmap__arc" style="--leg: 2" d="M126.48,66.15 Q152.78,80.28 179.07,42.41" />
+      <g class="wmap__node wmap__node--plan" style="--i: 0">
+        <circle class="wmap__ring" cx="55.77" cy="44.94" r="3.4" />
+        <circle class="wmap__pin" cx="55.77" cy="44.94" r="1.6" />
+        <text class="wmap__seqmark" x="48.37" y="48.34">01</text>
+      </g>
+      <g class="wmap__node wmap__node--plan" style="--i: 1">
+        <circle class="wmap__sat" cx="61.83" cy="40.26" r="1.2" />
+        <circle class="wmap__sat" cx="53.88" cy="39.45" r="1.2" />
+        <circle class="wmap__sat" cx="36.03" cy="44.75" r="1.2" />
+        <circle class="wmap__sat" cx="49.37" cy="47.52" r="1.2" />
+        <text class="wmap__seqmark" x="45.83" y="26.10">02</text>
+      </g>
+      <g class="wmap__node wmap__node--plan" style="--i: 2">
+        <circle class="wmap__sat" cx="106.97" cy="61.59" r="1.2" />
+        <circle class="wmap__sat" cx="121.36" cy="81.03" r="1.2" />
+        <circle class="wmap__ring" cx="126.48" cy="66.15" r="3.4" />
+        <circle class="wmap__pin" cx="126.48" cy="66.15" r="1.6" />
+        <text class="wmap__seqmark" x="129.28" y="67.75">03</text>
+      </g>
+      <g class="wmap__node wmap__node--plan" style="--i: 3">
+        <circle class="wmap__ring" cx="179.07" cy="42.41" r="3.4" />
+        <circle class="wmap__pin" cx="179.07" cy="42.41" r="1.6" />
+        <text class="wmap__seqmark" x="181.87" y="44.01">04</text>
+      </g>
+    </svg>
+  </div>
+  <ol class="wmap__stops">
+
+  </ol>
+</figure>
+
+<ol class="ms">
+  <li class="ms__item ms__item--risk">
+    <p class="ms__no"><span class="num">M1</span> · <span class="num">6</span> months</p>
+    <h3>cfDNA quality of paperfuge plasma</h3>
+    <p>Against standard two-stage centrifugation — cfDNA yield / 167 bp mononucleosomal fragment integrity / gDNA contamination (ddPCR) / methylation call concordance</p>
+    <p class="ms__tag">Highest risk</p>
+  </li>
+  <li class="ms__item">
+    <p class="ms__no"><span class="num">M2</span> · <span class="num">12</span> months</p>
+    <h3>Georgia pilot, n = <span class="num">500</span></h3>
+    <p>Uninsured and rural population — self-collection return rate, days in transit, temperature logger data, willingness to retest</p>
+    <p class="ms__tag">Logistics</p>
+  </li>
+  <li class="ms__item">
+    <p class="ms__no"><span class="num">M3</span> · <span class="num">18</span> months</p>
+    <h3>CLIA-certified lab partnership · LDT path fixed</h3>
+    <p>A partnership rather than our own lab, to compress regulatory time</p>
+    <p class="ms__tag">Regulatory</p>
+  </li>
+  <li class="ms__item">
+    <p class="ms__no"><span class="num">M4</span> · <span class="num">24</span> months</p>
+    <h3>Phase 2 exploratory cohort opens</h3>
+    <p>p-tau217 immunoassay and methylation panel collected in parallel from the same plasma</p>
+    <p class="ms__tag">Expansion</p>
+  </li>
+</ol>
+<div class="caution">
+  <p>
+    If M1 fails we swap step 2 of the pipeline for standard centrifugation or a
+    plasma separation card. The unit cost rises, but <b>the business hypothesis
+    itself survives.</b>
+  </p>
+</div>
+
+<h3 class="sub">1996 &rarr; 2026</h3>
+<figure class="thesis">
+  <blockquote>
+    Twenty years ago, would you have believed that standing on a platform for
+    ten seconds could tell you your body fat and muscle mass?
+  </blockquote>
+</figure>
+<div class="stats">
+  <div class="stat"><b class="num">109</b><span>Countries InBody operates in</span></div>
+  <div class="stat"><b class="num">20,000</b><span>Installations in Korea</span></div>
+  <div class="stat"><b class="num">200 M</b><span>Body composition records in the cloud</span></div>
+  <div class="stat"><b class="num">6,500</b><span>Of 17,000 body composition papers worldwide, the ones using InBody</span></div>
+</div>
+<div class="prose">
+  <p>
+    In 1996, measuring body fat meant submerging yourself in a water tank or
+    booking an X-ray room. Thirty years on, in Korea “going for an InBody” is a
+    verb, not a company name.
+  </p>
+  <p><b>The body has already been quantified. The mind is next.</b></p>
+</div>
+<p class="src">InBody official IR and company history (FY2025 revenue ₩233.9 B) · Uihaksinmun 2026-05-26</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+
+<p class="footer__note">
+  Every figure was checked against its original source as of July 2026.
+  Pre-peer-review presentations (NHS-Galleri, PATHFINDER 2) and preprints
+  (MethylGPT, CpGPT) are marked as such in the text. The cfDNA quality of
+  paperfuge plasma is not yet validated and is the subject of M1. This page is a
+  team project output and does not provide medical advice.
+</p>
+
+  </footer>
+
+
+  <script>window.__pediaStepText = [{"tab": "Kit", "kicker": "Kit · 4 parts", "title": "Draw, separate, stabilise, ship", "lede": "Four separable parts. Function is concentrated into the lancet pen so the volume shrinks, and everything else seats in a single tray. The aim is to cut shipping cost and kit volume at the same time.", "note": "Scope at home ends at first plasma separation. Every equipment-dependent step goes to the lab.", "specs": [["Case", "105 × 80 × 26 mm"], ["Parts", "4 parts / 1 tray"], ["Shipping", "Ambient · round trip"]]}, {"tab": "Draw", "kicker": "Step 01 · At home", "title": "Self-collected blood", "lede": "A spring-loaded lancet pen. Pressing the cap drives the needle inside the contact dome and never outside it — a structure chosen for self-use safety and regulatory fit at once.", "note": "The needle is never exposed, which removes sharps injury at disposal.", "specs": [["Body", "Ø25 × 50 mm"], ["Plunger travel", "20 mm"], ["Contact dome", "Ø8 mm"], ["Needle throw", "2.7 mm (internal)"]]}, {"tab": "Collect", "kicker": "Step 02 · At home", "title": "Blood into a sealed cartridge", "lede": "Coupling the pen to the cartridge port transfers the blood while sealed. The user never handles the specimen directly, which closes the contamination path.", "note": "Adopting a centrifuge E-tube format would shrink the cartridge further.", "specs": [["Cartridge", "Ø12 × 45 mm"], ["Draw volume", "~300 µL"], ["Seal", "2 mm O-ring"]]}, {"tab": "Separate", "kicker": "Step 03 · At home", "title": "Hand-spun disc · first plasma separation", "lede": "The cartridge couples into a side port on the disc and the axle is spun. Red cells collect in the inner section of the radial hourglass channel, and the plasma supernatant is driven over a siphon into the outer collection ring. No mains power.", "note": "A motor-driven version is on the table once volume brings the unit cost down.", "specs": [["Disc", "Ø65 mm"], ["Channel span", "58 mm"], ["Axle", "Ø5 mm · 2 mm O-rings"], ["Rotor length", "135 mm (E-tube format)"]]}, {"tab": "Isolate", "kicker": "Step 04 · At home", "title": "Plasma isolation", "lede": "Once the disc stops, the plasma gathered outboard runs through the valve into the lower chamber and a quarter turn locks it. It is physically separated from the cell layer, so nothing remixes in transit.", "note": "A second spin to clear residual cells and particles is a lab step.", "specs": [["Plasma chamber", "~150 µL"], ["Valve", "Quarter-turn lock"], ["Residual cells", "Held in the upper chamber"]]}, {"tab": "Stabilise", "kicker": "Step 05 · At home", "title": "Stabilise and prepare for return", "lede": "Crush the reagent ampoule, mix it into the plasma, and seat the cartridge back in its slot. The purpose is to hold cfDNA degradation down across an ambient shipping leg.", "note": "Hygienic contamination in transit and storage is a separate validation item.", "specs": [["Stabiliser", "1 ampoule · crush to mix"], ["Hold", "72 h ambient"], ["Return", "In the same case"]]}, {"tab": "Lab", "kicker": "Lab · Off-site", "title": "What the lab does", "lede": "Every step that needs a micropipette, a vortex, a heating bath, a centrifuge, a magnetic stand or sterile tubes. This is the reason the home kit's scope stops at first separation.", "specs": [["Received", "~150 µL stabilised plasma"], ["Extraction", "Magnetic bead"], ["Readout", "MS-HRM real-time PCR"]]}, {}];</script>
+  <script defer src="/scroll.js"></script>
+  <script type="module" src="/script.js"></script>
+</body>
+</html>
