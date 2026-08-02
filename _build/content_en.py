@@ -608,59 +608,104 @@ STOPS = [
     {
         "seq": "01",
         "name": "Georgia",
-        "role": "Beachhead — we start in a single state",
-        "lon": -84.39,
-        "lat": 33.75,
-        "note": "Atlanta",
-        "kind": "plan",
-        "nudge": (-7.4, 3.4),
+        "role": "Beachhead · 0–2 yr",
+        "region": "georgia",
+        "paint": 3,
+        "lon": -83.44,
+        "lat": 32.68,
+        "r": 3.0,
+        "nudge": (-7.4, 3.6),
+        "jump": False,
+        "bow": 0,
         "sats": [],
-        "kpi": ["M2 pilot, n=500", "SOM $27M ARR (year 5)"],
+        "facts": [
+            ("12.0%", "Uninsured · 49th of 50"),
+            ("53", "Counties with no hospital / 159"),
+            ("471.9", "Cancer incidence · US 448.6"),
+            ("3.32 M", "Aged 50–79 · initial market"),
+        ],
+        "why": "We validate a product that removes the threshold in the place "
+        "where the threshold is highest. All three personas live inside one "
+        "state, and it is small enough to hold shipping temperature, regulation "
+        "and the partner lab as a single variable. 2% penetration × $400 ASP = "
+        "$27M ARR in year 5.",
     },
     {
         "seq": "02",
-        "name": "US metros",
-        "role": "Same logistics, same panel, wider",
+        "name": "United States",
+        "role": "Expansion · 2–4 yr",
+        "region": "usa",
+        "paint": 0,
         "lon": -98.35,
         "lat": 39.50,
-        "note": "New York · Chicago · LA · Houston",
-        "kind": "plan",
-        "r": 13,
-        "nudge": (-1.8, -15.0),
+        "r": 3.4,
+        "nudge": (-1.8, -5.6),
+        "jump": False,
+        "bow": 0,
         "sats": [
             (-74.01, 40.71, "New York"),
             (-87.63, 41.88, "Chicago"),
             (-118.24, 34.05, "Los Angeles"),
             (-95.37, 29.76, "Houston"),
         ],
-        "kpi": ["SAM $1.75B", "CLIA lab partnership · LDT path"],
+        "facts": [
+            ("106.7 M", "Aged 50–79"),
+            ("$1.75B", "SAM"),
+            ("$522.8M", "US MCED"),
+            ("$1.23B", "US direct-to-consumer lab testing"),
+        ],
+        "why": "A test that ends at the mailbox needs no new logistics to cross "
+        "a state line. The return rate, days in transit and temperature logs "
+        "proven in Georgia carry straight into the metros. Same logistics, "
+        "same panel.",
     },
     {
         "seq": "03",
         "name": "Africa",
-        "role": "NGO channel — the threshold is highest where there is no draw centre",
-        "lon": 36.82,
-        "lat": -1.29,
-        "note": "Nairobi · Lagos · Johannesburg",
-        "kind": "plan",
-        "nudge": (2.8, 1.6),
-        "sats": [(3.38, 6.52, "Lagos"), (28.05, -26.20, "Johannesburg")],
-        "kpi": [
-            "Ambient return · no cold chain",
-            "MAP International is headquartered in Georgia",
+        "role": "NGO channel · 4 yr +",
+        "region": "africa",
+        "paint": 1,
+        "lon": 21.0,
+        "lat": 2.0,
+        "r": 3.4,
+        "nudge": (2.9, 1.6),
+        "jump": True,
+        "bow": 26,
+        "sats": [
+            (36.82, -1.29, "Nairobi"),
+            (3.38, 6.52, "Lagos"),
+            (28.05, -26.20, "Johannesburg"),
         ],
+        "facts": [
+            ("3–5 days", "Ambient stability · no cold chain"),
+            ("$0.20", "Paperfuge hardware"),
+            ("0", "Draw centres required"),
+        ],
+        "why": "Where there is no draw centre, the threshold is at its highest. "
+        "Not requiring a cold chain stops being a convenience here and becomes "
+        "the condition of entry — and MAP International is headquartered in "
+        "Georgia, so this leg departs from the beachhead itself.",
     },
     {
         "seq": "04",
         "name": "Korea",
-        "role": "Back to the development and IP base",
-        "lon": 126.98,
-        "lat": 37.57,
-        "note": "Seoul",
-        "kind": "plan",
-        "nudge": (2.8, 1.6),
+        "role": "Development · IP base",
+        "region": "korea",
+        "paint": 2,
+        "lon": 127.6,
+        "lat": 36.4,
+        "r": 2.6,
+        "nudge": (3.0, 1.6),
+        "jump": True,
+        "bow": -22,
         "sats": [],
-        "kpi": ["National cancer screening channel", "IVD device authorisation"],
+        "facts": [
+            ("National screening", "An existing uptake channel"),
+            ("IVD", "In-vitro diagnostic authorisation"),
+        ],
+        "why": "Back to where the development and the IP are. A market with a "
+        "working national screening channel already in place, so the threshold "
+        "problem takes a different shape than it does in the US.",
     },
 ]
 
@@ -684,7 +729,9 @@ MILESTONES = (
     )
     + charts.wmap(
         STOPS,
-        "Market entry sequence on a world map — Georgia, then US metros, then Africa, then Korea",
+        "Territory filling in stage by stage on a world map — one US state, then "
+        "the United States, then Africa, then Korea",
+        legend=("Territory accumulates", "Dashed where new logistics are needed"),
     )
     + """
 <ol class="ms">

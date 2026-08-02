@@ -14,6 +14,7 @@ Colour comes from CSS custom properties rather than literals, so the figures
 follow the palette instead of pinning a copy of it.
 """
 
+import regions
 import worldmap
 
 # ────────────────────────────────────────────────────────── dot fields
@@ -195,12 +196,20 @@ def timeline(cols, rows, caption=""):
 
 
 
-def wmap(stops, aria=""):
-    """Dot-matrix world map with the entry sequence drawn over it.
+def wmap(stops, aria="", legend=()):
+    """Dot-matrix world map where the territory fills in, stage by stage.
 
-    Static rather than the stepper the retired version had. On a page that is
-    one long scroll the reader is already moving; a figure that also demands to
-    be clicked competes with the scroll instead of supporting it.
+    The earlier version popped four rings and drew three arcs, which said the
+    order but not the size — and the size is the whole argument. Now the actual
+    country outlines fill over the dot raster and stay filled, so a single state
+    is visibly a rounding error against the country, and the country is a
+    rounding error against the continent that follows it.
+
+    Regions accumulate. Nothing that has been entered is ever un-drawn, because
+    the claim is coverage, not a tour.
+
+    Motion is an enhancement: every number in it is also written into the stage
+    cards underneath, so a reader who scrolls past the animation loses nothing.
     """
     xy = [worldmap.project(s["lon"], s["lat"]) for s in stops]
 
@@ -209,77 +218,84 @@ def wmap(stops, aria=""):
         cx, cy = (x0 + x1) / 2, (y0 + y1) / 2 - bow
         return f"M{x0:.2f},{y0:.2f} Q{cx:.2f},{cy:.2f} {x1:.2f},{y1:.2f}"
 
-    # Bow each leg away from the one before so three hops across one hemisphere
-    # do not collapse into a single line. --leg drives the draw stagger in CSS.
-    bows = [7, 30, -26]
-    arcs = [
-        f'      <path class="wmap__arc" style="--leg: {i}"'
-        f' d="{arc(xy[i], xy[i + 1], bows[i])}" />'
-        for i in range(len(stops) - 1)
-    ]
+    # Filled territory, back to front. Georgia is drawn last of the fills so its
+    # outline survives the United States being painted over it.
+    fills = []
+    for i, stop in enumerate(stops):
+        key = stop.get("region")
+        if not key:
+            continue
+        fills.append(
+            (
+                stop.get("paint", 0),
+                f'      <path class="wmap__fill wmap__fill--{key}" style="--i: {i}"'
+                f' d="{regions.PATHS[key]}" />',
+            )
+        )
+    # Paint order is by size, not by stage: Georgia sits inside the United States
+    # and was being covered by the very fill that is supposed to dwarf it.
+    fills = [p for _, p in sorted(fills, key=lambda f: f[0])]
 
-    # Territory discs are emitted ahead of every pin. They are semi-transparent
-    # and stop 02's disc contains stop 01, so drawing them in group order painted
-    # the United States over Georgia's own marker.
-    halos = [
-        f'      <circle class="wmap__halo" style="--i: {i}" cx="{x:.2f}" cy="{y:.2f}" r="{st["r"]}" />'
-        for i, (st, (x, y)) in enumerate(zip(stops, xy))
-        if st.get("r")
-    ]
+    # Arcs only where the expansion is a jump. Georgia to the rest of the United
+    # States is containment, not a journey, and drawing it as a flight line said
+    # the opposite of what the two fills say.
+    arcs = []
+    leg = 0
+    for i in range(len(stops) - 1):
+        if stops[i + 1].get("jump"):
+            arcs.append(
+                f'      <path class="wmap__arc" style="--i: {i + 1}"'
+                f' d="{arc(xy[i], xy[i + 1], stops[i + 1]["bow"])}" />'
+            )
+            leg += 1
 
     nodes = []
     for i, (stop, (x, y)) in enumerate(zip(stops, xy)):
         sats = "".join(
-            f'\n        <circle class="wmap__sat" cx="{sx:.2f}" cy="{sy:.2f}" r="1.2" />'
+            f'\n        <circle class="wmap__sat" cx="{sx:.2f}" cy="{sy:.2f}" r="1.1" />'
             for sx, sy in (worldmap.project(lo, la) for lo, la, _ in stop["sats"])
-        )
-        # Stop 02 is a territory, not a place. Georgia sits inside it and the two
-        # are five degrees apart at world scale, so drawing both as pins put one
-        # marker on top of another and claimed they were different points.
-        pin = (
-            ""
-            if stop.get("r")
-            else f'\n        <circle class="wmap__ring" cx="{x:.2f}" cy="{y:.2f}" r="3.4" />'
-            f'\n        <circle class="wmap__pin" cx="{x:.2f}" cy="{y:.2f}" r="1.6" />'
         )
         dx, dy = stop["nudge"]
         nodes.append(
-            f'      <g class="wmap__node wmap__node--{stop["kind"]}" style="--i: {i}">'
-            f"{sats}{pin}"
+            f'      <g class="wmap__node" style="--i: {i}">'
+            f'\n        <circle class="wmap__ring" cx="{x:.2f}" cy="{y:.2f}" r="{stop["r"]}" />'
+            f"{sats}"
+            f'\n        <circle class="wmap__pin" cx="{x:.2f}" cy="{y:.2f}" r="1.5" />'
             f'\n        <text class="wmap__seqmark" x="{x + dx:.2f}" y="{y + dy:.2f}">'
             f'{stop["seq"]}</text>'
             f"\n      </g>"
         )
-    labels = []
 
-    stops = []
-    for stop in stops:
-        kpi = "".join(f"<li>{k}</li>" for k in stop["kpi"])
-        tam = " wmap__stop--tam" if stop["kind"] == "tam" else ""
-        stops.append(
-            f'    <li class="wmap__stop{tam}">'
+    cards = []
+    for i, stop in enumerate(stops):
+        facts = "".join(
+            f'<li><b class="num">{v}</b><span>{l}</span></li>' for v, l in stop["facts"]
+        )
+        cards.append(
+            f'    <li class="wmap__stage" style="--i: {i}">'
             f'<p class="wmap__seq num">{stop["seq"]}</p>'
             f"<h3>{stop['name']}</h3>"
             f'<p class="wmap__role">{stop["role"]}</p>'
-            f'<p class="wmap__note">{stop["note"]}</p>'
-            f'<ul class="wmap__kpi">{kpi}</ul></li>'
+            f'<ul class="wmap__facts">{facts}</ul>'
+            f'<p class="wmap__why">{stop["why"]}</p></li>'
         )
 
+    keys = "".join(f"<li><i></i>{t}</li>" for t in legend)
     nl = "\n"
     return f"""
 <figure class="wmap">
   <div class="wmap__canvas">
-    <svg class="wmap__svg" viewBox="{worldmap.VIEWBOX}" role="img"
-      aria-label="{aria}">
+    <svg class="wmap__svg" viewBox="{worldmap.VIEWBOX}" role="img" aria-label="{aria}">
       <path class="wmap__land" d="{worldmap.DOT_PATH}" />
-{nl.join(halos)}
+{nl.join(fills)}
 {nl.join(arcs)}
 {nl.join(nodes)}
     </svg>
   </div>
-  <ol class="wmap__stops">
-{nl.join(stops)}
+  <ol class="wmap__stages">
+{nl.join(cards)}
   </ol>
+  <ul class="wmap__legend">{keys}</ul>
 </figure>
 """
 
@@ -307,11 +323,9 @@ def milestones(rows, caption, note, axis_y="", axis_x=""):
     def y(v):
         return pad + (100 - v) / 100 * (H - pad * 2)
 
-    # Start at full uncertainty, then drop once per milestone.
     d = [f"M{pad:.1f},{y(100):.1f}"]
     marks, ticks = [], []
     for i, (_, _, _, lvl, _) in enumerate(rows):
-        x0 = pad + step * i
         x1 = pad + step * (i + 1)
         prev = 100 if i == 0 else levels[i - 1]
         d.append(f"H{x1:.1f}V{y(lvl):.1f}")
@@ -327,7 +341,7 @@ def milestones(rows, caption, note, axis_y="", axis_x=""):
     cells = "".join(
         f'    <li class="msg__item{" msg__item--risk" if risk else ""}" style="--i: {i}">'
         f'<b class="num">{tag}</b><span class="msg__when num">{when}</span>'
-        f"<span class=\"msg__what\">{what}</span></li>"
+        f'<span class="msg__what">{what}</span></li>'
         for i, (tag, when, what, _, risk) in enumerate(rows)
     )
     return f"""

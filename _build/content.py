@@ -598,64 +598,114 @@ GEORGIA = (
 
 # ────────────────────────────────────────────────────────── 11. milestones
 
-# The entry sequence, in the order it is walked. Stop 03 is reached through the
-# beachhead rather than around it: MAP International, which supplies medicines to
-# the developing world, is headquartered in Georgia, so the Africa leg leaves
-# from the same state the pilot runs in.
+# The entry sequence. Every figure in `facts` is stated and sourced elsewhere on
+# this page — the beachhead numbers in the Georgia section, the market numbers in
+# the market section — so the map argues with the page's own evidence rather than
+# introducing figures of its own.
+#
+# Stop 03 is reached through the beachhead rather than around it: MAP
+# International, which supplies medicines to the developing world, is
+# headquartered in Georgia, so the Africa leg leaves from the state the pilot
+# runs in.
 STOPS = [
     {
         "seq": "01",
         "name": "조지아",
-        "role": "비치헤드 — 단일 주에서 시작합니다",
-        "lon": -84.39,
-        "lat": 33.75,
-        "note": "애틀랜타",
-        "kind": "plan",
-        "nudge": (-7.4, 3.4),
+        "role": "비치헤드 · 0–2년",
+        "region": "georgia",
+        "paint": 3,
+        "lon": -83.44,
+        "lat": 32.68,
+        "r": 3.0,
+        "nudge": (-7.4, 3.6),
+        "jump": False,
+        "bow": 0,
         "sats": [],
-        "kpi": ["M2 파일럿 n=500", "SOM $27M ARR (5년차)"],
+        "facts": [
+            ("12.0%", "무보험률 · 전국 49위"),
+            ("53", "병원이 없는 카운티 / 159"),
+            ("471.9", "암 발생률 · 전국 448.6"),
+            ("332만", "50–79세 · 초기 시장"),
+        ],
+        "why": "문턱이 가장 높은 곳에서 문턱을 없애는 제품을 검증합니다. "
+        "세 페르소나가 한 주 안에 전부 있고, 배송 온도·규제·파트너 랩을 "
+        "변수 하나로 묶을 수 있는 크기입니다. 침투율 2% × ASP $400 = "
+        "5년차 SOM $27M ARR.",
     },
     {
         "seq": "02",
-        "name": "미국 대도시",
-        "role": "동일 물류 · 동일 패널로 확장",
+        "name": "미국 전역",
+        "role": "확장 · 2–4년",
+        "region": "usa",
+        "paint": 0,
         "lon": -98.35,
         "lat": 39.50,
-        "note": "뉴욕 · 시카고 · LA · 휴스턴",
-        "kind": "plan",
-        "r": 13,
-        "nudge": (-1.8, -15.0),
+        "r": 3.4,
+        "nudge": (-1.8, -5.6),
+        "jump": False,
+        "bow": 0,
         "sats": [
             (-74.01, 40.71, "뉴욕"),
             (-87.63, 41.88, "시카고"),
             (-118.24, 34.05, "LA"),
             (-95.37, 29.76, "휴스턴"),
         ],
-        "kpi": ["SAM $1.75B", "CLIA 랩 파트너십 · LDT 경로"],
+        "facts": [
+            ("1억 670만", "50–79세 인구"),
+            ("$1.75B", "SAM"),
+            ("$522.8M", "미국 MCED"),
+            ("$1.23B", "소비자직접 랩테스트"),
+        ],
+        "why": "우편으로 끝나는 검사는 주 경계를 넘는 데 새 물류가 필요하지 "
+        "않습니다. 조지아에서 검증한 회수율·반송 소요일·온도 로거를 그대로 "
+        "들고 대도시로 갑니다. 같은 물류, 같은 패널.",
     },
     {
         "seq": "03",
         "name": "아프리카",
-        "role": "국제기구 채널 — 채혈센터가 없는 곳이 가장 큰 문턱입니다",
-        "lon": 36.82,
-        "lat": -1.29,
-        "note": "나이로비 · 라고스 · 요하네스버그",
-        "kind": "plan",
-        "nudge": (2.8, 1.6),
-        "sats": [(3.38, 6.52, "라고스"), (28.05, -26.20, "요하네스버그")],
-        "kpi": ["상온 반송 · 콜드체인 불필요", "MAP International 본사가 조지아"],
+        "role": "국제기구 채널 · 4년 +",
+        "region": "africa",
+        "paint": 1,
+        "lon": 21.0,
+        "lat": 2.0,
+        "r": 3.4,
+        "nudge": (2.9, 1.6),
+        "jump": True,
+        "bow": 26,
+        "sats": [
+            (36.82, -1.29, "나이로비"),
+            (3.38, 6.52, "라고스"),
+            (28.05, -26.20, "요하네스버그"),
+        ],
+        "facts": [
+            ("3–5일", "상온 안정 · 콜드체인 불필요"),
+            ("$0.20", "페이퍼 퓨지 장비값"),
+            ("0", "필요한 채혈센터 수"),
+        ],
+        "why": "채혈센터가 없는 곳이 문턱이 가장 높은 곳입니다. 콜드체인을 "
+        "요구하지 않는 것이 여기서는 편의가 아니라 진입 조건이고, "
+        "MAP International 본사가 조지아에 있어 이 다리는 비치헤드에서 "
+        "출발합니다.",
     },
     {
         "seq": "04",
         "name": "한국",
-        "role": "개발 · IP 거점으로의 복귀",
-        "lon": 126.98,
-        "lat": 37.57,
-        "note": "서울",
-        "kind": "plan",
-        "nudge": (2.8, 1.6),
+        "role": "개발 · IP 거점",
+        "region": "korea",
+        "paint": 2,
+        "lon": 127.6,
+        "lat": 36.4,
+        "r": 2.6,
+        "nudge": (3.0, 1.6),
+        "jump": True,
+        "bow": -22,
         "sats": [],
-        "kpi": ["국가암검진 채널", "체외진단의료기기 인허가"],
+        "facts": [
+            ("국가암검진", "기존 수검 채널"),
+            ("IVD", "체외진단의료기기 인허가"),
+        ],
+        "why": "개발과 IP가 있는 곳으로 돌아옵니다. 이미 전 국민 수검 채널이 "
+        "작동하는 시장이라, 문턱 문제의 형태가 미국과 다릅니다.",
     },
 ]
 
@@ -679,7 +729,9 @@ MILESTONES = (
     )
     + charts.wmap(
         STOPS,
-        "세계지도 위의 시장 진입 순서 — 조지아에서 미국 대도시로, 아프리카를 거쳐 한국까지",
+        "세계지도 위에 단계별로 채워지는 진출 영역 — 조지아 한 주에서 미국 전역, "
+        "아프리카, 한국 순",
+        legend=("진출 영역은 누적됩니다", "점선은 물류가 새로 필요한 구간"),
     )
     + """
 <ol class="ms">

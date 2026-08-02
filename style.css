@@ -2121,15 +2121,17 @@ point colour for the one row that is ours.
 
 /* ── World map ──────────────────────────────────────────────────────────────
    Land is 6,832 dots in one path — each is a zero-length subpath rendered
-   through a round cap, so the whole raster is a single DOM node. */
+   through a round cap, so the whole raster is a single DOM node. Over it, the
+   entered territory fills in and stays filled: the argument is that one state
+   is a rounding error against the country and the country against the continent,
+   and only real outlines at real relative size can say that. */
 .wmap {
 	margin-block: 1.75rem;
 	border: 1px solid var(--color-line);
 }
 
 .wmap__canvas {
-	position: relative;
-	padding: 1.5rem 1.5rem 0.5rem;
+	padding: 1.5rem 1.5rem 0.75rem;
 }
 
 .wmap__svg {
@@ -2141,30 +2143,43 @@ point colour for the one row that is ours.
 
 .wmap__land {
 	fill: none;
-	stroke: rgba(var(--ink), 0.17);
+	stroke: rgba(var(--ink), 0.16);
 	stroke-width: 0.42;
 	stroke-linecap: round;
+}
+
+.wmap__fill {
+	fill: var(--color-point);
+	stroke: var(--color-accent);
+	stroke-width: 0.22;
+	stroke-linejoin: round;
+	opacity: 0;
+}
+
+/* Georgia and South Korea are drawn at true relative size — one is under three
+   grid units, the other barely more. Without a heavier outline they are specks,
+   and being a speck is the point only if you can find it. */
+.wmap__fill--georgia,
+.wmap__fill--korea {
+	fill: var(--color-accent);
+	stroke: var(--color-accent);
+	stroke-width: 1.5;
 }
 
 .wmap__arc {
 	fill: none;
 	stroke: var(--color-accent);
-	stroke-width: 0.5;
+	stroke-width: 0.45;
 	stroke-linecap: round;
-}
-
-/* Dashed because it is a market, not a route anyone has committed to flying. */
-.wmap__arc--tam,
-.wmap__arc--fan {
-	stroke: var(--color-text-dim);
-	stroke-width: 0.35;
-	stroke-dasharray: 1.6 1.8;
+	stroke-dasharray: 2 2.2;
+	/* Longer than any leg in a 210-unit viewBox, so no path has to be measured. */
+	stroke-dashoffset: 400;
 }
 
 .wmap__ring {
 	fill: none;
 	stroke: var(--color-accent);
-	stroke-width: 0.45;
+	stroke-width: 0.4;
 }
 
 .wmap__pin {
@@ -2172,43 +2187,27 @@ point colour for the one row that is ours.
 }
 
 .wmap__sat {
-	fill: none;
-	stroke: var(--color-text-dim);
+	fill: var(--color-bg);
+	stroke: var(--color-accent);
 	stroke-width: 0.4;
 }
 
-.wmap__node--tam .wmap__ring {
-	stroke: var(--color-text-dim);
-	stroke-dasharray: 1.2 1.2;
+.wmap__node {
+	opacity: 0;
 }
 
-.wmap__node--tam .wmap__pin {
-	fill: var(--color-text-dim);
-}
-
-/* Stop 02 is the whole country, so it is drawn as an area with Georgia's pin
-   inside it rather than as a second pin five degrees away. */
-.wmap__halo {
-	fill: rgba(var(--point-rgb), 0.5);
-	stroke: var(--color-accent);
-	stroke-width: 0.3;
-	stroke-dasharray: 1.4 1.4;
-}
-
-/* Numbers only. The cards under the map carry the names — repeating them as
-   floating labels collided them, because the first two stops overlap. */
 .wmap__seqmark {
 	font-family: var(--font-mono);
-	font-size: 4.6px;
+	font-size: 4.4px;
 	fill: var(--color-accent);
 	dominant-baseline: middle;
 }
 
-.wmap__node--tam .wmap__seqmark {
-	fill: var(--color-text-dim);
-}
-
-.wmap__stops {
+/* ── Stage cards ─────────────────────────────────────────────────────────────
+   Everything the animation says is written here as well. A reader who scrolls
+   past the motion loses nothing, which is the only condition under which motion
+   is allowed to carry an argument. */
+.wmap__stages {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
 	gap: 1px;
@@ -2216,49 +2215,178 @@ point colour for the one row that is ours.
 	background: var(--color-line-soft);
 }
 
-.wmap__stop {
+.wmap__stage {
 	display: grid;
 	align-content: start;
 	gap: 0.375rem;
 	padding: 1.25rem;
 	background: var(--color-bg-soft);
+	opacity: 0;
 }
 
 .wmap__seq {
+	font-family: var(--font-mono);
 	font-size: 0.6875rem;
 	color: var(--color-accent);
 }
 
-.wmap__stop h3 {
+.wmap__stage h3 {
 	font-size: 1.0625rem;
 }
 
 .wmap__role {
-	font-size: 0.75rem;
-	color: var(--color-text-muted);
-	word-break: keep-all;
-}
-
-.wmap__kpi {
-	display: grid;
-	gap: 0.25rem;
-	margin-top: 0.5rem;
 	font-size: 0.6875rem;
 	color: var(--color-text-dim);
 }
 
-.wmap__kpi li::before {
-	content: "— ";
+.wmap__facts {
+	display: grid;
+	gap: 0.3rem;
+	margin: 0.75rem 0 0.5rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--color-line);
 }
 
-/* The addressable market is not a plan, and the card says so by not looking
-   like the two beside it. */
-.wmap__stop--tam {
-	background: var(--color-bg-sink);
-}
-
-.wmap__stop--tam .wmap__seq {
+/* The value leads and the label flows after it rather than sitting in its own
+   column: at four cards across, a fixed value column left the labels a gutter
+   too narrow to hold "무보험률 · 전국 49위" on one line. Column alignment is
+   worth having in a table of nine rows, not in a list of four. */
+.wmap__facts li {
+	font-size: 0.6875rem;
+	line-height: 1.55;
 	color: var(--color-text-dim);
+	word-break: keep-all;
+}
+
+.wmap__facts b {
+	margin-right: 0.4rem;
+	font-weight: 500;
+	color: var(--color-text);
+}
+
+.wmap__why {
+	font-size: 0.75rem;
+	line-height: 1.65;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.wmap__legend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.25rem;
+	padding: 0.875rem 1.25rem;
+	border-top: 1px solid var(--color-line);
+	font-size: 0.6875rem;
+	color: var(--color-text-dim);
+}
+
+.wmap__legend li {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.wmap__legend i {
+	width: 0.75rem;
+	height: 0.5rem;
+	background: var(--color-point);
+	border: 1px solid var(--color-accent);
+}
+
+.wmap__legend li:last-child i {
+	background: none;
+	height: 0;
+	border: 0;
+	border-top: 1px dashed var(--color-accent);
+}
+
+/* ── The sequence ────────────────────────────────────────────────────────────
+   Held until the figure is on screen — scroll.js adds .is-drawn — because a
+   sequence that plays on load is a sequence nobody sees. Each element carries
+   its own stage index, so the stagger is arithmetic rather than a list of
+   hand-written delays. */
+.wmap {
+	--stage: 1.9s;
+}
+
+.wmap.is-drawn .wmap__fill {
+	animation: wmap-fill 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+	animation-delay: calc(var(--i) * var(--stage));
+}
+
+.wmap.is-drawn .wmap__node {
+	animation: wmap-pop 0.5s ease-out both;
+	animation-delay: calc(var(--i) * var(--stage) + 0.3s);
+}
+
+/* The arc lands just before the territory it leads to. */
+.wmap.is-drawn .wmap__arc {
+	animation: wmap-draw 0.9s ease-out both;
+	animation-delay: calc(var(--i) * var(--stage) - 0.55s);
+}
+
+.wmap.is-drawn .wmap__stage {
+	animation: wmap-card 0.6s ease-out both;
+	animation-delay: calc(var(--i) * var(--stage) + 0.15s);
+}
+
+@keyframes wmap-fill {
+	from {
+		opacity: 0;
+		transform: scale(0.86);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes wmap-draw {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+@keyframes wmap-pop {
+	from {
+		opacity: 0;
+		transform: scale(0.4);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes wmap-card {
+	from {
+		opacity: 0;
+		transform: translateY(0.5rem);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* Scale each shape about its own centre, not the SVG origin. */
+.wmap__fill,
+.wmap__node {
+	transform-box: fill-box;
+	transform-origin: center;
+}
+
+/* Motion is the whole figure here, so reduced motion gets the finished state
+   rather than a shortened version of the animation. */
+.reduced-motion .wmap__fill,
+.reduced-motion .wmap__node,
+.reduced-motion .wmap__stage {
+	opacity: 1;
+}
+
+.reduced-motion .wmap__arc {
+	stroke-dashoffset: 0;
 }
 
 @media (max-width: 60rem) {
@@ -2407,69 +2535,6 @@ point colour for the one row that is ours.
    sequence that plays on load is a sequence nobody sees. Each leg and node
    carries its own index, so the stagger is arithmetic rather than a list of
    hand-written delays. */
-.wmap__arc {
-	/* Longer than any leg in a 210-unit viewBox, so no path has to be measured. */
-	stroke-dasharray: 400;
-	stroke-dashoffset: 400;
-}
-
-.wmap__node,
-.wmap__halo {
-	opacity: 0;
-}
-
-.wmap.is-drawn .wmap__arc {
-	animation: wmap-draw 1s ease-out forwards;
-	animation-delay: calc(0.45s + var(--leg) * 1.35s);
-}
-
-.wmap.is-drawn .wmap__node,
-.wmap.is-drawn .wmap__halo {
-	animation: wmap-pop 0.45s ease-out forwards;
-	animation-delay: calc(var(--i) * 1.35s);
-}
-
-@keyframes wmap-draw {
-	to {
-		stroke-dashoffset: 0;
-	}
-}
-
-@keyframes wmap-pop {
-	from {
-		opacity: 0;
-		transform: scale(0.4);
-	}
-	to {
-		opacity: 1;
-		transform: none;
-	}
-}
-
-/* Scale from each node's own centre rather than the SVG origin. */
-.wmap__node,
-.wmap__halo {
-	transform-box: fill-box;
-	transform-origin: center;
-}
-
-.wmap__note {
-	font-family: var(--font-mono);
-	font-size: 0.6875rem;
-	color: var(--color-text-dim);
-}
-
-/* Motion is the whole figure here, so reduced motion gets the finished state
-   rather than a shortened version of the animation. */
-.reduced-motion .wmap__arc {
-	stroke-dashoffset: 0;
-}
-
-.reduced-motion .wmap__node,
-.reduced-motion .wmap__halo {
-	opacity: 1;
-}
-
 @media (max-width: 46rem) {
 	.msg__items {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
