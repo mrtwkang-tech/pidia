@@ -392,6 +392,82 @@ MODEL = (
   </li>
 </ol>
 """
+    + '<h3 class="sub">What methylation is actually best at</h3>'
+    + lede(
+        "Methylation's most successful application is not diagnosis. It is "
+        "<b>estimating age</b> — and the lineage of those clocks says exactly what "
+        "we can and cannot claim in Phase 3."
+    )
+    + """
+<div class="compare__scroll">
+  <table class="ctable">
+    <thead><tr><th scope="col">Clock</th><th scope="col">Generation</th><th scope="col">Trained on</th><th scope="col">Size</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Horvath</th><td class="num">1st</td><td>Chronological age · multi-tissue</td><td class="num">353 CpG</td></tr>
+      <tr><th scope="row">Hannum</th><td class="num">1st</td><td>Chronological age · blood</td><td class="num">71 CpG</td></tr>
+      <tr><th scope="row">PhenoAge</th><td class="num">2nd</td><td>Mortality risk from clinical phenotypes</td><td class="num">513 CpG</td></tr>
+      <tr class="ctable__ours"><th scope="row">GrimAge</th><td class="num">2nd</td><td>Mortality + 7 plasma proteins + pack-years</td><td>Best at predicting death</td></tr>
+      <tr class="ctable__ours"><th scope="row">DunedinPACE</th><td class="num">3rd</td><td><b>Pace</b> of ageing · longitudinal</td><td>Biological years per year</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="caution">
+  <p class="caution__label">The signal appears in a specific place</p>
+  <p>
+    Psychiatric burden scores were significantly associated with acceleration
+    <b>only in the 2nd and 3rd generation clocks</b> (adjusted R&sup2;
+    <b class="num">0.22</b> and <b class="num">0.33</b>). Nothing in the 1st
+    generation, which is trained on chronological age. The reading that fits the
+    data is not that psychiatric illness ages you faster, but that it
+    <b>accumulates health damage.</b>
+  </p>
+</div>
+<div class="caution caution--rule">
+  <p class="caution__label">Which is why we do not use a clock as our metric</p>
+  <p>
+    GrimAge has <b>pack-years built into it.</b> A large share of any
+    “depression → GrimAge acceleration” may simply be smoking. Direction flips
+    with ancestry, and in the 1st generation cell composition explains much of
+    the variance. Nothing here is usable without population-specific
+    recalibration.
+  </p>
+</div>
+"""
+    + '<h3 class="sub">So we measure exposure, not the disease</h3>'
+    + lede(
+        "Instead of hunting for a methylation marker of depression, use the "
+        "<b>methylation signature of its risk factors</b> — each of which has "
+        "already been validated in samples tens of thousands strong."
+    )
+    + """
+<div class="paper paper--lead">
+  <p class="paper__cite">prediction = <i>f</i>( MS<sub>smoking</sub>, MS<sub>BMI</sub>, MS<sub>alcohol</sub>, MS<sub>education</sub>, MS<sub>HDL</sub>, MS<sub>cholesterol</sub> )</p>
+  <p class="paper__note">
+    It redefines methylation from “a marker of the disease” into
+    <b>a biological archive of environmental exposure.</b>
+  </p>
+  <p class="src">Barbu MC et al., 2022 — surrogate trait scores</p>
+</div>
+<figure class="thesis thesis--inline">
+  <blockquote>
+    People under-report how much they smoke.<br />AHRR methylation does not.
+  </blockquote>
+</figure>
+<div class="prose">
+  <p>
+    An <b>exposure measurement that bypasses self-report.</b> That is the use of
+    methylation the current evidence actually supports, and it is why our Phase 3
+    is “a molecular record of cumulative stress exposure” rather than “a
+    diagnosis of depression”.
+  </p>
+</div>
+"""
+    + src(
+        "Horvath S, Genome Biol 2013;14:R115 · Hannum G et al., Mol Cell 2013;49:359-367 · "
+        "Levine ME et al., Aging 2018;10:573-591 (PhenoAge) · Lu AT et al., Aging "
+        "2019;11:303-327 (GrimAge) · Belsky DW et al., eLife 2022;11:e73420 "
+        "(DunedinPACE) · Barbu MC et al., 2022"
+    )
     + '<h3 class="sub">Prevalence outweighs accuracy</h3>'
     + charts.gapbars(
         ("Psychiatric clinic (40% prevalence)", 66.7, "PPV 66.7%"),
@@ -446,6 +522,7 @@ LIMITS = (
   </li>
 </ol>
 """
+    + '<h3 class="sub">What that looks like counted out</h3>'
     + charts.dotfield(
         92,
         35,
@@ -643,6 +720,7 @@ MARKET = (
         ours="PIDIA",
     )
     + """
+<h3 class="sub">Which leaves a band empty</h3>
 <div class="cards">
   <article class="card card--muted">
     <p class="card__tag">Biggest threat</p>
@@ -845,6 +923,7 @@ MILESTONES = (
         axis_y="Remaining uncertainty",
         axis_x="Time &rarr;",
     )
+    + '<h3 class="sub">In that order, on the map</h3>'
     + charts.wmap(
         STOPS,
         "Territory filling in stage by stage on a world map — one US state, then "
@@ -852,6 +931,7 @@ MILESTONES = (
         legend=("Territory accumulates", "Dashed where new logistics are needed"),
     )
     + """
+<h3 class="sub">Four validations, one at a time</h3>
 <ol class="ms">
   <li class="ms__item ms__item--risk">
     <p class="ms__no"><span class="num">M1</span> · <span class="num">6</span> months</p>

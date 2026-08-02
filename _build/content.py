@@ -403,6 +403,76 @@ MODEL = (
   </li>
 </ol>
 """
+    + '<h3 class="sub">메틸화가 실제로 가장 잘하는 일</h3>'
+    + lede(
+        "메틸화의 가장 성공적인 응용은 질환 진단이 아니라 <b>나이 추정</b>입니다. "
+        "그리고 그 계보를 보면 저희가 3단계에서 무엇을 말할 수 있고 무엇을 말할 수 "
+        "없는지가 그대로 나옵니다."
+    )
+    + """
+<div class="compare__scroll">
+  <table class="ctable">
+    <thead><tr><th scope="col">시계</th><th scope="col">세대</th><th scope="col">훈련 대상</th><th scope="col">규모</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Horvath</th><td class="num">1세대</td><td>역년 · 다조직</td><td class="num">353 CpG</td></tr>
+      <tr><th scope="row">Hannum</th><td class="num">1세대</td><td>역년 · 혈액</td><td class="num">71 CpG</td></tr>
+      <tr><th scope="row">PhenoAge</th><td class="num">2세대</td><td>임상 표현형 기반 사망 위험</td><td class="num">513 CpG</td></tr>
+      <tr class="ctable__ours"><th scope="row">GrimAge</th><td class="num">2세대</td><td>사망률 + 혈장 단백질 7종 + 흡연년수</td><td>사망 예측 최강</td></tr>
+      <tr class="ctable__ours"><th scope="row">DunedinPACE</th><td class="num">3세대</td><td>노화 <b>속도</b> · 종단 데이터</td><td>역년당 생물학적 년수</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="caution">
+  <p class="caution__label">신호가 나오는 곳이 정해져 있습니다</p>
+  <p>
+    정신질환 부담 점수는 <b>2·3세대 시계에서만</b> 가속과 유의하게 연관됐습니다
+    (수정 R&sup2; <b class="num">0.22</b> · <b class="num">0.33</b>). 역년으로
+    훈련된 1세대에서는 나오지 않습니다. 정신질환이 나이를 빨리 먹게 하는 것이
+    아니라, <b>건강 손상을 누적시킨다</b>고 읽는 편이 데이터에 맞습니다.
+  </p>
+</div>
+<div class="caution caution--rule">
+  <p class="caution__label">그래서 시계를 지표로 쓰지 않습니다</p>
+  <p>
+    GrimAge에는 <b>흡연년수가 아예 내장</b>되어 있습니다. “우울증 → GrimAge 가속”의
+    상당 부분이 흡연일 수 있다는 뜻입니다. 인종·조상에 따라 방향이 뒤집히고, 1세대는
+    세포 조성이 상당 부분을 설명합니다. 인구집단별 재보정 없이 쓰면 안 됩니다.
+  </p>
+</div>
+"""
+    + '<h3 class="sub">그래서 질환이 아니라 노출을 잽니다</h3>'
+    + lede(
+        "우울증의 메틸화 표지를 찾는 대신, <b>위험요인의 메틸화 시그니처</b>를 씁니다. "
+        "각 형질의 점수는 수만 명 규모에서 이미 검증된 것들입니다."
+    )
+    + """
+<div class="paper paper--lead">
+  <p class="paper__cite">예측 = <i>f</i>( MS<sub>흡연</sub>, MS<sub>BMI</sub>, MS<sub>음주</sub>, MS<sub>교육</sub>, MS<sub>HDL</sub>, MS<sub>총콜레스테롤</sub> )</p>
+  <p class="paper__note">
+    메틸화를 “질환의 표지”가 아니라 <b>환경 노출의 생물학적 기록보관소</b>로
+    다시 정의하는 접근입니다.
+  </p>
+  <p class="src">Barbu MC et al., 2022 — 대리 형질 점수(surrogate trait score)</p>
+</div>
+<figure class="thesis thesis--inline">
+  <blockquote>
+    사람은 흡연량을 축소해서 말합니다.<br />AHRR 메틸화는 그러지 않습니다.
+  </blockquote>
+</figure>
+<div class="prose">
+  <p>
+    자기보고를 우회하는 <b>노출 측정 도구</b>. 이것이 현재 근거가 실제로 지지하는
+    메틸화의 용도이고, 저희 3단계가 “우울증 진단”이 아니라 “누적 스트레스 노출의
+    분자 기록”인 이유입니다.
+  </p>
+</div>
+"""
+    + src(
+        "Horvath S, Genome Biol 2013;14:R115 · Hannum G et al., Mol Cell 2013;49:359-367 · "
+        "Levine ME et al., Aging 2018;10:573-591 (PhenoAge) · Lu AT et al., Aging "
+        "2019;11:303-327 (GrimAge) · Belsky DW et al., eLife 2022;11:e73420 "
+        "(DunedinPACE) · Barbu MC et al., 2022"
+    )
     + '<h3 class="sub">유병률이 정확도보다 세게 작용합니다</h3>'
     + charts.gapbars(
         ("정신과 클리닉 (유병률 40%)", 66.7, "PPV 66.7%"),
@@ -455,6 +525,7 @@ LIMITS = (
   </li>
 </ol>
 """
+    + '<h3 class="sub">실제로 세어보면 이렇습니다</h3>'
     + charts.dotfield(
         92,
         35,
@@ -637,6 +708,7 @@ MARKET = (
         ours="PIDIA",
     )
     + """
+<h3 class="sub">그래서 비어 있는 구간</h3>
 <div class="cards">
   <article class="card card--muted">
     <p class="card__tag">최대 위협</p>
@@ -844,6 +916,7 @@ MILESTONES = (
         axis_y="남은 불확실성",
         axis_x="시간 &rarr;",
     )
+    + '<h3 class="sub">그 순서대로, 지도 위에서</h3>'
     + charts.wmap(
         STOPS,
         "세계지도 위에 단계별로 채워지는 진출 영역 — 조지아 한 주에서 미국 전역, "
@@ -851,6 +924,7 @@ MILESTONES = (
         legend=("진출 영역은 누적됩니다", "점선은 물류가 새로 필요한 구간"),
     )
     + """
+<h3 class="sub">네 개의 검증, 하나씩</h3>
 <ol class="ms">
   <li class="ms__item ms__item--risk">
     <p class="ms__no"><span class="num">M1</span> · <span class="num">6</span>개월</p>

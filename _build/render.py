@@ -99,11 +99,38 @@ def rail(content, cfg):
 """
 
 
+# Panels are split at the section's own <h3 class="sub"> headings. Those were
+# already where each section changes subject, so the beats exist in the content
+# — this only gives them a viewport each and a snap point.
+SUB = '<h3 class="sub">'
+
+
+def panels(html):
+    """One section's markup, cut into viewport panels.
+
+    A reader with two minutes reads the large type and nothing else, so each
+    panel has exactly one statement at display size and everything else is
+    support. The cut points are the sub-headings, promoted to that display size
+    as they become panel leads.
+    """
+    parts = html.split(SUB)
+    out = [parts[0]]
+    for chunk in parts[1:]:
+        head, _, rest = chunk.partition("</h3>")
+        out.append(f'<h3 class="pnl__lead">{head}</h3>{rest}')
+    return "".join(
+        f'      <div class="pnl"><div class="pnl__in">{p}</div></div>' for p in out
+    )
+
+
 def sections(content):
     out = []
     for s in content.SECTIONS:
+        # The kit is a seven-viewport scrub with its own pinned panel; cutting it
+        # into snap points would be two paging mechanisms fighting each other.
+        body = s["html"] if s["cls"].startswith("kitscroll") else panels(s["html"])
         out.append(
-            f'    <section class="{s["cls"]}" id="{s["id"]}">\n{s["html"]}\n    </section>'
+            f'    <section class="{s["cls"]}" id="{s["id"]}">\n{body}\n    </section>'
         )
     return "\n\n".join(out)
 

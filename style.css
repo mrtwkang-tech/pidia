@@ -307,6 +307,8 @@ main {
 	padding-left: var(--rail-w);
 }
 
+/* Sections are chapters. Panels inside them are the beats, and every
+   measurement about vertical space now belongs to the panel. */
 .sec {
 	position: relative;
 	/* The canvas is fixed at z-index 0. Without a stacking context of its own a
@@ -315,12 +317,71 @@ main {
 	z-index: 1;
 	background: var(--color-bg);
 	max-width: var(--maxw);
-	padding: clamp(4.5rem, 8vh, 7rem) var(--pad);
+	padding-inline: var(--pad);
 	scroll-margin-top: var(--topbar-h);
+}
+
+/* ── Panels ─────────────────────────────────────────────────────────────────
+   One viewport, one statement.
+
+   A reader with two minutes reads the large type and nothing else, so each
+   panel carries exactly one thing at display size and everything under it is
+   support. The constraint is what produces the hierarchy: if it all has to fit
+   one screen, something has to be decided to be the point.
+
+   `safe center` rather than `center`: a panel denser than the viewport would
+   otherwise centre its own overflow and clip the top off, taking the statement
+   with it. */
+.pnl {
+	display: flex;
+	flex-direction: column;
+	justify-content: safe center;
+	min-height: 100svh;
+	padding-block: calc(var(--topbar-h) + 2rem) 3.5rem;
+	scroll-snap-align: start;
+	/* A fast flick cannot skip a beat. */
+	scroll-snap-stop: always;
+}
+
+.pnl + .pnl {
+	border-top: 1px solid var(--color-line-soft);
+}
+
+.pnl__in {
+	width: 100%;
+}
+
+/* The statement a panel exists to make. Same size as a section title, because a
+   panel and a section make the same kind of claim — one is just further in. */
+.pnl__lead {
+	margin-bottom: 1.75rem;
+	max-width: 26em;
+	font-size: clamp(1.5rem, 3.4vw, 2.25rem);
+	line-height: 1.22;
+}
+
+/* Proximity, not mandatory. Most panels are one viewport and land cleanly; the
+   few that are denser than the screen have to stay scrollable rather than be
+   trapped against a snap point they cannot fit inside. */
+html {
+	scroll-snap-type: y proximity;
+}
+
+/* The pinned kit scrub is its own paging mechanism across seven viewports. Two
+   of them fighting is worse than either. */
+.kitscroll,
+.kitscroll__pin {
+	scroll-snap-align: none;
+	scroll-snap-type: none;
 }
 
 .sec + .sec {
 	border-top: 1px solid var(--color-line-soft);
+}
+
+.sec--hero .pnl,
+.sec .pnl:first-child {
+	border-top: 0;
 }
 
 .sec--hero {
@@ -365,7 +426,7 @@ main {
 }
 
 .sub {
-	margin: 3.5rem 0 1.25rem;
+	margin: 2.75rem 0 1rem;
 	font-size: 1.0625rem;
 	font-weight: 600;
 }
@@ -1774,14 +1835,17 @@ point colour for the one row that is ours.
 	background: var(--color-line-soft);
 }
 
+/* Nine rows have to sit inside one panel, so the row is as tight as two lines
+   of type allow. */
 .bar__row {
 	display: grid;
 	grid-template-columns: minmax(7rem, 10rem) minmax(0, 1fr) 5.5rem;
 	align-items: center;
-	gap: 0.875rem;
-	padding: 0.6rem 1rem;
+	gap: 0.75rem;
+	padding: 0.45rem 1rem 0.5rem;
 	background: var(--color-bg-soft);
 	font-size: 0.8125rem;
+	line-height: 1.4;
 }
 
 .bar__name {
