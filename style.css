@@ -2674,3 +2674,238 @@ point colour for the one row that is ours.
 	color: var(--color-accent);
 	border-color: var(--color-line);
 }
+
+/* ── The shape of the data ──────────────────────────────────────────────────
+   "High dimension, low sample size" explains why most models are ruled out and
+   lands on nobody as a sentence. At its real aspect ratio it needs no
+   explaining. */
+.mx {
+	margin-block: 1.75rem;
+	padding: 1.5rem;
+	border: 1px solid var(--color-line);
+}
+
+.mx__svg {
+	display: block;
+	width: 100%;
+	height: auto;
+	overflow: visible;
+}
+
+.mx__svg * {
+	vector-effect: non-scaling-stroke;
+}
+
+.mx__cols {
+	stroke: rgba(var(--ink), 0.22);
+	stroke-width: 1;
+}
+
+.mx__row {
+	stroke: var(--color-bg);
+	stroke-width: 1;
+}
+
+/* The few columns that survive selection — the entire output of the exercise. */
+.mx__hits {
+	stroke: var(--color-accent);
+	stroke-width: 2;
+}
+
+.mx__frame {
+	fill: none;
+	stroke: var(--color-line);
+	stroke-width: 1;
+}
+
+.mx__brace {
+	fill: none;
+	stroke: var(--color-text-dim);
+	stroke-width: 1;
+}
+
+.mx__side,
+.mx__under {
+	font-family: var(--font-sans);
+	font-size: 5px;
+	fill: var(--color-text-dim);
+	dominant-baseline: middle;
+}
+
+.mx__hit {
+	font-family: var(--font-sans);
+	font-size: 5px;
+	font-weight: 500;
+	fill: var(--color-accent);
+}
+
+.mx__cap {
+	margin-top: 1.25rem;
+	padding-top: 1.125rem;
+	border-top: 1px solid var(--color-line);
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+/* ── Batch vs biology ───────────────────────────────────────────────────────
+   Same points, two colouring rules. One separates cleanly and one does not, and
+   the model is rewarded for finding the one that does. */
+.bt {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1px;
+	margin-block: 1.75rem;
+	border: 1px solid var(--color-line);
+	background: var(--color-line-soft);
+}
+
+.bt__half {
+	padding: 1.25rem;
+	background: var(--color-bg-soft);
+}
+
+.bt__half svg {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.bt__half figcaption {
+	margin-top: 0.5rem;
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+}
+
+.bt__dot {
+	fill: var(--color-point);
+	stroke: var(--color-accent);
+	stroke-width: 0.5;
+}
+
+.bt__dot.b {
+	fill: var(--color-accent);
+}
+
+.bt__cap,
+.bt__note {
+	grid-column: 1 / -1;
+	padding: 0.875rem 1.25rem;
+	background: var(--color-bg-soft);
+	font-size: 0.8125rem;
+	color: var(--color-text-muted);
+	word-break: keep-all;
+}
+
+.bt__note {
+	padding-top: 0;
+	font-size: 0.75rem;
+	color: var(--color-text-dim);
+}
+
+@media (max-width: 46rem) {
+	.bt {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ── Panel entrance ─────────────────────────────────────────────────────────
+   Each panel's contents arrive in the order they should be read: the statement,
+   then what supports it, then the source. It is a reading order made visible,
+   not decoration — which is why the stagger is short enough that a fast reader
+   never waits for it.
+
+   scroll.js adds .is-in as the panel comes up the viewport. Held at rest until
+   then, so nothing plays for a reader who never reaches it. */
+.pnl__in > * {
+	opacity: 0;
+	transform: translateY(0.85rem);
+}
+
+.pnl.is-in .pnl__in > * {
+	animation: pnl-rise 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pnl.is-in .pnl__in > :nth-child(1) {
+	animation-delay: 0s;
+}
+.pnl.is-in .pnl__in > :nth-child(2) {
+	animation-delay: 0.07s;
+}
+.pnl.is-in .pnl__in > :nth-child(3) {
+	animation-delay: 0.14s;
+}
+.pnl.is-in .pnl__in > :nth-child(4) {
+	animation-delay: 0.2s;
+}
+.pnl.is-in .pnl__in > :nth-child(5) {
+	animation-delay: 0.25s;
+}
+.pnl.is-in .pnl__in > :nth-child(n + 6) {
+	animation-delay: 0.29s;
+}
+
+@keyframes pnl-rise {
+	from {
+		opacity: 0;
+		transform: translateY(0.85rem);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* A figure earns one extra beat of its own: the frame settles, then the marks
+   inside it read as having been placed rather than having always been there. */
+.pnl.is-in .field__hit,
+.pnl.is-in .mx__hits,
+.pnl.is-in .bar__row--ours,
+.pnl.is-in .msg__dot--risk {
+	animation: pnl-mark 0.5s ease-out 0.5s both;
+}
+
+@keyframes pnl-mark {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Bars grow from their own baseline once the panel has landed. */
+.pnl.is-in .bar__track i,
+.pnl.is-in .gap__track i,
+.pnl.is-in .split__seg--a {
+	animation: pnl-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
+	transform-origin: left center;
+}
+
+@keyframes pnl-grow {
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: none;
+	}
+}
+
+/* Motion is a reading order here, not the content. Without it the content is
+   simply already in place. */
+.reduced-motion .pnl__in > *,
+.reduced-motion .pnl.is-in .pnl__in > * {
+	opacity: 1;
+	transform: none;
+	animation: none;
+}
+
+.reduced-motion .pnl.is-in .bar__track i,
+.reduced-motion .pnl.is-in .gap__track i,
+.reduced-motion .pnl.is-in .split__seg--a,
+.reduced-motion .pnl.is-in .field__hit,
+.reduced-motion .pnl.is-in .mx__hits {
+	animation: none;
+	transform: none;
+	opacity: 1;
+}

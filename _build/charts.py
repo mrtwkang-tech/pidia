@@ -376,3 +376,87 @@ def milestones(rows, caption, note, axis_y="", axis_x=""):
 </figure>
 {note}
 """
+
+
+# ─────────────────────────────────────────────── the shape of the data
+
+
+def matrix(cols, rows, picked, aside, under, caption, note=""):
+    """The input matrix drawn at its real aspect ratio.
+
+    "High dimension, low sample size" is the sentence that explains why most
+    models are ruled out, and it lands on nobody. Drawn, it needs no explaining:
+    a block hundreds of columns wide and a few rows tall is obviously not
+    something you train a neural network on, and the handful of highlighted
+    columns is obviously what the whole exercise is for.
+    """
+    W, H = 240.0, 62.0
+    x0, x1 = 30.0, 234.0
+    y0, y1 = 12.0, 30.0
+    step = (x1 - x0) / cols
+    band = (y1 - y0) / rows
+
+    ticks = "".join(f"M{x0 + i * step:.2f},{y0:.1f}V{y1:.1f}" for i in range(cols))
+    hits = "".join(f"M{x0 + i * step:.2f},{y0 - 2:.1f}V{y1 + 2:.1f}" for i in picked)
+    lines = "".join(
+        f'\n    <line class="mx__row" x1="{x0}" y1="{y0 + r * band:.2f}"'
+        f' x2="{x1}" y2="{y0 + r * band:.2f}" />'
+        for r in range(1, rows)
+    )
+    return f"""
+<figure class="mx">
+  <svg class="mx__svg" viewBox="0 0 {W:.0f} {H:.0f}" role="img" aria-label="{caption}">
+    <path class="mx__cols" d="{ticks}" />{lines}
+    <path class="mx__hits" d="{hits}" />
+    <rect class="mx__frame" x="{x0}" y="{y0}" width="{x1 - x0:.1f}" height="{y1 - y0:.1f}" />
+
+    <path class="mx__brace" d="M{x0 - 4:.1f},{y0:.1f}h-3v{y1 - y0:.1f}h3" />
+    <text class="mx__side" x="{x0 - 9:.1f}" y="{(y0 + y1) / 2:.1f}" text-anchor="end">{aside}</text>
+
+    <path class="mx__brace" d="M{x0:.1f},{y1 + 5:.1f}v3h{x1 - x0:.1f}v-3" />
+    <text class="mx__under" x="{(x0 + x1) / 2:.1f}" y="{y1 + 14:.1f}" text-anchor="middle">{under}</text>
+
+    <text class="mx__hit" x="{x0 + picked[len(picked) // 2] * step:.1f}" y="{y0 - 5:.1f}"
+      text-anchor="middle">{caption}</text>
+  </svg>
+  {f'<figcaption class="mx__cap">{note}</figcaption>' if note else ""}
+</figure>
+"""
+
+
+def batches(groups, left, right, caption, note=""):
+    """Why a batch-separated model is not a biological model.
+
+    Same points, twice, coloured two ways. Coloured by batch they fall apart
+    cleanly; coloured by disease they do not. A model rewarded for separating
+    the data will find the left picture every time, and that is the whole
+    mechanism behind the AUC collapse stated next to it.
+    """
+
+    def dots(colouring):
+        out = []
+        for gi, g in enumerate(groups):
+            for i, (dx, dy, disease) in enumerate(g):
+                cls = "b" if (colouring == "batch" and gi) else ""
+                if colouring == "disease":
+                    cls = "b" if disease else ""
+                out.append(
+                    f'<circle class="bt__dot {cls}" cx="{dx:.1f}" cy="{dy:.1f}" r="2.6" />'
+                )
+        return "".join(out)
+
+    def panel(colouring, label):
+        return f"""
+    <figure class="bt__half">
+      <svg viewBox="0 0 100 62" role="img" aria-label="{label}">{dots(colouring)}</svg>
+      <figcaption>{label}</figcaption>
+    </figure>"""
+
+    return f"""
+<div class="bt">
+{panel("batch", left)}
+{panel("disease", right)}
+  <p class="bt__cap">{caption}</p>
+  {f'<p class="bt__note">{note}</p>' if note else ""}
+</div>
+"""

@@ -34,10 +34,16 @@
     document.querySelector(a.getAttribute("href")),
   );
 
-  // Figures that play once when they arrive. The loop below already reads rects
-  // every frame, so this is a comparison rather than a new mechanism, and the
-  // element drops out of the list the moment it fires.
-  let pending = [...document.querySelectorAll(".wmap")];
+  // Things that play once when they arrive. The loop below already reads rects
+  // every frame, so this is a comparison rather than a new mechanism, and each
+  // entry drops out of the list the moment it fires.
+  //
+  // Panels come first in the list purely so the stagger inside one has begun by
+  // the time a figure inside it starts its own sequence.
+  let pending = [
+    ...[...document.querySelectorAll(".pnl")].map((el) => [el, "is-in", 0.92]),
+    ...[...document.querySelectorAll(".wmap")].map((el) => [el, "is-drawn", 0.85]),
+  ];
 
   let stage = null;
   let step = -1;
@@ -179,14 +185,14 @@
     });
   }
 
-  /** Fire once, when two thirds of the figure is above the viewport floor. */
+  /** Fire once, when the element has come far enough up the viewport. */
   function revealPending() {
     if (!pending.length) return;
     const h = viewH();
-    pending = pending.filter((el) => {
+    pending = pending.filter(([el, cls, at]) => {
       const r = el.getBoundingClientRect();
-      if (r.top < h * 0.85 && r.bottom > 0) {
-        el.classList.add("is-drawn");
+      if (r.top < h * at && r.bottom > 0) {
+        el.classList.add(cls);
         return false;
       }
       return true;

@@ -327,6 +327,16 @@ MODEL = (
   </p>
 </div>
 """
+    + charts.matrix(
+        180,
+        5,
+        [88, 89, 90, 91, 92],
+        "Samples<tspan x=\"21\" dy=\"5\">hundreds</tspan>",
+        "CpG sites &mdash; hundreds of thousands",
+        "3–5 kept",
+        "Hundreds of thousands across, hundreds down. That one ratio decides "
+        "most of what can be used. The few marked columns are the entire output.",
+    )
     + '<h3 class="sub">Which is why it is not deep learning</h3>'
     + """
 <div class="twocol">
@@ -362,6 +372,18 @@ MODEL = (
         "batches and 12 strategies, not one of the 1,987 nominally significant "
         "CpGs survived every batch.",
         lead="",
+    )
+    + charts.batches(
+        [
+            [(14 + (i % 4) * 9, 13 + (i // 4) * 12, i % 2) for i in range(12)],
+            [(56 + (i % 4) * 9, 13 + (i // 4) * 12, i % 3 == 0) for i in range(12)],
+        ],
+        "Coloured by batch",
+        "Coloured by disease",
+        "The same points in the same places. Only the colouring rule changed. "
+        "Asked to separate them, a model finds the left picture every time.",
+        "A schematic. Not real coordinates — a picture of why a batch effect "
+        "looks like performance",
     )
     + '<div class="caution">'
     + '<p class="caution__label">So, our rule</p>'
